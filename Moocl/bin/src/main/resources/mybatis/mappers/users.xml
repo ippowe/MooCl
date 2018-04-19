@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="users">
+
+	
+	<select id="selectOneUserByEmail" resultType="UsersVo" parameterType="String">
+		<![CDATA[
+			SELECT user_no userNo
+				 , email
+				 , password
+				 , gender
+				 , age
+				 , nickname
+			FROM users
+			WHERE email = #{userEmail}
+		]]>
+	</select>
+	
+	<insert id ="insertUserInfoByMap" parameterType="Map">
+		<![CDATA[
+			INSERT INTO users
+			VALUES(seq_user_no.NEXTVAL, #{email}, #{password}, #{gender}, #{age}, #{nickname})
+		]]>
+	</insert>
+
+
+</mapper>

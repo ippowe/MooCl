@@ -1,0 +1,21 @@
+server:
+  port: 8090
+---
+logging:   #로깅 설정  
+  level:
+    org.springframework.web: INFO
+    kr.co.mainset : DEBUG
+  file : logs/spring-boot-logging.log  #로그파일 저장 위치 --> 프로젝트 폴더\logs
+  config: classpath:logging/logging-config.xml  #로그 설정 파일 저장 위치
+---
+spring:
+  datasource: #오라클DB 설정    
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:xe    #다른 컴퓨터에 있는 Oracle을 사용하기 위해서는 localhost를 ip로 변경
+    username: testdb
+    password : testdb 
+ 
+---
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml   #mybatis config 파일 경로
+    
