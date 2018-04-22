@@ -14,6 +14,12 @@ spring:
     url: jdbc:oracle:thin:@localhost:1521:xe    #다른 컴퓨터에 있는 Oracle을 사용하기 위해서는 localhost를 ip로 변경
     username: testdb
     password : testdb 
+   
+  data: #몽고DB 포트 및 데이터 베이스 위치 설정
+   mongodb:
+    #port: 27017
+    #database : local
+    uri : mongodb://192.168.1.56:27017/TTOLAE
  
 ---
 mybatis:

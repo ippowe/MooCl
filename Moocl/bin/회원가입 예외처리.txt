@@ -1,0 +1,156 @@
+// <script>
+// export default {
+//   name: 'JoinForm',
+//   created () {
+//     this.$eventBus.$emit('notMainPage');
+//   },
+//   data: function() {
+//     return {
+//       nickname: '', email: '', password: '', gender: '', age: '',
+//       checkPass : '',
+//       results :{   //문제 없으면 true로 반환
+//         checkEmailResult: false,
+//         checkEamilUnique: true,  //이메일 중복확인 결과
+//         emailChecking : false,  // 이메일 중복 검사 여부
+//         checkPassAggrement:true, //비밀번호, 비밀번호 확인 일치,불일치 결과
+//         checkPassResult: false,
+//         checkNickName: false,
+//         joinResult: false ,
+//       },
+//       passWarn : 0,
+//       emailWarn : 0,
+//       nicknameWarn: 0,
+//       genderWarn: 0,
+//       ageWarn: 0,
+//       joinWarn: 0,
+//       ages : Array.from(new Array(40),(val,index)=>index+1)
+//     }
+//   },
+//   watch: {
+//     //email 관리
+//     email : function(){
+//       this.joinWarn = 1;
+//
+//       var emailTemplate = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
+//
+//       if(this.email.match(emailTemplate) == null){
+//         this.emailWarn = 2; //이메일 형식에 안맞음
+//       } else if (this.results.emailChecking == false){
+//         this.emailWarn = 3; //이메일 중복검사 안함
+//       }
+//     },
+//
+//     //nickname 관리
+//     nickname : function(){
+//       this.joinWarn = 1;
+//
+//       var nicknameTemplate = /^[a-z0-9_가-힣ㄱ-ㅎㅏ-ㅣ]{4,20}$/
+//
+//       if(this.nickname.match(nicknameTemplate)){
+//         this.nicknameWarn = 1;
+//         this.results.checkNickName = true
+//       } else {
+//         this.nicknameWarn = 2;
+//         this.results.checkNickName = false
+//       }
+//     },
+//
+//     // 비밀번호 관리
+//     checkPass: function(){ //비밀번호 확인
+//       this.joinWarn = 1;
+//       if(this.checkPass !== ""){
+//         if( this.checkPass !== this.password){
+//             this.results.checkPassAggrement = false;
+//         } else {
+//             this.results.checkPassAggrement = true;
+//         }
+//       } else {
+//           this.results.checkPassAggrement = true;
+//       }
+//     },
+//
+//     password : function(){  //비밀번호 형식 맞추기
+//
+//       this.joinWarn = 1;
+//
+//       var symbol = /\W/   //특수 문자
+//       var alphabet =/[a-zA-Z]/ //영어 대소문자
+//
+//       if(this.password.length < 8){
+//         this.passWarn = 2;  //비밀번호가 너무 짧음
+//         this.results.checkPassResult = false;
+//       } else if (!(isNaN(this.password))){
+//         this.passWarn = 3;  //비밀번호에 숫자밖에 없음
+//         this.results.checkPassResult = false;
+//       } else if (this.password.match(symbol) != null && this.password.match(alphabet) == null){
+//         this.passWarn = 41; //비밀번호에 특수문자 포함 안됨
+//         this.results.checkPassResult = true;
+//       } else if (this.password.match(alphabet) != null && this.password.match(symbol) == null){
+//         this.passWarn = 42; //비밀번호에 문자 포함 안됨
+//         this.results.checkPassResult = true;
+//       } else if (this.password.match(symbol) != null && this.password.match(alphabet) != null){
+//         this.passWarn = 5;
+//         this.results.checkPassResult = true;
+//       }
+//     },
+//
+//     gender : function() {
+//
+//       this.joinWarn = 1;
+//
+//       if(this.gender == ""){
+//         this.genderWarn = 99;
+//       } else {
+//         this.genderWarn = 1;
+//       }
+//     },
+//
+//     age : function() {
+//
+//       this.joinWarn = 1;
+//
+//       if(this.age == ""){
+//         this.ageWarn = 99;
+//       } else {
+//         this.ageWarn = 1;
+//       }
+//     }
+//   },
+//   methods: {
+//     join: function(){
+//       if(this.results.checkNickName == false){
+//         this.joinWarn = 2; //닉네임 오류
+//       } else if (this.results.checkEmailResult == false ){
+//         this.joinWarn = 3; // 이메일 오류
+//       } else if (this.results.checkPassResult == false){
+//         this.joinWarn = 4; //비밀번호 오류
+//       } else if ( this.gender == ""){
+//         this.joinWarn = 5; //성별 오류
+//         this.genderWarn = 99;
+//       } else if ( this.age == ""){
+//         this.joinWarn = 6; //나이 오류
+//         this.ageWarn = 99;
+//       } else {
+//         this.$axios.post('/api/join', {nickname: this.nickname, email: this.email, password: this.password, gender: this.gender, age: this.age})
+//           .then((response) => {
+//             console.log(response)
+//             this.results.joinresult = response.data
+//           })
+//       }
+//     },
+//     checkEmail: function(){
+//       this.$axios.post('/api/checkEmail', {email: this.email})
+//         .then((response) => {
+//           console.log(response)
+//           this.results.checkEamilUnique = response.data
+//           this.results.emailChecking = response.data
+//
+//           if(this.results.emailChecking && this.results.checkEamilUnique){
+//             this.emailWarn = 1;
+//             this.results.checkEmailResult= true
+//           }
+//         })
+//     },
+//   }
+// }
+// </script>

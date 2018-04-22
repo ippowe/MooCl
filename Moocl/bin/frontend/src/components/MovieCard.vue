@@ -1,6 +1,6 @@
 <template lang="html">
   <v-menu open-on-hover attach bottom offset-y transition="scale-transition" origin="center center" :close-on-content-click="false">
-    <v-card class="ma-0" hover :ripple="true" slot="activator" width="280" height="400" img ="https://dhgywazgeek0d.cloudfront.net/watcha/image/upload/c_fill,h_700,q_80,w_490/v1521689621/i3utanr7qh41xtggl2mu.jpg"></v-card>
+    <v-card hover :ripple="true" slot="activator" width="280" height="400" img ="https://dhgywazgeek0d.cloudfront.net/watcha/image/upload/c_fill,h_700,q_80,w_490/v1521689621/i3utanr7qh41xtggl2mu.jpg"></v-card>
     <v-card-media class="transparent">
       <v-container fulid class="pa-0 ma-0">
         <v-flex class="pa-0" row>

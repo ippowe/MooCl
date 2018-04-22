@@ -1,40 +1,19 @@
 <template>
-  <div>
-    <img src="../assets/logo.png">
-    <div id="loginForm">
-      <table>
-        <tr>
-          <td>
-            <input type="text" v-model="user.email" placeholder="이메일"/>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="password" v-model="user.password" placeholder="PASSWORD" />
-          </td>
-        </tr>
-        <tr>
-          <button id="loginButton" @click="login">로그인</button>
-        </tr>
-        <tr>
-          <td id="searchIdPass"> 이메일/비밀번호 찾기 </td>
-        </tr>
-      </table>
-
-      <button id="loginButton">회원가입</button>
-    </div>
-
-    <span> JSON 출력 </span>
-    <div id="result">
-      <xmp> {{ result }} </xmp>
-    </div>
-
-    <span> data 출력 </span>
-    <div id="result">
-      <xmp> {{ $data }} </xmp>
-    </div>
-
-  </div>
+  <v-app>
+    <v-container grid-list-xl>
+      <img src="../assets/logo.png">
+      <v-layout>
+        <v-flex xl4 offset-xl4>
+          <v-form v-model="valid" ref="form" lazy-validation>
+            <v-text-field label="E-mail" v-model="email" :rules="emailRules"  required></v-text-field>
+            <v-text-field label="Password" v-model="password" :rules="passwordRules" :append-icon="e1 ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (e1 = !e1)" :type="e1 ? 'password' : 'text'":counter="8" required></v-text-field>
+            <v-btn @click="submit" :disabled="!valid"> submit </v-btn>
+            <v-btn @click="submit"> 회원가입 </v-btn>
+          </v-form>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-app>
 </template>
 
 <script>
@@ -42,21 +21,33 @@
 
 export default {
   name: 'LoginForm',
-  data () {
-    return {
-      user: {email: '', password: ''},
-      result: null
-    }
+  created () {
+    this.$eventBus.$emit('notMainPage');
   },
+  data: () => ({
+       valid: false,
+       password: '',
+       passwordRules: [
+         v => !!v || '비밀번호를 입력해주세요',
+         v => v.length >= 8 || '비밀번호는 8자리 이상이어야합니다.'
+       ],
+       email: '',
+       emailRules: [
+         v => !!v || 'Email을 입력해주세요',
+         v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || '정확하지 않은 Email입니다.'
+       ],
+       e1 : true
+
+     }),
   methods: {
-    // JSON형태로 RequestBody에 들어가서 맵자료형으로 받아야 한다.
-    login () {
-      console.log(this.user);
-      this.$axios.post('/api/login', {email: this.user['email'], password: this.user['password']})
-        .then((response) => {
-          console.log(response)
-          this.result = response.data
+    submit () {
+      if (this.$refs.form.validate()) {
+        // Native form submission is not yet supported
+        this.$axios.post('/api/login', {
+          name: this.name,
+          email: this.email,
         })
+      }
     }
   }
 }

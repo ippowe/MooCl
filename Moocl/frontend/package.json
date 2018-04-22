@@ -12,6 +12,7 @@
   "dependencies": {
     "ajv": "^6.4.0",
     "ajv-keywords": "^3.1.0",
+    "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.1.0",
     "expose-loader": "^0.7.5",

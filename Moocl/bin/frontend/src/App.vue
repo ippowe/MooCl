@@ -1,18 +1,38 @@
 <template>
-  <div id="app">
-    <header is="MenuBar"></header>
-    <div>
-      <router-view/>
-    </div>
+<div id="app" class="pa-0">
+  <router-view/>
+  <div is="MenuBar" v-if="mainPageChecker"></div>
+  <div is="FooterVue">
+
   </div>
+</div>
 </template>
 
 <script>
 import MenuBar from './components/MenuBar.vue'
+import FooterVue from './components/Footer.vue'
 
 export default {
   name: 'App',
-  components:{ MenuBar },
+  components: {
+    MenuBar,
+    FooterVue
+  },
+  data: function() {
+    return {
+      mainPageChecker: false
+    }
+  },
+  created() {
+    this.$eventBus.$on('notMainPage', () => {
+      this.mainPageChecker = false;
+    });
+
+    this.$eventBus.$on('MainPage', () => {
+      this.mainPageChecker = true;
+    })
+
+  }
 
 }
 </script>
@@ -26,4 +46,5 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
 </style>

@@ -1,17 +1,15 @@
 <template lang="html">
-  <v-app>
-    <TestArea></TestArea>
-  </v-app>
+  <CardForModal></CardForModal>
 </template>
 
 <script>
-import TestArea from './MemberSwiper.vue'
+import CardForModal from './CardForModal.vue'
 export default {
   created () {
     this.$eventBus.$emit('notMainPage')
   },
   components:{
-    TestArea
+    CardForModal
   },
   name: 'TestPage'
 }
