@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <!-- 로그인후에 영화 차트순으로 정렬해서 포스터 보여주기 -->
     <v-container fluid grid-list-md>
       <v-layout fill-height>
         <v-flex lg3>
@@ -15,13 +16,11 @@
 </template>
 
 <script>
-import MainContent from "./MainContent.vue"
 import MovieChart from "./MovieChart.vue"
 import MovieCard from"./MovieCard.vue"
 
 export default {
   components:{
-    MainContent,
     MovieChart,
     MovieCard
   },

@@ -15,14 +15,19 @@
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.1.0",
+    "chart.js": "^2.7.2",
     "expose-loader": "^0.7.5",
+    "jqcloud2": "^2.0.3",
     "jquery": "^3.3.1",
     "material-design-icons-iconfont": "^3.0.3",
     "popper.js": "^1.14.3",
     "swiper": "^4.2.2",
     "vue": "^2.5.2",
+    "vue-chartjs": "^3.3.1",
     "vue-router": "^3.0.1",
-    "vuetify": "^1.0.15"
+    "vue-wordcloud": "^1.0.2",
+    "vuetify": "^1.0.15",
+    "vuewordcloud": "^18.4.6"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

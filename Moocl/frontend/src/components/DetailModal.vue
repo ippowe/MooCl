@@ -1,0 +1,86 @@
+<template lang="html">
+      <!-- 영화 제목에 따른 알맞은 정보(포스터, 제목, 평점, 감독, 배우들, 워드 클라우드, 개봉일, 관객수, 좋아요 목록 추가 여부) 불러오기 -->
+      <v-dialog v-model="dialog" :max-width="1200">
+        <v-btn color="primary" dark slot="activator">Open Dialog 1</v-btn>
+          <v-layout align-content-center class="white">
+            <v-flex  class="ma-3" xs2> <!-- 영화 정보 관련 flex-->
+              <CardForModal></CardForModal>
+              <v-card  color ="transparent" flat>
+                <v-card-title class="subheading pt-0">
+                  <table>
+                    <tr>
+                      <th class="subheading"><strong style="font-size: 18px">영화제목기준점...</strong></th>
+                    </tr>
+                    <tr>
+                      <td class="text-xs-center">스릴러</td>
+                    </tr>
+                    <tr>
+                      <td class="text-xs-center">150분</td>
+                    </tr>
+                    <tr>
+                      <td class="text-xs-center">한국</td>
+                    </tr>
+                    <tr>
+                      <td class="text-xs-center">2018.04.20 </td>
+                    </tr>
+                    <tr>
+                      <td class="text-xs-center"> 100,000,000명</td>
+                    </tr>
+                  </table>
+                </v-card-title>
+              </v-card>
+            </v-flex>
+            <v-flex xs6>  <!-- 영화 평점/ 리뷰 클라우드-->
+              <TotalScore></TotalScore>
+              <div>
+                <table class="ml-2">
+                  <tr>
+                    <td><strong>예매율: 00%</strong></td>
+                    <td><strong>&emsp;개봉일: 2018.03.08</strong></td>
+                    <td><strong>&emsp;관객수: 100,000,000</strong></td>
+                  </tr>
+                </table>
+              </div>
+              <WordCloud></WordCloud>
+            </v-flex>
+            <v-flex> <!--나이/ 연령별 평점  -->
+              <SpecificScore></SpecificScore>
+            </v-flex>
+          </v-layout>
+          <PeopleSwiper class="ma-0"></PeopleSwiper>
+          <v-layout justify-center class="white">
+            <ReviewList></ReviewList>
+          </v-layout>
+
+
+      </v-dialog>
+  </template>
+
+<script>
+  import CardForModal from "./CardForModal.vue"
+  import TotalScore from "./TotalScore.vue"
+  import WordCloud from "./WordCloud.vue"
+  import SpecificScore from "./SpecificScore.vue"
+  import PeopleSwiper from "./PeopleSwiper.vue"
+  import ReviewList from "./ReviewList.vue"
+
+  export default {
+    components:{
+      CardForModal,
+      TotalScore,
+      WordCloud,
+      SpecificScore,
+      PeopleSwiper,
+      ReviewList
+    },
+    name: "SmallModal",
+    data : function() {
+      return {
+        dialog: false
+      }
+    }
+  }
+</script>
+
+<style lang="css">
+</style>

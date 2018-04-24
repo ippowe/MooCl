@@ -1,5 +1,5 @@
 <template>
-  <!-- 나이를 입력안해도 진행되는거 수정해야됨 -->
+  <!-- 나이를 입력안해도 진행되는거 수정필요-->
   <v-app>
     <v-container grid-list-xl>
       <img src="../assets/logo.png" style="">

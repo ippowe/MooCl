@@ -29,6 +29,6 @@ export default new Router({
       path: '/test',
       name: 'TestPage',
       component: TestPage
-    }
+    },
   ]
 })

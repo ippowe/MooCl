@@ -1,5 +1,6 @@
 <template lang="html">
   <v-card height="638">
+    <!-- 영화진흥원에서 가져온 데이터를 주기적으로 적용시키기 -->
     <v-navigation-drawer class="pa-0 deep-purple lighten-2" floating permanent>
       <v-toolbar flat class="deep-purple transparent" height="70">
         <v-list class="pa-0">

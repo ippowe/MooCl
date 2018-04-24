@@ -1,4 +1,7 @@
 <template lang="html">
+  <!-- 하트 눌렀을 때 좋아요 목록에 추가 -->
+  <!-- 포스터 클릭시 모달창 불러오기 -->
+  <!-- 영화에 알 맞은 정보(포스터, 제목, 관람등급) 불러오기  -->
   <v-menu open-on-hover attach bottom offset-y transition="scale-transition" origin="center center" :close-on-content-click="false">
     <v-card class="ma-0" hover :ripple="true" slot="activator" width="280" height="400" img ="https://dhgywazgeek0d.cloudfront.net/watcha/image/upload/c_fill,h_700,q_80,w_490/v1521689621/i3utanr7qh41xtggl2mu.jpg"></v-card>
     <v-card-media class="transparent">
