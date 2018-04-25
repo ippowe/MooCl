@@ -1,7 +1,6 @@
 <template lang="html">
       <!-- 영화 제목에 따른 알맞은 정보(포스터, 제목, 평점, 감독, 배우들, 워드 클라우드, 개봉일, 관객수, 좋아요 목록 추가 여부) 불러오기 -->
       <v-dialog v-model="dialog" :max-width="1200">
-        <v-btn color="primary" dark slot="activator">Open Dialog 1</v-btn>
           <v-layout align-content-center class="white">
             <v-flex  class="ma-3" xs2> <!-- 영화 정보 관련 flex-->
               <CardForModal></CardForModal>
@@ -32,6 +31,7 @@
             </v-flex>
             <v-flex xs6>  <!-- 영화 평점/ 리뷰 클라우드-->
               <TotalScore></TotalScore>
+              <!-- 상영중 여부에 따라서 보여주기 -->
               <div>
                 <table class="ml-2">
                   <tr>
@@ -76,7 +76,7 @@
     name: "SmallModal",
     data : function() {
       return {
-        dialog: false
+        dialog: true
       }
     }
   }

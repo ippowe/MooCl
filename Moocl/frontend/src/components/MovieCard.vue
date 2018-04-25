@@ -7,12 +7,12 @@
     <v-card-media class="transparent">
       <v-container fulid class="pa-0 ma-0">
         <v-flex class="pa-0" row>
-          <v-toolbar color="black">
+          <v-toolbar  color="black">
             <v-avatar size="35" class="mx-3">
               <img src="../assets/전체관람가.jpg">
             </v-avatar>
             <v-spacer></v-spacer>
-            <v-tab :ripple="false" class="white--text  pa-0" style="font-size: 20px; font-weight: bold;">영화제목5자</v-tab>
+            <v-tab disabled :ripple="false" class="white--text  pa-0" style="font-size: 20px; font-weight: bold;">{{ moviename }}</v-tab>
             <v-spacer></v-spacer>
             <v-avatar class="mr-1">
               <v-btn flat icon @click="el = !el">
@@ -28,6 +28,7 @@
 
 <script>
 export default {
+  props: ['moviename'],
   name: 'MovieCard',
   data: function() {
     return {

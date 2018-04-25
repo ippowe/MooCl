@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import TestArea from './DetailModal.vue'
+import TestArea from './PersonDetail.vue'
 export default {
   created () {
     this.$eventBus.$emit('notMainPage')

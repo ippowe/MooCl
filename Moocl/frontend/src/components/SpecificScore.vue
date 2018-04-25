@@ -26,7 +26,7 @@
             <v-avatar size="40"><strong>{{inform.age}}대</strong></v-avatar>
           </v-list-tile-action>
           <v-list-tile-avatar size="150">
-            <v-progress-linear height="20" :value="inform.percent" :color="inform.color"></v-progress-linear>
+            <v-progress-linear height="20" :value="inform.percent*1.5" :color="inform.color"></v-progress-linear>
           </v-list-tile-avatar>
           <v-list-tile class="ml-2">
             <v-avatar size=20><v-icon color="red">star</v-icon></v-avatar>
@@ -70,28 +70,28 @@ export default {
         {
           key : 1,
           age : 10,
-          percent : 20,
+          percent : 17,
           score : 7.03,
           color : "green ligthen-4"
         },
         {
           key : 2,
           age : 20,
-          percent : 30,
+          percent : 43,
           score : 8.77,
           color : "blue ligthen-4"
         },
         {
           key : 3,
           age : 30,
-          percent : 30,
+          percent : 28,
           score : 5.03,
           color : "purple ligthen-4"
         },
         {
           key : 4,
           age : 40,
-          percent : 20,
+          percent : 12,
           score : 6.03,
           color : "yellow ligthen-4"
         },
