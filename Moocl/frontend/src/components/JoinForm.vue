@@ -1,6 +1,6 @@
 <template>
   <!-- 나이를 입력안해도 진행되는거 수정필요-->
-  <v-app>
+  <v-app class="white">
     <v-container grid-list-xl>
       <img src="../assets/logo.png" style="">
       <v-layout>

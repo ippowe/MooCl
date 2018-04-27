@@ -41,7 +41,7 @@
                   </tr>
                 </table>
               </div>
-              <WordCloud></WordCloud>
+              <WordCloud moviename="영화제목"></WordCloud>
             </v-flex>
             <v-flex> <!--나이/ 연령별 평점  -->
               <SpecificScore></SpecificScore>

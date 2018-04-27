@@ -1,11 +1,11 @@
 <template lang="html">
-  <v-app>
+  <v-app class="white">
     <TestArea></TestArea>
   </v-app>
 </template>
 
 <script>
-import TestArea from './PersonDetail.vue'
+import TestArea from './DetailModal.vue'
 export default {
   created () {
     this.$eventBus.$emit('notMainPage')

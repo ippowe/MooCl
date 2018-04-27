@@ -1,6 +1,6 @@
 <template lang="html">
-      <v-card class="ma-0" @mouseenter="showButton" @mouseleave="hideButton" @click="emitMethod()" depressed width="130" height="190" flat>
-        <v-card-media height ="139"  :src="resizeUrl">
+      <v-card class="ma-0" @mouseenter="showButton" @mouseleave="hideButton" depressed width="130" height="190" flat>
+        <v-card-media @click="emitMethod" height ="139"  :src="resizeUrl">
           <v-flex xs8></v-flex>   <!-- 하트를 오른쪽 보내기 위한 테그 -->
           <v-flex xs5  class="pa-0 ma-0">
             <!--버튼 눌렀을때 favorite 목록에 추가되는 기능 필요  -->
@@ -27,12 +27,6 @@ export default {
       url: this.resizeUrl
     }
   },
-  moethods : {
-    emitMethod : function () {
-      console.log("emitMethod")
-      this.$eventBus.$emit('sendInfo', this.role, this.name, this.resizeUrl);
-    }
-  },
   computed : {
     resizeUrl : function() {
       var url = 'https://search.pstatic.net/common/?src=http%3A%2F%2Fimgmovie.naver.net%2Fmdi%2Fpi%2F000000000%2F00000000025-t.jpg&type=u77_96&quality=95';
@@ -47,6 +41,10 @@ export default {
     },
     hideButton : function(e) {
       this.showFB = false;
+    },
+    emitMethod : function () {
+      console.log("emitMethod")
+      this.$eventBus.$emit('sendInfo', this.role, this.name, this.resizeUrl);
     }
   }
 }

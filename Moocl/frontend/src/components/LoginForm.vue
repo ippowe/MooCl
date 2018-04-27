@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="white">
     <v-container grid-list-xl>
       <img src="../assets/logo.png">
       <v-layout>
