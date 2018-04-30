@@ -1,10 +1,9 @@
 <template>
   <!-- 나이를 입력안해도 진행되는거 수정필요-->
-  <v-app class="white">
-    <v-container grid-list-xl>
-      <img src="../assets/logo.png" style="">
-      <v-layout>
-        <v-flex xl4 offset-xl4>
+    <v-container fill-height>
+      <v-layout align-center>
+        <v-flex xl4 offset-xl4 class="pt-0 pb-5">
+          <img src="../assets/logo.png" style="">
           <v-form v-model="valid" ref="form" lazy-validation>
             <v-text-field label="Nickname" v-model="nickname" :rules="nicknameRules" :counter="4" required></v-text-field>
             <v-layout class="ma-0" row>
@@ -23,13 +22,12 @@
         </v-flex>
       </v-layout>
     </v-container>
-  </v-app>
 </template>
 
 
 <script>
 export default {
-  name: 'JoinForm',
+  name: 'JoinPage',
   created () {
     this.$eventBus.$emit('notMainPage');
   },

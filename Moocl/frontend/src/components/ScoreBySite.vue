@@ -38,7 +38,7 @@
 
 <script>
 export default {
-  name: "TotalScore",
+  name: "ScoreBySite",
   data: function() {
     return{
       naverScore : 50,

@@ -1,9 +1,8 @@
 <template>
-  <v-app class="white">
-    <v-container grid-list-xl>
-      <img src="../assets/logo.png">
-      <v-layout>
-        <v-flex xl4 offset-xl4>
+    <v-container fill-height>
+      <v-layout align-center justify-center>
+        <v-flex xl4 class="pt-0 mt-0 mb-5 pb-5">
+          <img src="../assets/logo.png">
           <v-form v-model="valid" ref="form" lazy-validation>
             <v-text-field label="E-mail" v-model="email" :rules="emailRules"  required></v-text-field>
             <v-text-field label="Password" v-model="password" :rules="passwordRules" :append-icon="e1 ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (e1 = !e1)" :type="e1 ? 'password' : 'text'":counter="8" required></v-text-field>
@@ -13,14 +12,13 @@
         </v-flex>
       </v-layout>
     </v-container>
-  </v-app>
 </template>
 
 <script>
 
 
 export default {
-  name: 'LoginForm',
+  name: 'LoginPage',
   created () {
     this.$eventBus.$emit('notMainPage');
   },

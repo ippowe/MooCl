@@ -9,7 +9,7 @@
             <v-spacer></v-spacer>
             <v-flex v-for="i in 5" :key ="i">
               <!-- 반복문 수정 필요 => WordCloud제대로 안나옴(id값이 유일한 값이 아니여서 그런걸로 예상)-->
-              <PersonDetail moviename="default"></PersonDetail>
+              <PersonInfo moviename="default" :roleview="true"></PersonInfo>
             </v-flex>
             <v-btn :ripple="false" flat icon depressed @click="nextstep"> <v-icon>skip_next</v-icon></v-btn>
             <v-spacer></v-spacer>
@@ -22,11 +22,12 @@
 </template>
 
 <script>
-import PersonDetail from "./PersonDetail.vue"
+import PersonInfo from "./PersonInfo.vue"
 
 export default {
+  name: "PeopleList",
   components : {
-    PersonDetail
+    PersonInfo
   },
   data () {
       return {

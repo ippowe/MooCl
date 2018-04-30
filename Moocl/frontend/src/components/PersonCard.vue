@@ -10,20 +10,22 @@
           </v-flex>
         </v-card-media>
         <v-card-title class="pa-0 ma-0">
-            <p class="ma-0 pa-0"><strong>{{ name }}</strong></p>
-            <p class="ma-0 pa-0">{{ role }}</p>
+            <p class="ma-0 pa-0" :class="fontSize"><strong>{{ personname }}</strong></p>
+            <p class="ma-0 pa-0" v-if="roleview">{{ role }}</p>
         </v-card-title>
       </v-card>
 </template>
 
 <script>
 export default {
+  name: "PersonCard",
+  props: ['roleview', 'personname'],
   data : function() {
     return{
       favorite: false,
       showFB: false,
       role: "주연: 캡틴아메리카",
-      name: "스티븐 스필버그",
+      name: this.personname,
       url: this.resizeUrl
     }
   },
@@ -33,6 +35,13 @@ export default {
       var size = '111_139';
       var tempUrl = url.replace(/77_96/, size);
       return tempUrl;
+    },
+    fontSize : function() {
+      if(this.roleview){
+        return 'body-1'
+      } else {
+        return 'subheading'
+      }
     }
   },
   methods : {

@@ -1,13 +1,13 @@
 <template lang="html">
   <!-- 영화 제목에 따른 알맞은 정보(포스터, 제목, 평점, 감독, 배우들, 워드 클라우드, 개봉일, 관객수, 좋아요 목록 추가 여부) 불러오기 -->
   <v-dialog max-width="800" v-model="dialog">
-    <MovieCard :moviename="moviename == undefined ? '영화제목' : moviename" slot="activator"></MovieCard>
+    <BigMoviePoster :moviename="moviename == undefined ? '영화제목' : moviename" slot="activator"></BigMoviePoster>
     <v-layout class="white">
       <v-flex class="ma-2 ml-3" xs3>
-        <CardForModal></CardForModal>
+            <SmallMoviePoster></SmallMoviePoster>
       </v-flex>
       <v-flex xs8>
-        <TotalScore></TotalScore>
+        <ScoreBySite></ScoreBySite>
         <v-card color ="transparent" flat>
           <v-card-title class="headline black--text">
             개봉일  2018.04.20
@@ -33,20 +33,22 @@
 </template>
 
 <script>
-import CardForModal from "./CardForModal.vue"
-import TotalScore from "./TotalScore.vue"
+import BigMoviePoster from "./BigMoviePoster.vue"
+import SmallMoviePoster from "./SmallMoviePoster.vue"
+import ScoreBySite from "./ScoreBySite.vue"
 import WordCloud from "./WordCloud.vue"
-import MovieCard from "./MovieCard.vue"
+import WritingReview from "./WritingReview.vue"
 
 export default {
+  name: "MovieInfo",
   props: ['moviename'],
   components:{
-    CardForModal,
-    TotalScore,
+    SmallMoviePoster,
+    ScoreBySite,
     WordCloud,
-    MovieCard
+    BigMoviePoster,
+    WritingReview
   },
-  name: "SmallModal",
   data : function() {
     return {
       dialog: false,

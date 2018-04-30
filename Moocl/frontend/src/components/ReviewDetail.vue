@@ -20,6 +20,7 @@
 
 <script>
 import WordCloud from "./WordCloud.vue"
+
 export default {
   name: "ReviewDetail",
   components: {

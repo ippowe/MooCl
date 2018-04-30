@@ -1,6 +1,6 @@
 <template lang="html">
   <v-dialog max-width="800" v-model="dialog">
-    <PersonCard :name="name == undefined ? '영화제목' : name" slot="activator"></PersonCard>
+    <PersonCard :personname="personname == undefined ? '기본이름' : personname" :roleview="roleview" slot="activator"></PersonCard>
     <v-layout class="white"> <!-- 인물 사진 및 기본 정보 -->
 
       <v-flex class="ma-2 ml-3" xs3>   <!-- 인물 사진 -->
@@ -14,6 +14,7 @@
               </v-btn>
             </v-flex>
           </v-card-media>
+
           <v-card-title class="pa-0 ma-0">
               <p class="ma-0 pa-0 subheading"><strong>{{ name }}</strong></p>
           </v-card-title>
@@ -29,12 +30,12 @@
 
       </v-flex> <!-- 리뷰 클라우드 -->
       <v-flex class="mr-3 mb-3">
-        <WordCloud :id="moviename" :moviename="name == undefined ? '영화제목' : name"></WordCloud>
+        <WordCloud :moviename="personname == undefined ? '영화제목' : personname"></WordCloud>
       </v-flex>
     </v-layout>
 
     <v-layout> <!-- 영화 목록 부분-->
-      <MovieForPerson :personName="name"></MovieForPerson>
+      <RelatedMovie :personName="name"></RelatedMovie>
     </v-layout>
   </v-dialog>
 </template>
@@ -42,15 +43,16 @@
 <script>
 import PersonCard from "./PersonCard.vue"
 import WordCloud from "./WordCloud.vue"
-import MovieForPerson from "./MovieForPerson.vue"
+import RelatedMovie from "./RelatedMovie.vue"
 
 export default {
+  name: "PersonInfo",
   components: {
     PersonCard,
     WordCloud,
-    MovieForPerson
+    RelatedMovie
   },
-  props: ['moviename'],
+  props: ['personname', 'roleview'],
   mounted () {
       this.$eventBus.$on('sendInfo', (temp_role, temp_name, resizeUrl) => {
         this.name = temp_name;

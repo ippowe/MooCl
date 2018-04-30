@@ -48,6 +48,7 @@
 <script>
 
 export default {
+  name: "ScoreByClass",
   data : function(){
     return{
       genderscore : [

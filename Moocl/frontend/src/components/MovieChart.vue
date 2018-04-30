@@ -11,9 +11,9 @@
         </v-list>
       </v-toolbar>
       <v-list class="pt-0 deep-purple lighten-2">
-        <v-list-tile avatar @click='' v-for="n in 10" :key='`3${i}`' class="text-lg-center ">
-          <v-flex xs2>
-              <v-tab :ripple="false" class="white--text transparent" style="font-size: 20px; font-weight: bold;" >{{n}}</v-tab>
+        <v-list-tile avatar @click='' v-for="i in 10" :key='`3${i}`' class="text-lg-center ">
+          <v-flex xs3 >
+            <span :ripple="false" class="white--text transparent" style="font-size: 20px; font-weight: bold;"  >{{i}}</span>
           </v-flex>
           <v-flex xs10>
             <v-list-tile-action>

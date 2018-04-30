@@ -3,7 +3,7 @@
       <v-dialog v-model="dialog" :max-width="1200">
           <v-layout align-content-center class="white">
             <v-flex  class="ma-3" xs2> <!-- 영화 정보 관련 flex-->
-              <CardForModal></CardForModal>
+              <SmallMoviePoster></SmallMoviePoster>
               <v-card  color ="transparent" flat>
                 <v-card-title class="subheading pt-0">
                   <table>
@@ -30,7 +30,7 @@
               </v-card>
             </v-flex>
             <v-flex xs6>  <!-- 영화 평점/ 리뷰 클라우드-->
-              <TotalScore></TotalScore>
+              <ScoreBySite></ScoreBySite>
               <!-- 상영중 여부에 따라서 보여주기 -->
               <div>
                 <table class="ml-2">
@@ -44,36 +44,34 @@
               <WordCloud moviename="영화제목"></WordCloud>
             </v-flex>
             <v-flex> <!--나이/ 연령별 평점  -->
-              <SpecificScore></SpecificScore>
+              <ScoreByClass></ScoreByClass>
             </v-flex>
           </v-layout>
-          <PeopleSwiper class="ma-0"></PeopleSwiper>
+          <PeopleList class="ma-0"></PeopleList>
           <v-layout justify-center class="white">
             <ReviewList></ReviewList>
           </v-layout>
-
-
       </v-dialog>
   </template>
 
 <script>
-  import CardForModal from "./CardForModal.vue"
-  import TotalScore from "./TotalScore.vue"
+  import SmallMoviePoster from "./SmallMoviePoster.vue"
+  import ScoreBySite from "./ScoreBySite.vue"
   import WordCloud from "./WordCloud.vue"
-  import SpecificScore from "./SpecificScore.vue"
-  import PeopleSwiper from "./PeopleSwiper.vue"
+  import ScoreByClass from "./ScoreByClass.vue"
+  import PeopleList from "./PeopleList.vue"
   import ReviewList from "./ReviewList.vue"
 
   export default {
+    name:"MovieDetailInfo",
     components:{
-      CardForModal,
-      TotalScore,
+      SmallMoviePoster,
+      ScoreBySite,
       WordCloud,
-      SpecificScore,
-      PeopleSwiper,
+      ScoreByClass,
+      PeopleList,
       ReviewList
     },
-    name: "SmallModal",
     data : function() {
       return {
         dialog: true

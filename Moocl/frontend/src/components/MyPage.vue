@@ -1,23 +1,41 @@
 <template lang="html">
-  <v-app>
-    <v-tabs centered hide-slider class="mt-4" color="transparent" >
-      <v-tab :ripple="false" style="border-right: 3px solid grey" @click="favoriteList" >
-        <v-icon color="red">favorite</v-icon>
-      </v-tab>
-      <v-tab :ripple="false" class="title"  @click="myReview">
-        <strong>내 리뷰</strong>
-      </v-tab>
-    </v-tabs>
+  <v-container class="ml-5 py-0" justify-center>
+    <v-toolbar tabs flat color="transparent">
+      <v-tabs centered hide-slider class="mt-4" color="transparent" >
+        <v-tab :ripple="false" style="border-right: 3px solid grey" @click="favoriteList" >
+          <v-icon color="red">favorite</v-icon>
+        </v-tab>
+        <v-tab :ripple="false" class="title"  @click="myReview">
+          <strong>내 리뷰</strong>
+        </v-tab>
+      </v-tabs>
+      <v-tabs slot="extension" centered v-if="page =='Favorite'" color="transparent" hide-slider>
+        <v-tab :ripple="false" class="title" @click.native.stop="subpage = 'Movie'">
+          <strong>영화</strong>
+        </v-tab>
+        <v-tab :ripple="false" class="title"  @click.native.stop="subpage = 'People'">
+          <strong>인물</strong>
+        </v-tab>
+        <v-tab disabled></v-tab>  <!-- 위치 조절을 위한 탭  -->
+      </v-tabs>
+    </v-toolbar>
 
-      <FavoriteList v-if="page =='FavoriteList'"></FavoriteList>
-      <MyReview v-else-if="page == 'myReview'"></MyReview>
 
-  </v-app>
+    <v-layout>
+      <FavoriteMovies v-if="page=='Favorite' && subpage =='Movie'"></FavoriteMovies>
+      <FavoritePeople v-if="page=='Favorite' && subpage =='People'"></FavoritePeople>
+      <MyReviewPage v-else-if="page == 'MyReviewPage'"></MyReviewPage>
+    </v-layout>
+
+  </v-container>
+
+
 </template>
 
 <script>
-import FavoriteList from "./FavoriteList.vue"
-import MyReview from "./MyReview.vue"
+import FavoriteMovies from "./FavoriteMovies.vue"
+import FavoritePeople from "./FavoritePeople.vue"
+import MyReviewPage from "./MyReviewPage.vue"
 
 export default {
   created () {
@@ -25,20 +43,23 @@ export default {
   },
   name : "MyPage",
   components : {
-    FavoriteList,
-    MyReview
+    FavoriteMovies,
+    FavoritePeople,
+    MyReviewPage
+
   },
   data : function() {
     return {
-      page : "FavoriteList"
+      page : "Favorite",
+      subpage : "Movie"
     }
   },
   methods : {
     favoriteList () {
-      this.page = "FavoriteList"
+      this.page = "Favorite"
     },
     myReview () {
-      this.page = "myReview"
+      this.page = "MyReviewPage"
     }
   }
 }

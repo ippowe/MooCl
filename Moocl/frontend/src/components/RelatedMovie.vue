@@ -9,7 +9,7 @@
             <v-btn :ripple="false" flat icon depressed @click="prevstep" ><v-icon>navigate_before</v-icon></v-btn>
             <v-spacer></v-spacer>
             <v-flex v-for="i in slicedMovieList[n-1]" :key ="i" color="white">
-                <MovieCardForPerson :moviename="i"></MovieCardForPerson>
+                <XsMoviePoster :moviename="i"></XsMoviePoster>
             </v-flex>
             <v-btn :ripple="false" flat icon depressed @click="nextstep"> <v-icon>navigate_next</v-icon></v-btn>
             <v-spacer></v-spacer>
@@ -22,14 +22,12 @@
 </template>
 
 <script>
-import CardForModal from "./CardForModal.vue"
-import MovieCardForPerson from "./MovieCardForPerson.vue"
+import XsMoviePoster from "./XsMoviePoster.vue"
 
 export default {
-  name : "MovieForPerson",
+  name : "RelatedMovie",
   components: {
-    CardForModal,
-    MovieCardForPerson
+    XsMoviePoster
   },
   props : ['personName'],
   data : function() {

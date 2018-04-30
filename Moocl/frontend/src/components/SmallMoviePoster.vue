@@ -14,6 +14,7 @@
 
 <script>
 export default {
+  name: "SmallMoviePoster",
   data : function() {
     return{
       favorite: false,

@@ -21,7 +21,8 @@
 
 <script>
 export default {
-  name: "WritingRevie",
+  name: "WritingReview",
+
   data : function() {
     return {
       moviename: "영화제목"

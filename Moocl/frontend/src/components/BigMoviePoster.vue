@@ -7,12 +7,14 @@
     <v-card-media class="transparent">
       <v-container fulid class="pa-0 ma-0">
         <v-flex class="pa-0" row>
-          <v-toolbar  color="black">
+          <v-toolbar color="black" class="elevation-3">
             <v-avatar size="35" class="mx-3">
-              <img src="../assets/전체관람가.jpg">
+              <img src="../assets/전체관람가.png">
             </v-avatar>
             <v-spacer></v-spacer>
-            <v-tab disabled :ripple="false" class="white--text  pa-0" style="font-size: 20px; font-weight: bold;">{{ moviename }}</v-tab>
+            <strong style="font-size: 20px; font-weight: bold; color: white; cursor: default">
+              {{ moviename }}
+            </strong>
             <v-spacer></v-spacer>
             <v-avatar class="mr-1">
               <v-btn flat icon @click="el = !el">

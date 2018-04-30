@@ -34,7 +34,13 @@
 </template>
 
 <script>
+import ReviewDetail from "./ReviewDetail.vue"
+
 export default {
+  name : "ReviewList",
+  compoenets : {
+    ReviewDetail
+  },
   data () {
      return {
        headers: [
