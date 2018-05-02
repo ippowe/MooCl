@@ -34,7 +34,7 @@ public class UsersDao {
 
 	public int insertUserInfo(Map<String, Object> userVo) {
 		
-		logger.info("UsersDao.insertUserInfo 진입 userVo: "+ userVo.toString());
+		logger.info("UsersDao.insertUserInfo 진입 userVo: "+ userVo);
 		
 		int cnt = sqlSession.insert("users.insertUserInfoByMap", userVo);
 		

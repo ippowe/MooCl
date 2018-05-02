@@ -30,8 +30,7 @@ export default {
       this.mainPageChecker = true;
     })
 
-  }
-
+  },
 }
 </script>
 

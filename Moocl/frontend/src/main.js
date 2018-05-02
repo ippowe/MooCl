@@ -11,6 +11,7 @@ import 'babel-polyfill'
 import 'expose-loader?$!expose-loader?jQuery!jquery'
 import jQuery from 'jqcloud2/dist/jqcloud.js'
 import 'jqcloud2/dist/jqcloud.css'
+import store from './store'
 
 
 
@@ -24,5 +25,6 @@ new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  store
 })

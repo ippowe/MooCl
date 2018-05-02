@@ -1,6 +1,7 @@
 package kr.co.moocl.service;
 
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -19,30 +20,40 @@ public class UsersService {
 	@Autowired
 	UsersDao usersDao;
 	
-	public Boolean userLogin(Map<String, String> userVo){
+	public Map<String, Object> userLogin(Map<String, String> userVo){
 		
-		logger.info("UsersService.userLogin 진입 UserVo : " + userVo.toString());
+		logger.info("UsersService.userLogin 진입 UserVo : " + userVo);
 		
 		String userEmail = userVo.get("email");
 		String userPass = userVo.get("password");
 		
 		UsersVo userInfo = usersDao.getUserInfoByEmail(userEmail);
 		
-		logger.info("usersDao에서 userInfo 가져옴 : " + userInfo.toString());
+		logger.info("usersDao에서 userInfo 가져옴 : " + userInfo);
 		
-		if(userPass.equals(userInfo.getPassword()) || userInfo == null) {
-			logger.info("로그인 실패");
-			return false;
+		Map<String, Object> sessionData = new HashMap();
+		
+		if( userInfo != null) {
+			if(userPass.equals(userInfo.getPassword())) {
+				logger.info("로그인 성공");
+				sessionData.put("token", true);
+				sessionData.put("userNo", userInfo.getUserNo());
+				return sessionData;
+			} else {
+				logger.info("로그인 실패");
+				sessionData.put("token", false);
+				return sessionData;
+			}
 		} else {
-			logger.info("로그인 성공");
-			return true;
+			logger.info("로그인 실패");
+			sessionData.put("token", false);
+			return sessionData;
 		}
-		
 	}
 
 	public Boolean checkEmail(Map<String, String> userEmail) {
 		
-		logger.info("UsersService.checkEmail 진입 UserVo : " + userEmail.toString());
+		logger.info("UsersService.checkEmail 진입 UserVo : " + userEmail);
 		
 		String email = userEmail.get("email");
 		
@@ -61,7 +72,7 @@ public class UsersService {
 	}
 	
 	public Boolean joinUser(Map<String, Object> userVo) {
-		logger.info("UsersService.joinUser 진입 UserVo : " + userVo.toString());
+		logger.info("UsersService.joinUser 진입 UserVo : " + userVo);
 		
 		//age값이 문자열이기 때문에 정수형으로 바꿔줌
 		String tempAge = userVo.get("age").toString();
