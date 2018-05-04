@@ -24,11 +24,8 @@ public class UsersRestController {
 	@RequestMapping("/login")
 	public Map<String, Object> login(@RequestBody Map<String, String> userVo){
 		
-		logger.info("로그인 RestController 진입 userVo : " + userVo);
-		
 		Map<String, Object> result = usersService.userLogin(userVo);
-		
-		logger.info("로그인 Service에서 결과 가져옴 : " + result);
+	
 		
 		return result;
 	}

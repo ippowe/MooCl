@@ -19,7 +19,7 @@ export default new Vuex.Store({
   },
   getters: {
     isAuthenticated (state) {
-      state.accessToken = state.accessToken || sessionStorage.accessToken
+      state.accessToken = state.accessToken || sessionStorage.token
       return state.accessToken
     }
   },
@@ -31,8 +31,10 @@ export default new Vuex.Store({
       return sessionStorage
     },
     LOGOUT (state) {
+      console.log("store logout mutation")
       state.accessToken = null
-      delete sessionStorage.accessToken
+      delete sessionStorage.token
+      delete sessionStorage.userNo
     }
   },
   actions: {
@@ -45,6 +47,7 @@ export default new Vuex.Store({
         })
     },
     LOGOUT ({commit}) {
+      console.log("store logout action")
       axios.defaults.headers.common['Authorization'] = undefined
       commit('LOGOUT')
     },

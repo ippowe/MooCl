@@ -1,7 +1,6 @@
 package kr.co.moocl.dao;
 
 
-import java.sql.SQLException;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -21,13 +20,11 @@ public class UsersDao {
 	SqlSession sqlSession;
 	
 	public UsersVo getUserInfoByEmail(String userEmail) {
-		logger.info("UsersDao.getUserInfoByEmail 진입 userEmail: "+ userEmail);
 		
 		UsersVo userInfo;
 		
 		userInfo = sqlSession.selectOne("users.selectOneUserByEmail", userEmail);
 		
-		logger.info("Oracle에서 UserInfo 가져옴 : " + userInfo);
 		
 		return userInfo;
 	}

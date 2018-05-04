@@ -2,7 +2,7 @@
     <v-container fill-height>
       <v-layout align-center justify-center>
         <v-flex xs4 class="pt-0 mt-0 mb-5 pb-5">
-          <img src="../assets/logo.png">
+          <router-link :to="{ name: 'MainPage' }"><img src="../assets/logo.png"></router-link>
           <v-form v-model="valid" ref="form" lazy-validation>
             <v-text-field label="E-mail" v-model="email" :rules="emailRules"  required></v-text-field>
             <v-text-field label="Password" v-model="password" :rules="passwordRules" :append-icon="e1 ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (e1 = !e1)" :type="e1 ? 'password' : 'text'":counter="8" required></v-text-field>

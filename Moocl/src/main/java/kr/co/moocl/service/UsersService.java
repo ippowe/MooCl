@@ -22,30 +22,25 @@ public class UsersService {
 	
 	public Map<String, Object> userLogin(Map<String, String> userVo){
 		
-		logger.info("UsersService.userLogin 진입 UserVo : " + userVo);
 		
 		String userEmail = userVo.get("email");
 		String userPass = userVo.get("password");
 		
 		UsersVo userInfo = usersDao.getUserInfoByEmail(userEmail);
 		
-		logger.info("usersDao에서 userInfo 가져옴 : " + userInfo);
 		
-		Map<String, Object> sessionData = new HashMap();
+		Map<String, Object> sessionData = new HashMap<>();
 		
 		if( userInfo != null) {
 			if(userPass.equals(userInfo.getPassword())) {
-				logger.info("로그인 성공");
 				sessionData.put("token", true);
 				sessionData.put("userNo", userInfo.getUserNo());
 				return sessionData;
 			} else {
-				logger.info("로그인 실패");
 				sessionData.put("token", false);
 				return sessionData;
 			}
 		} else {
-			logger.info("로그인 실패");
 			sessionData.put("token", false);
 			return sessionData;
 		}
@@ -53,7 +48,7 @@ public class UsersService {
 
 	public Boolean checkEmail(Map<String, String> userEmail) {
 		
-		logger.info("UsersService.checkEmail 진입 UserVo : " + userEmail);
+
 		
 		String email = userEmail.get("email");
 		

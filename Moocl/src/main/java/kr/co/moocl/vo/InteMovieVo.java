@@ -1,0 +1,166 @@
+package kr.co.moocl.vo;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection ="movie_info")
+public class InteMovieVo {
+	
+	@Id
+	private String _id;
+	private List<Map<String, Object>> movie_id;
+	private String inte_title;
+	private String movie_title;
+	private String inte_director;
+	private String derector;
+	private String poster;
+	private Object running_time;
+	private List<Map<String, Object>> review_cnt;
+	private List<Map<String, Object>> score;
+	private Object person;  //DB에서 링크로 연결돼서 못가져 옴
+	private List<Map<String, Object>> gender_ratio;
+	private List<Map<String, Object>> age;
+//	private String movie_rate;영화 관람등급 추후 수정 필요
+	
+	public InteMovieVo() {
+	}
+	
+	public InteMovieVo(String _id, List<Map<String, Object>> movie_id, String inte_title, String movie_title,
+			String inte_director, String derector, String poster, double running_time,
+			List<Map<String, Object>> review_cnt, List<Map<String, Object>> score, Object person,
+			List<Map<String, Object>> gender_ratio, List<Map<String, Object>> age) {
+		this._id = _id;
+		this.movie_id = movie_id;
+		this.inte_title = inte_title;
+		this.movie_title = movie_title;
+		this.inte_director = inte_director;
+		this.derector = derector;
+		this.poster = poster;
+		this.running_time = running_time;
+		this.review_cnt = review_cnt;
+		this.score = score;
+		this.person = person;
+		this.gender_ratio = gender_ratio;
+		this.age = age;
+
+	}
+
+	public String get_id() {
+		return _id;
+	}
+
+	public List<Map<String, Object>> getMovie_id() {
+		return movie_id;
+	}
+
+	public String getInte_title() {
+		return inte_title;
+	}
+
+	public String getMovie_title() {
+		return movie_title;
+	}
+
+	public String getInte_director() {
+		return inte_director;
+	}
+
+	public String getDerector() {
+		return derector;
+	}
+
+	public String getPoster() {
+		return poster;
+	}
+
+	public Object getRunning_time() {
+		return running_time;
+	}
+
+	public List<Map<String, Object>> getReview_cnt() {
+		return review_cnt;
+	}
+
+	public List<Map<String, Object>> getScore() {
+		return score;
+	}
+
+	public Object getPerson() {
+		return person;
+	}
+
+	public List<Map<String, Object>> getGender_ratio() {
+		return gender_ratio;
+	}
+
+	public List<Map<String, Object>> getAge() {
+		return age;
+	}
+
+	public void set_id(String _id) {
+		this._id = _id;
+	}
+
+	public void setMovie_id(List<Map<String, Object>> movie_id) {
+		this.movie_id = movie_id;
+	}
+
+	public void setInte_title(String inte_title) {
+		this.inte_title = inte_title;
+	}
+
+	public void setMovie_title(String movie_title) {
+		this.movie_title = movie_title;
+	}
+
+	public void setInte_director(String inte_director) {
+		this.inte_director = inte_director;
+	}
+
+	public void setDerector(String derector) {
+		this.derector = derector;
+	}
+
+	public void setPoster(String poster) {
+		this.poster = poster;
+	}
+
+	public void setRunning_time(Object running_time) {
+		this.running_time = running_time;
+	}
+
+	public void setReview_cnt(List<Map<String, Object>> review_cnt) {
+		this.review_cnt = review_cnt;
+	}
+
+	public void setScore(List<Map<String, Object>> score) {
+		this.score = score;
+	}
+
+	public void setPerson(Object person) {
+		this.person = person;
+	}
+
+	public void setGender_ratio(List<Map<String, Object>> gender_ratio) {
+		this.gender_ratio = gender_ratio;
+	}
+
+	public void setAge(List<Map<String, Object>> age) {
+		this.age = age;
+	}
+
+
+	@Override
+	public String toString() {
+		return "InteMovieVo [_id=" + _id + ", movie_id=" + movie_id + ", inte_title=" + inte_title + ", movie_title="
+				+ movie_title + ", inte_director=" + inte_director + ", derector=" + derector + ", poster=" + poster
+				+ ", running_time=" + running_time + ", review_cnt=" + review_cnt + ", score=" + score + ", person="
+				+ person + ", gender_ratio=" + gender_ratio + ", age=" + age +"]";
+	}
+
+
+	
+}
