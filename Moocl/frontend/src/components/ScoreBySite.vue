@@ -47,12 +47,13 @@ export default {
       cgvScore : 0
     }
   },
-  mounted () {
-    console.log("mounte: ");
-    console.log(this.sitescore);
+  created () {
     for(let i=0; i<this.sitescore.length ; i++){
-      let siteName = this.sitescore[i].site;
-      let temp_score = this.sitescore[i].grade;
+      let siteName = "";
+      let temp_score = 0;
+
+      siteName = this.sitescore[i].site;
+      temp_score = this.sitescore[i].grade;
 
       if( siteName == "naver"){
         this.naverScore = temp_score * 10;
@@ -62,10 +63,6 @@ export default {
         this.cgvScore = temp_score * 10;
       }
     }
-    console.log("결과")
-    console.log(this.naverScore);
-    console.log(this.daumScore);
-    console.log(this.cgvScore);
   }
 }
 </script>

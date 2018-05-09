@@ -3,36 +3,36 @@
       <div>
         <v-layout align-content-center class="white">
           <v-flex  class="ma-3" xs2> <!-- 영화 정보 관련 flex-->
-            <SmallMoviePoster :posterUrl="movietag.posterUrl"></SmallMoviePoster>
-            <v-card  color ="transparent" flat>
-              <v-card-title class="subheading pt-0">
+            <SmallMoviePoster :posterUrl="detailinfo.poster"></SmallMoviePoster>
+            <v-card  color ="transparent" flat class="ml-3" align-content-center>
+              <v-card-title class="subheading pt-0 px-0">
                 <table>
                   <tr>
-                    <th class="subheading"><strong style="font-size: 15px">{{ movietag.movieTitle }}</strong></th>
+                    <th class="subheading"><strong style="font-size: 15px">{{ movieTitle }}</strong></th>
                   </tr>
                   <tr>
-                    <td class="text-xs-center">스릴러</td>
+                    <td class="text-xs-center">{{ detailinfo.genre == null ? "장르" : detailinfo.genre}}</td>
                   </tr>
                   <tr>
-                    <td class="text-xs-center">150분</td>
+                    <td class="text-xs-center">{{ detailinfo.running_time == null ? "러닝타임" : detailinfo.running_time + "분"}}</td>
                   </tr>
                   <tr>
-                    <td class="text-xs-center">한국</td>
+                    <td class="text-xs-center">{{ detailinfo.nation == null ? "국적" : detailinfo.nation}}</td>
                   </tr>
                   <tr>
-                    <td class="text-xs-center">2018.04.20 </td>
+                    <td class="text-xs-center">{{ openDate }} </td>
                   </tr>
-                  <tr>
+                  <!-- <tr>
                     <td class="text-xs-center"> 100,000,000명</td>
-                  </tr>
+                  </tr> -->
                 </table>
               </v-card-title>
             </v-card>
           </v-flex>
           <v-flex xs6>  <!-- 영화 평점/ 리뷰 클라우드-->
-            <ScoreBySite></ScoreBySite>
+            <ScoreBySite :sitescore="detailinfo.score"></ScoreBySite>
             <!-- 상영중 여부에 따라서 보여주기 -->
-            <div>
+            <!-- <div>
               <table class="ml-2">
                 <tr>
                   <td><strong>예매율: 00%</strong></td>
@@ -40,11 +40,11 @@
                   <td><strong>&emsp;관객수: 100,000,000</strong></td>
                 </tr>
               </table>
-            </div>
-            <WordCloud :moviename="movietag.movieId"></WordCloud>
+            </div> -->
+            <WordCloud :moviename="detailinfo.inte_title"></WordCloud>
           </v-flex>
           <v-flex> <!--나이/ 연령별 평점  -->
-            <ScoreByClass></ScoreByClass>
+            <ScoreByClass :classscore="classScore"></ScoreByClass>
           </v-flex>
         </v-layout>
         <PeopleList class="ma-0"></PeopleList>
@@ -73,23 +73,61 @@
       PeopleList,
       ReviewList
     },
-    props: ['movietag'],
-    mounted () {
-      console.log(this.movietag);
-      this.$axios.get("/api/detailinfo", {
-        params : {
-          movieId : this.movietag.movieId
-        }
-      })
-      .then((result) => {
-        console.log(result)
-      })
-      .catch((error) => console.log(error))
-    },
+    props: ['detailinfo'],
     data : function() {
       return {
+        detailInfo : []
       }
     },
+    methods : {
+      parseDate : function(str) {
+        let y = str.substr(0, 4);
+        let m = str.substr(4, 2);
+        let d = str.substr(6, 2);
+        return new Date(y,m-1,d);
+      }
+    },
+    computed : {
+      openDate : function() {
+        let temp_date
+        if(this.detailinfo.open_date != null) {
+          let parsingDate = this.parseDate(this.detailinfo.open_date);
+          temp_date = parsingDate.getFullYear() + "." + parsingDate.getMonth() + "." + parsingDate.getDate();
+          return temp_date
+        } else {
+          return "개봉일";
+        }
+      },
+      classScore : function(){
+        let temp_gender;
+        let temp_age;
+        let temp_array = [];
+
+        temp_gender = this.detailinfo.gender_ratio;
+        temp_age = this.detailinfo.age;
+
+        temp_array.push(temp_gender);
+        temp_array.push(temp_age);
+
+        return temp_array;
+      },
+
+      movieTitle : function() {
+        let temp_title = this.detailinfo.movie_title;
+        let str = ""
+        if(temp_title != null) {
+          if(temp_title.length > 8){
+            str = temp_title.substring(0,9) + "\\n" + temp_title.substring(9);
+            return str
+          } else {
+            return temp_title;
+          }
+        } else {
+          return "영화제목"
+        }
+
+      }
+    }
   }
 </script>
 

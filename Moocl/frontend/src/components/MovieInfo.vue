@@ -2,9 +2,8 @@
   <!-- 영화 제목에 따른 알맞은 정보(포스터, 제목, 평점, 감독, 배우들, 워드 클라우드, 개봉일, 관객수, 좋아요 목록 추가 여부) 불러오기 -->
   <v-dialog :max-width="width ? 1200 : 800" v-model="dialog">
     <BigMoviePoster :movietitle="sliceTitle" slot="activator" :posterUrl="movietag.posterUrl"></BigMoviePoster>
-    <NormalInfo v-if="detail == false " :movietag="movietag" v-on:viewdetail="changeInfo"></NormalInfo>
-    <MovieDetailInfo v-if ="detail == true" :movietag="movietag"></MovieDetailInfo>
-
+    <NormalInfo v-if="normal" :movietag="movietag" v-on:viewdetail="changeInfo"></NormalInfo>
+    <MovieDetailInfo v-else-if="detail" :detailinfo="detailInfo"></MovieDetailInfo>
   </v-dialog>
 </template>
 
@@ -29,9 +28,15 @@ export default {
     NormalInfo,
     MovieDetailInfo
   },
+
   watch : {
     dialog: function (val) {
-      if(this.detail == true){
+      this.getDetailInfo();
+
+      if(this.dialog){
+        this.viewNormal();
+      } else {
+        this.normal = false;
         this.detail = false;
         this.width = false;
       }
@@ -40,16 +45,33 @@ export default {
   data : function() {
     return {
       dialog: false,
+      normal: false,
       detail: false,
-      width: false
+      width: false,
+      detailInfo: []
     }
   },
   methods : {
     changeInfo () {
-      console.log("viewDetail");
-      this.detail = !this.detail;
-      this.width = !this.width;
-      console.log(this.width);
+      this.detail = true;
+      this.width = true;
+      this.normal = false;
+    },
+    viewNormal () {
+      this.normal = true;
+      this.detail = false;
+      this.width = false;
+    },
+    getDetailInfo () {
+      this.$axios.get("/api/detailinfo", {
+        params : {
+          movieId : this.movietag.movieId
+        }
+      })
+      .then((result) => {
+        this.detailInfo = result.data;
+      })
+      .catch((error) => console.log(error))
     }
   },
   computed : {

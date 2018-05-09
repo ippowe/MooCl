@@ -15,7 +15,7 @@ public class InteMovieVo {
 	private String inte_title;
 	private String movie_title;
 	private String inte_director;
-	private String derector;
+	private String director;
 	private String poster;
 	private Object running_time;
 	private List<Map<String, Object>> review_cnt;
@@ -23,21 +23,23 @@ public class InteMovieVo {
 	private Object person;  //DB에서 링크로 연결돼서 못가져 옴
 	private List<Map<String, Object>> gender_ratio;
 	private List<Map<String, Object>> age;
+	private String nation;
+	private String open_date;
+	private String genre;
 //	private String movie_rate;영화 관람등급 추후 수정 필요
 	
-	public InteMovieVo() {
-	}
-	
 	public InteMovieVo(String _id, List<Map<String, Object>> movie_id, String inte_title, String movie_title,
-			String inte_director, String derector, String poster, double running_time,
+			String inte_director, String director, String poster, Object running_time,
 			List<Map<String, Object>> review_cnt, List<Map<String, Object>> score, Object person,
-			List<Map<String, Object>> gender_ratio, List<Map<String, Object>> age) {
+			List<Map<String, Object>> gender_ratio, List<Map<String, Object>> age, String nation, String open_date,
+			String genre) {
+		super();
 		this._id = _id;
 		this.movie_id = movie_id;
 		this.inte_title = inte_title;
 		this.movie_title = movie_title;
 		this.inte_director = inte_director;
-		this.derector = derector;
+		this.director = director;
 		this.poster = poster;
 		this.running_time = running_time;
 		this.review_cnt = review_cnt;
@@ -45,7 +47,12 @@ public class InteMovieVo {
 		this.person = person;
 		this.gender_ratio = gender_ratio;
 		this.age = age;
-
+		this.nation = nation;
+		this.open_date = open_date;
+		this.genre = genre;
+	}
+	
+	public InteMovieVo() {
 	}
 
 	public String get_id() {
@@ -68,8 +75,8 @@ public class InteMovieVo {
 		return inte_director;
 	}
 
-	public String getDerector() {
-		return derector;
+	public String getDirector() {
+		return director;
 	}
 
 	public String getPoster() {
@@ -100,6 +107,18 @@ public class InteMovieVo {
 		return age;
 	}
 
+	public String getNation() {
+		return nation;
+	}
+
+	public String getOpen_date() {
+		return open_date;
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
 	public void set_id(String _id) {
 		this._id = _id;
 	}
@@ -120,8 +139,8 @@ public class InteMovieVo {
 		this.inte_director = inte_director;
 	}
 
-	public void setDerector(String derector) {
-		this.derector = derector;
+	public void setDirector(String director) {
+		this.director = director;
 	}
 
 	public void setPoster(String poster) {
@@ -152,15 +171,28 @@ public class InteMovieVo {
 		this.age = age;
 	}
 
+	public void setNation(String nation) {
+		this.nation = nation;
+	}
+
+	public void setOpen_date(String open_date) {
+		this.open_date = open_date;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
 
 	@Override
 	public String toString() {
 		return "InteMovieVo [_id=" + _id + ", movie_id=" + movie_id + ", inte_title=" + inte_title + ", movie_title="
-				+ movie_title + ", inte_director=" + inte_director + ", derector=" + derector + ", poster=" + poster
+				+ movie_title + ", inte_director=" + inte_director + ", director=" + director + ", poster=" + poster
 				+ ", running_time=" + running_time + ", review_cnt=" + review_cnt + ", score=" + score + ", person="
-				+ person + ", gender_ratio=" + gender_ratio + ", age=" + age +"]";
+				+ person + ", gender_ratio=" + gender_ratio + ", age=" + age + ", nation=" + nation + ", open_date="
+				+ open_date + ", genre=" + genre + "]";
 	}
-
+	
+	
 
 	
 }

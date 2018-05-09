@@ -5,7 +5,7 @@
             <SmallMoviePoster :posterUrl="movietag.posterUrl"></SmallMoviePoster>
       </v-flex>
       <v-flex xs8>
-        <ScoreBySite :sitescore="movietag.siteScore"></ScoreBySite>
+        <ScoreBySite :sitescore="movietag.score"></ScoreBySite>
         <v-card color ="transparent" flat>
           <v-card-title class="headline black--text">
             개봉일  2018.04.20
@@ -46,6 +46,9 @@ export default {
     WordCloud,
     WritingReview
   },
+  create () {
+    this.movietag.score = [];
+  },
   data : function() {
     return {
       dialog: false,
@@ -64,7 +67,7 @@ export default {
       } else {
         return this.movietag.movieTitle
       }
-    }
+    },
   }
 
 }

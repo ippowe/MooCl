@@ -32,6 +32,6 @@ public class SearchRestController {
 		logger.info("searching result : " + searchResultList);
 		return searchResultList;
 	}
-	
+
 	
 }

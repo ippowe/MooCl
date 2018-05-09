@@ -6,7 +6,6 @@
       <v-toolbar-side-icon to="main"><img src="../assets/logo.png" style="height: 28px"></v-toolbar-side-icon>
       <v-spacer></v-spacer>
       <v-text-field label="Search" append-icon="search" :append-icon-cb="search" v-model="keyword" solo-inverted></v-text-field>
-      {{ keyword }}
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-tabs color="transparent" hide-slider>
@@ -44,13 +43,7 @@ export default {
   data : () => {
     return {
       loginChecker: 'true',
-      keyword: "",
-      movieTitle: [],
-      posterUrl: [],
-      movieId:[],
-      movieRate:[],
-      inteTitle: [],
-      siteScore: []
+      keyword: ""
     }
   },
   methods : {
@@ -67,23 +60,9 @@ export default {
         }
       })
       .then((result) => {
-        let dataArray = result.data;
-
-        this.movieTitle = [];
-        this.posterUrl = [];
-        this.movieId = [];
-        this.inteTitle = [];
-        this.stieScore = [];
-
-        for(let i =0; i<dataArray.length; i++){
-          this.movieTitle.push(dataArray[i].movieTitle);
-          this.posterUrl.push(dataArray[i].posterUrl);
-          this.movieId.push(dataArray[i].movieId);
-          this.inteTitle.push(dataArray[i].inteTitle)
-          this.siteScore.push(dataArray[i].score)
-        }
-
-          this.$eventBus.$emit('fowardResult', this.movieTitle, this.posterUrl, this.movieId, this.inteTitle, this.siteScore);
+        let dataArray = [];
+        dataArray = result.data;
+        this.$eventBus.$emit('fowardResult', dataArray);
       })
       .catch((error) => {
         console.log(error)

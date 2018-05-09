@@ -43,7 +43,6 @@ export default {
           weight: this.countSet[name],
           handlers : {
             mouseover : function(){
-              console.log("마우스 위치: " +this.innerHTML)
             },
             click : function() {
               console.log("클릭 이벤트: " + this.innerHTML)
@@ -58,7 +57,6 @@ export default {
   mounted() {
     var word_array = this.cloudData
     var select_id = "#" + this.moviename
-    console.log(select_id)
     $(function() {
       // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
       $(select_id).jQCloud(word_array, {

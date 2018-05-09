@@ -4,7 +4,7 @@
       <MovieChart style="position: absolute" class="ml-5" ></MovieChart>
       <v-layout v-for="i in slicedMovieList.length" :key="i" justify-end class="mb-3 mr-5">
         <MovieInfo class="mb-5 mx-3" v-for="k in slicedMovieList[i-1].length" :key="k" :movietag="movieTagList[4*(i-1)+k-1]"></MovieInfo>
-      </v-layout  >
+      </v-layout>
     </v-container>
 
 </template>
@@ -25,24 +25,14 @@ export default {
     this.$eventBus.$emit('MainPage');
   },
   beforeMount () {
-    this.$eventBus.$on('fowardResult', (movieTitle, posterUrl, movieId, inteTitle, siteScore) => {
-      this.movieTagList=[];
-
-      for(let i=0; i<movieTitle.length; i++) {
-          this.movieTag["movieTitle"] = movieTitle[i];
-          this.movieTag["posterUrl"] = posterUrl[i];
-          this.movieTag["movieId"] = movieId[i];
-          this.movieTag["inteTitle"] = inteTitle[i];
-          this.movieTag["siteScore"] = siteScore[i];
-
-          this.movieTagList.push(this.movieTag);
-          this.movieTag = {}
-      }
+    this.$eventBus.$on('fowardResult', (dataArray) => {
+      this.movieTagList = dataArray;
+      console.log("movieTagList");
+      console.log(this.movieTagList);
     })
   },
-  data () {
+  data : function() {
     return{
-      movieTag : {},
       movieTagList : []
     }
   },
