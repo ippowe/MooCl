@@ -69,7 +69,9 @@ export default {
         }
       })
       .then((result) => {
+        console.log("detailInfo")
         this.detailInfo = result.data;
+        console.log(this.detailInfo)
       })
       .catch((error) => console.log(error))
     }

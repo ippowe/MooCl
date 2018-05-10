@@ -126,8 +126,6 @@ export default {
         "forty" : 0
       });
 
-      console.log(this.classscore);
-
       this.setGenderRatio();
       this.setAgeRatio();
     } else{

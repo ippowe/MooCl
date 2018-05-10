@@ -7,11 +7,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
 import kr.co.moocl.vo.InteMovieVo;
+import kr.co.moocl.vo.PeopleVo;
 
 
 @Component
@@ -29,11 +34,8 @@ public class MovieDao {
 		query.limit(12);  //12개씩 불러오고 스크롤 내리면 더불러오게 나중에 코딩
 		
 		query.addCriteria(Criteria.where("inte_title").regex(keyword));
-		logger.info(query.toString());		
+		
 		List<InteMovieVo> queryResult = mongoTemplate.find(query, InteMovieVo.class, "movie_info"); 
-	
-			
-		logger.info("queryResylt: " + queryResult);
 		
 		return queryResult;
 	}
@@ -47,6 +49,26 @@ public class MovieDao {
 		
 		InteMovieVo rawMovieData = mongoTemplate.findOne(query, InteMovieVo.class, "movie_info");
 		
+		System.out.println(mongoTemplate.findOne(query, InteMovieVo.class, "movie_info"));
+		
 		return rawMovieData;
 	}
+	
+	public AggregationResults<PeopleVo> getPersonInfo(String movieId) {
+		
+		Aggregation agg = newAggregation(
+				unwind("person"),
+				match(Criteria.where("_id").is(movieId)),
+				project("person")
+				);
+				
+		
+		AggregationResults<PeopleVo> result = mongoTemplate.aggregate(agg, "movie_info", PeopleVo.class);
+		
+		System.out.println(result.getMappedResults());
+		
+		return result;
+		
+	}
+	
 }

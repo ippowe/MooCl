@@ -1,5 +1,5 @@
 <template lang="html">
-      <v-card class="ma-0" @mouseenter="showButton" @mouseleave="hideButton" depressed width="168" height="240" :img ="posterUrl">
+      <v-card class="ma-0 ml-3" @mouseenter="showButton" @mouseleave="hideButton" depressed width="168" height="240" :img ="posterUrl">
         <v-card-media>
           <v-flex xs10></v-flex>   <!-- 하트를 오른쪽 보내기 위한 테그 -->
           <v-flex xs3>

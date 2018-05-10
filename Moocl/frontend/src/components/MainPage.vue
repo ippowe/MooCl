@@ -27,8 +27,6 @@ export default {
   beforeMount () {
     this.$eventBus.$on('fowardResult', (dataArray) => {
       this.movieTagList = dataArray;
-      console.log("movieTagList");
-      console.log(this.movieTagList);
     })
   },
   data : function() {

@@ -1,9 +1,7 @@
 <template lang="html">
-<v-dialog :max-width="800">
-  <v-btn class="primary" slot="activator">Open Dialog</v-btn>
   <v-card flat>
      <v-card-text>
-       <v-subheader class="title black--text">{{moviename}} 리뷰</v-subheader>
+       <v-subheader class="title black--text">{{movietitle}} 리뷰</v-subheader>
        <v-container fluid class="px-3 py-0">
          <v-layout row>
            <v-flex xs12>
@@ -16,21 +14,19 @@
        </v-container>
      </v-card-text>
    </v-card>
-</v-dialog>
 </template>
 
 <script>
 export default {
   name: "WritingReview",
-
+  props: ["movietitle", "movieid"],
   data : function() {
     return {
-      moviename: "영화제목"
     }
   },
   methods : {
     saveReview : function() {
-      console.log("리뷰저장")
+      console.log(this.movieid)
     }
   }
 

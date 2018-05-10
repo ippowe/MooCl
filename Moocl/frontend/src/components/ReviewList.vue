@@ -9,7 +9,11 @@
       <v-icon  color="red" @click="fillfivestar" class="noselect">{{score > 4 ? "star" : "star_border"}}</v-icon>
     </v-flex>
     <v-spacer></v-spacer>
-      <v-avatar  class="my-0 mr-4 noselect" @click="writeReview"><v-icon color="light-blue">create</v-icon></v-avatar>
+    <v-dialog max-width="600px">
+      <v-avatar slot="activator" @click="checkLogin"  class="my-0 mr-4 noselect"><v-icon color="light-blue">create</v-icon></v-avatar>
+      <WritingReview v-show="validUser" :movietitle="movietag.movie_title" :movieid="movietag._id"></WritingReview>
+      <NeedLogin v-show="!validUser"></NeedLogin>
+    </v-dialog>
   </v-layout>
   <v-layout justify-center>
       <v-card width="1000" flat>
@@ -35,12 +39,17 @@
 
 <script>
 import ReviewDetail from "./ReviewDetail.vue"
+import WritingReview from "./WritingReview.vue"
+import NeedLogin from "./NeedLogin.vue"
 
 export default {
   name : "ReviewList",
-  compoenets : {
-    ReviewDetail
+  components : {
+    NeedLogin,
+    WritingReview,
+    ReviewDetail,
   },
+  props :["movietag"],
   data () {
      return {
        headers: [
@@ -63,6 +72,7 @@ export default {
        score : 0,
        pagination: {},
        selected: [],
+       validUser: false,
      }
    },
    methods :{
@@ -101,8 +111,12 @@ export default {
          this.score = 0;
        }
      },
-     writeReview() {
-       console.log("리뷰 작성")
+     checkLogin : function() {
+       if(sessionStorage.length == 0){
+         this.validUser = false;
+       } else {
+         this.validUser = true;
+       }
      }
    },
    computed: {

@@ -17,7 +17,7 @@ export default {
   data : function() {
     return {
       MovieTag : {
-        movieTitle : "어벤져스",
+        movieTitle : "영화제목영화제목영화제목영화제목영화제목영화제목영화제목영화제목영화제목영화제목영화제목영화제목영화제목영화제목영화제목",
         movieId : 123456,
         posterUrl : "https://movie-phinf.pstatic.net/20120426_172/1335428116411i030K_JPEG/movie_image.jpg?type=m203_290_2",
         inteTitle : "어벤져스",

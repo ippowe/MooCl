@@ -1,26 +1,26 @@
 <template lang="html">
       <!-- 영화 제목에 따른 알맞은 정보(포스터, 제목, 평점, 감독, 배우들, 워드 클라우드, 개봉일, 관객수, 좋아요 목록 추가 여부) 불러오기 -->
       <div>
-        <v-layout align-content-center class="white">
-          <v-flex  class="ma-3" xs2> <!-- 영화 정보 관련 flex-->
+        <v-layout class="white">
+          <v-flex  style ="float: right;" class="ma-3" xs2> <!-- 영화 정보 관련 flex-->
             <SmallMoviePoster :posterUrl="detailinfo.poster"></SmallMoviePoster>
-            <v-card  color ="transparent" flat class="ml-3" align-content-center>
-              <v-card-title class="subheading pt-0 px-0">
-                <table>
+            <v-card  color ="transparent" flat class="ml-1" align-content-center>
+              <v-card-title class="subheading pt-0 px-3">
+                <table style="margin:auto;">
                   <tr>
-                    <th class="subheading"><strong style="font-size: 15px">{{ movieTitle }}</strong></th>
+                    <th style="font-size: 15px;">{{ movieTitle }}</th>
                   </tr>
                   <tr>
-                    <td class="text-xs-center">{{ detailinfo.genre == null ? "장르" : detailinfo.genre}}</td>
+                    <td>{{ detailinfo.genre == null ? "장르" : detailinfo.genre}}</td>
                   </tr>
                   <tr>
-                    <td class="text-xs-center">{{ detailinfo.running_time == null ? "러닝타임" : detailinfo.running_time + "분"}}</td>
+                    <td>{{ detailinfo.running_time == null ? "러닝타임" : detailinfo.running_time + "분"}}</td>
                   </tr>
                   <tr>
-                    <td class="text-xs-center">{{ detailinfo.nation == null ? "국적" : detailinfo.nation}}</td>
+                    <td>{{ detailinfo.nation == null ? "국적" : detailinfo.nation}}</td>
                   </tr>
                   <tr>
-                    <td class="text-xs-center">{{ openDate }} </td>
+                    <td>{{ openDate }} </td>
                   </tr>
                   <!-- <tr>
                     <td class="text-xs-center"> 100,000,000명</td>
@@ -47,9 +47,9 @@
             <ScoreByClass :classscore="classScore"></ScoreByClass>
           </v-flex>
         </v-layout>
-        <PeopleList class="ma-0"></PeopleList>
+        <PeopleList class="ma-0" :personlist="detailinfo.person"></PeopleList>
         <v-layout justify-center class="white">
-          <ReviewList></ReviewList>
+          <ReviewList :movietag="detailinfo"></ReviewList>
         </v-layout>
       </div>
 
@@ -117,7 +117,7 @@
         let str = ""
         if(temp_title != null) {
           if(temp_title.length > 8){
-            str = temp_title.substring(0,9) + "\\n" + temp_title.substring(9);
+            str = temp_title.substring(0,9) + "\n" + temp_title.substring(9);
             return str
           } else {
             return temp_title;
