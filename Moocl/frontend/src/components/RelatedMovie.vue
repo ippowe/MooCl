@@ -9,7 +9,7 @@
             <v-btn :ripple="false" flat icon depressed @click="prevstep" ><v-icon>navigate_before</v-icon></v-btn>
             <v-spacer></v-spacer>
             <v-flex v-for="i in slicedMovieList[n-1]" :key ="i" color="white">
-                <XsMoviePoster :moviename="i"></XsMoviePoster>
+                <XsMoviePoster :movieinfo="i"></XsMoviePoster>
             </v-flex>
             <v-btn :ripple="false" flat icon depressed @click="nextstep"> <v-icon>navigate_next</v-icon></v-btn>
             <v-spacer></v-spacer>
@@ -29,7 +29,7 @@ export default {
   components: {
     XsMoviePoster
   },
-  props : ['personName'],
+  props : ['movieInfo'],
   data : function() {
     return {
       stepNo : 1,   // Stepper를 위한 변수
@@ -39,7 +39,7 @@ export default {
   computed : {
     length () {
       var temp_length = 0;
-      temp_length = parseInt((this.movieList.length - 1) / 5)
+      temp_length = parseInt((this.movieInfo.length - 1) / 5)
       temp_length = temp_length + 1
       return temp_length
     },
@@ -47,7 +47,7 @@ export default {
       var temp_movieList = [];
       var slice_list =[];
       for(var i = 1; i<this.length+1; i++){
-        slice_list = this.movieList.slice((i-1)*5, (i*5))
+        slice_list = this.movieInfo.slice((i-1)*5, (i*5))
         temp_movieList.push(slice_list)
       }
       return temp_movieList

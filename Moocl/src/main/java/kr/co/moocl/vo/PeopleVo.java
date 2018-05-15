@@ -1,92 +1,85 @@
 package kr.co.moocl.vo;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "people")
 public class PeopleVo {
-
+	
 	@Id
-	private Object id;	
-
-	@DBRef
-	private people person;
-		
-	public Object getId() {
-		return id;
-	}
-
-	public people getPerson() {
-		return person;
-	}
-
-	public void setId(Object id) {
-		this.id = id;
-	}
-
-	public void setPerson(people person) {
-		this.person = person;
-	}
-
-	public PeopleVo() {
-	}
-
-	public PeopleVo(Object id, people person) {
-		super();
-		this.id = id;
-		this.person = person;
-	}
-
-	@Override
-	public String toString() {
-		return "PeopleVo [id=" + id + ", person=" + person + "]";
-	}
-}
-
-class people {
-	private Object _id;	
-	private String name;
+	private Object _id;
+	private Object person_id;
+	private String person_name;
+	private String role;
+	private String part;
 	private String people_img;
 	
-	public people() {
-		super();
-	}
-
-	public people(Object _id, String name, String people_img) {
+	
+	public PeopleVo(Object _id, Object person_id, String person_name, String role, String part, String people_img) {
 		this._id = _id;
-		this.name = name;
+		this.person_id = person_id;
+		this.person_name = person_name;
+		this.role = role;
+		this.part = part;
 		this.people_img = people_img;
 	}
-
+	
+	public PeopleVo() {
+	}
+	
 	public Object get_id() {
 		return _id;
 	}
-
-	public String getName() {
-		return name;
+	
+	public Object getPerson_id() {
+		return person_id;
 	}
-
+	
+	public String getPerson_name() {
+		return person_name;
+	}
+	
+	public String getRole() {
+		return role;
+	}
+	
+	public String getPart() {
+		return part;
+	}
+	
 	public String getPeople_img() {
 		return people_img;
 	}
-
+	
 	public void set_id(Object _id) {
 		this._id = _id;
 	}
-
-	public void setName(String name) {
-		this.name = name;
+	
+	public void setPerson_id(Object person_id) {
+		this.person_id = person_id;
 	}
-
+	
+	public void setPerson_name(String person_name) {
+		this.person_name = person_name;
+	}
+	
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
+	public void setPart(String part) {
+		this.part = part;
+	}
+	
 	public void setPeople_img(String people_img) {
 		this.people_img = people_img;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "people [_id=" + _id + ", name=" + name + ", people_img=" + people_img + "]";
+		return "PeopleVo [_id=" + _id + ", person_id=" + person_id + ", person_name=" + person_name + ", role=" + role
+				+ ", part=" + part + ", people_img=" + people_img + "]";
 	}
-	
+
 	
 }

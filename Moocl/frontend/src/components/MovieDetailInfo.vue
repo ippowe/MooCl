@@ -47,7 +47,7 @@
             <ScoreByClass :classscore="classScore"></ScoreByClass>
           </v-flex>
         </v-layout>
-        <PeopleList class="ma-0" :personlist="detailinfo.person"></PeopleList>
+        <PeopleList class="ma-0" :detailinfo="detailinfo" :relatedmovie="relatedmovies"></PeopleList>
         <v-layout justify-center class="white">
           <ReviewList :movietag="detailinfo"></ReviewList>
         </v-layout>
@@ -73,10 +73,10 @@
       PeopleList,
       ReviewList
     },
-    props: ['detailinfo'],
+    props: ['detailinfo', 'relatedmovies'],
     data : function() {
       return {
-        detailInfo : []
+        detailInfo : [],
       }
     },
     methods : {
@@ -125,8 +125,7 @@
         } else {
           return "영화제목"
         }
-
-      }
+      },
     }
   }
 </script>

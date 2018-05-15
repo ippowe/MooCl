@@ -1,6 +1,6 @@
 <template lang="html">
  <v-container class="pa-0">
-   <v-card class="ma-0" @mouseenter="showButton" @mouseleave="hideButton" depressed width="126" height="180" img ="https://dhgywazgeek0d.cloudfront.net/watcha/image/upload/c_fill,h_400,q_80,w_280/v1515038416/j1lacfu7iq7mrz2ti3xt.jpg">
+   <v-card class="ma-0" @mouseenter="showButton" @mouseleave="hideButton" depressed width="126" height="180" img ="../assets/moocl_logo.png">
      <v-card-media>
        <v-flex xs8></v-flex>   <!-- 하트를 오른쪽 보내기 위한 테그 -->
        <v-flex xs4>
@@ -30,7 +30,7 @@
 <script>
 export default {
   name : "XsMoviePoster",
-  props: ['moviename'],
+  props: ['movieinfo'],
   data : function() {
     return{
       showFB : false,

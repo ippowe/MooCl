@@ -3,7 +3,7 @@
   <!-- 로그(side-icon) 눌렀을 때 홈으로 이동 -->
   <!-- 검색 기능 구현 -->
     <v-toolbar dark color="deep-purple">
-      <v-toolbar-side-icon to="main"><img src="../assets/logo.png" style="height: 28px"></v-toolbar-side-icon>
+      <v-toolbar-side-icon to="main"><img src="../assets/moocl_logo.jpg" style="height: 28px"></v-toolbar-side-icon>
       <v-spacer></v-spacer>
       <v-text-field label="Search" append-icon="search" :append-icon-cb="search" v-model="keyword" solo-inverted></v-text-field>
       <v-spacer></v-spacer>

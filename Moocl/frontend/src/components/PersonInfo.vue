@@ -1,9 +1,7 @@
 <template lang="html">
   <v-dialog max-width="800" v-model="dialog">
-    <PersonCard :person="person == undefined ? '기본이름' : person" :roleview="roleview" slot="activator"></PersonCard>
     <v-layout class="white"> <!-- 인물 사진 및 기본 정보 -->
-
-      <v-flex class="ma-2 ml-3" xs3>   <!-- 인물 사진 -->
+      <v-flex class="ma-2 ml-3 text-xs-left" xs3>   <!-- 인물 사진 -->
         <v-card class="ma-0" depressed width="130" height="190" flat>
           <v-card-media height ="139"  :src="person.people_img"  @mouseenter="showButton" @mouseleave="hideButton">
             <v-flex xs8></v-flex>   <!-- 하트를 오른쪽 보내기 위한 테그 -->
@@ -15,8 +13,14 @@
             </v-flex>
           </v-card-media>
 
-          <v-card-title class="pa-0 ma-0">
-              <p class="ma-0 pa-0 body-2"><strong>{{ person.name }}</strong></p>
+          <v-card-title class="pa-0 ma-0 text-xs-left">
+            <p class="ma-0 pa-0"><strong>{{ person.person_name }}</strong></p>
+          </v-card-title
+          <v-card-title class="pa-0 ma-0 text-xs-left" v-if=" person.part != '' "  >
+            <p class="ma-0 pa-0">{{ person.role }}</p>
+          </v-card-title>
+          <v-card-title class="pa-0 ma-0 text-xs-left" v-if=" person.role != '' ">
+            <p class="ma-0 pa-0">{{ person.part }}</p>
           </v-card-title>
 
           <v-tooltip top color="white">   <!-- 인물 평균 평점-->
@@ -30,12 +34,12 @@
 
       </v-flex> <!-- 리뷰 클라우드 -->
       <v-flex class="mr-3 mb-3">
-        <WordCloud :moviename="person._id == undefined ? '영화제목' : person._id"></WordCloud>
+        <WordCloud :moviename="person.person_id"></WordCloud>
       </v-flex>
     </v-layout>
 
     <v-layout> <!-- 영화 목록 부분-->
-      <RelatedMovie :personid="person._id"></RelatedMovie>
+      <RelatedMovie :movieInfo="relatedmovie"></RelatedMovie>
     </v-layout>
   </v-dialog>
 </template>
@@ -52,12 +56,12 @@ export default {
     WordCloud,
     RelatedMovie
   },
-  props: ['person'],
+  props: ['person', 'relatedmovie','dialog'],
   data : function() {
     return {
-      dialog: false,
-      showFB : false,
-      favorite : false
+      showFB: false,
+      favorite: false,
+      relatedMovie : [],
     }
   },
   methods : {

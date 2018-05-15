@@ -3,7 +3,7 @@
     <v-container fill-height>
       <v-layout align-center>
         <v-flex xs4 offset-xs4 class="pt-0 pb-5">
-          <router-link :to="{ name: 'MainPage' }"><img src="../assets/logo.png" style=""></router-link>
+          <router-link :to="{ name: 'MainPage' }"><v-avatar size="300"><img src="../assets/moocl_logo.jpg" style=""></v-avatar></router-link>
           <v-form v-model="valid" ref="form" lazy-validation>
             <v-text-field label="Nickname" v-model="nickname" :rules="nicknameRules" :counter="4" required></v-text-field>
             <v-layout class="ma-0" row>
