@@ -1,11 +1,9 @@
 package kr.co.moocl.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Service;
 
 import kr.co.moocl.dao.MovieDao;
@@ -21,15 +19,14 @@ public class PersonService {
 	@Autowired
 	MovieDao movieDao;
 	
-	public List<Document> getRelatedMovies(Map<String, Object> movieId){
+	public List<InteMovieVo> getRelatedMovies(Map<String, Object> personId){
 		
-		String stringMovieId = movieId.get("movieId").toString();				
-
-		List<Document> tempMovieList = movieDao.getRelatedMoviesByMovieId(stringMovieId);
-
-		 
+		int stringPersonId = Integer.parseInt(personId.get("personId").toString());				
+		
+		List<InteMovieVo> relatedMovieList = movieDao.getRelatedMoviesByPersonId(stringPersonId);
+				 
 				
-		return tempMovieList;
+		return relatedMovieList;
 	}
 
 }

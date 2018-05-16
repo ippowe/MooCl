@@ -7,9 +7,11 @@
             <v-spacer></v-spacer>
             <v-btn :ripple="false" flat icon depressed @click="prevstep" ><v-icon>skip_previous</v-icon></v-btn>
             <v-spacer></v-spacer>
-            <v-flex v-for="(item, index) in slicedPersonList[n-1]" :key ="index">
+            <v-flex v-for="(item, index) in slicedperson[n-1]" :key ="index">
               <PersonCard :person="item" @openPersonInfo="openPersonInfo(n, index, item)"></PersonCard>
-              <PersonInfo :person="item" v-if="openSwitch[n-1][index]" :dialog="openSwitch[n-1][index]"></PersonInfo>
+              <PersonInfo :person="item" :relatedmovie="relatedMovie" v-if="infoswitch[n-1][index]"
+                          :dialog="dialog" @closePersonInfo="closePersonInfo(n, index)"></PersonInfo>
+
             </v-flex>
             <v-spacer></v-spacer>
             <v-btn :ripple="false" flat icon depressed @click="nextstep"> <v-icon>skip_next</v-icon></v-btn>
@@ -32,11 +34,12 @@ export default {
     PersonInfo,
     PersonCard
   },
-  props :['detailinfo', 'relatedmovie'],
+  props :['detailinfo', 'infoswitch', 'slicedperson', 'row'],
   data () {
       return {
         stepNo: 1,
         relatedMovie: [],
+        dialog: false,
       }
     },
   methods : {
@@ -55,38 +58,26 @@ export default {
       }
     },
     openPersonInfo : function(n, index, item) {
-      console.log(this.openSwitch);
-      this.openSwitch[n-1][index] = true;
-      console.log(item);
+        this.infoswitch[n-1][index] = true;
+        let sending_id = item.person_id;
 
-    }
-  },
-  computed : {
-    row () {
-      let temp_row = 0;
-      temp_row = parseInt(((this.detailinfo.person.length - 1) / 5)) + 1
-      return temp_row
+        this.$axios.post("/api/removie", {
+            personId : sending_id
+          }).then((result) => {
+          this.relatedMovie = result.data;
+        }).catch((error) => console.log(error))
+        this.dialog = true;
+        this.reloadStepper();
     },
-    slicedPersonList () {
-      var temp_personList = [];
-      var slice_list =[];
-      for(var i = 1; i<this.row+1; i++){
-        slice_list = this.detailinfo.person.slice((i-1)*5, (i*5))
-        temp_personList.push(slice_list)
-      }
-      return temp_personList
+    closePersonInfo : function(n, index) {
+      this.infoswitch[n-1][index] = false;
+      this.dialog = false;
     },
-    openSwitch () {
-      let temp_switch = [];
-      let temp_inner_switch;
-      for(let i=1; i<this.row+1; i++){
-        temp_inner_switch = []
-        for(let j=0; j<this.slicedPersonList[i-1].length; j++){
-          temp_inner_switch.push(false);
-        }
-        temp_switch.push(temp_inner_switch);
-      }
-      return temp_switch;
+    reloadStepper : function () {
+      let current_step = this.stepNo
+      let temp_step = this.stepNo-1;
+      this.stepNo = temp_step;
+      this.stepNo = current_step;
     }
   }
 }

@@ -55,6 +55,20 @@ public class MovieDao {
 		return rawMovieData;
 	}
 	
+	public List<InteMovieVo> getRelatedMoviesByPersonId(int personId){
+		
+		Criteria criteria = new Criteria("person");
+		Criteria embededCriteria = new Criteria("person_id");
+		embededCriteria.is(personId);
+		criteria.elemMatch(embededCriteria);
+		
+		Query query = new Query().with(new Sort(Sort.Direction.DESC, "open_date"));
+		query.addCriteria(criteria);
+		
+		List<InteMovieVo> relatedMovieList = mongoTemplate.find(query, InteMovieVo.class, "movie_info");
+		return relatedMovieList;
+	}
+	
 	public List<Document> getRelatedMoviesByMovieId(String stringMovieId) {
 	    StringBuilder text = new StringBuilder();
 	    BufferedReader br = null;

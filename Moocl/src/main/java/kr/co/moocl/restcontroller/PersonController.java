@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.moocl.service.PersonService;
+import kr.co.moocl.vo.InteMovieVo;
 
 @RestController
 @RequestMapping("/api")
@@ -20,10 +20,10 @@ public class PersonController {
 	PersonService personSerivce;
 	
 	@RequestMapping(value= "/removie", method=RequestMethod.POST)
-	public List<Document> relatedMovies(@RequestBody Map<String, Object> movieId){
+	public List<InteMovieVo> relatedMovies(@RequestBody Map<String, Object> personId){
 		
-		List<Document> relatedMovies = personSerivce.getRelatedMovies(movieId);
+		List<InteMovieVo> relatedMovieList = personSerivce.getRelatedMovies(personId);
 		
-		return relatedMovies;
+		return relatedMovieList;
 	}
 }

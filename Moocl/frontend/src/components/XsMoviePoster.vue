@@ -1,6 +1,6 @@
 <template lang="html">
  <v-container class="pa-0">
-   <v-card class="ma-0" @mouseenter="showButton" @mouseleave="hideButton" depressed width="126" height="180" img ="../assets/moocl_logo.png">
+   <v-card class="ma-0" @mouseenter="showButton" @mouseleave="hideButton" depressed width="126" height="180" :img ="movieinfo.poster">
      <v-card-media>
        <v-flex xs8></v-flex>   <!-- 하트를 오른쪽 보내기 위한 테그 -->
        <v-flex xs4>
@@ -12,7 +12,9 @@
      </v-card-media>
    </v-card>
    <v-card width="126" flat class="pt-1">
-     <v-card-title v-if="isActor" class="pa-0"> {{ role }}</v-card-title>
+     <v-card-title class="pa-0 ma-0 text-xs-left">
+       <strong>{{ trimTitle }}</strong>
+     </v-card-title>
      <div v-for="score in scores">
        <v-tooltip bottom color="white">
          <v-progress-linear slot="activator" :color="score.color" :value="score.score * 10"></v-progress-linear>
@@ -31,15 +33,18 @@
 export default {
   name : "XsMoviePoster",
   props: ['movieinfo'],
+  beforeMount () {
+    this.setSiteScore()
+  },
   data : function() {
     return{
       showFB : false,
       favorite : false,
       isActor : true,
       scores : {
-        naver : {score: 8.3, color: "green"},
-        daum : {score: 5.7, color: "yellow"},
-        cgv :{score: 7.6, color: "red"}
+        naver : {score: 0, color: "green"},
+        daum : {score: 0, color: "yellow"},
+        cgv :{score: 0, color: "red"}
       },
       role: "주연: 캡틴아메리카"
     }
@@ -50,7 +55,31 @@ export default {
     },
     hideButton : function(e) {
       this.showFB = false;
+    },
+    setSiteScore : function() {
+      let temp_site_scores = this.movieinfo.score;
+      for(var i=0; i<temp_site_scores.length; i++){
+        if(temp_site_scores[i].site == "naver"){
+          this.scores.naver.score = temp_site_scores[i].grade;
+        } else if (temp_site_scores[i].site == "daum"){
+          this.scores.daum.score = temp_site_scores[i].grade;
+        } else {
+          this.scores.cgv.score = temp_site_scores[i].grade;
+        }
+      }
     }
+  },
+  computed : {
+    trimTitle : function() {
+      let temp_title = this.movieinfo.movie_title;
+      let str = "";
+      if( temp_title.length > 8){
+        str = temp_title.slice(0, 9);
+        return str;
+      } else {
+        return temp_title;
+      }
+    },
   }
 }
 </script>

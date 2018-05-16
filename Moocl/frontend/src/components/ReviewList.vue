@@ -2,6 +2,7 @@
 <v-container>
   <v-layout justify-end class="mx-5">
     <v-flex xs2>
+      <!-- 한개의 함수로 바꾸기  -->
       <v-icon  color="red" @click="fillonestar" class="noselect" >{{score > 0  ? "star" : "star_border"}}</v-icon>
       <v-icon  color="red" @click="filltwostar" class="noselect">{{score > 1  ? "star" : "star_border"}}</v-icon>
       <v-icon  color="red" @click="fillthreestar" class="noselect">{{score > 2  ? "star" : "star_border"}}</v-icon>
@@ -11,7 +12,7 @@
     <v-spacer></v-spacer>
     <v-dialog max-width="600px">
       <v-avatar slot="activator" @click="checkLogin"  class="my-0 mr-4 noselect"><v-icon color="light-blue">create</v-icon></v-avatar>
-      <WritingReview v-show="validUser" :movietitle="movietag.movie_title" :movieid="movietag._id"></WritingReview>
+      <WritingReview v-show="validUser" :movietitle="detailinfo.movie_title" :movieid="detailinfo._id"></WritingReview>
       <NeedLogin v-show="!validUser"></NeedLogin>
     </v-dialog>
   </v-layout>
@@ -22,12 +23,11 @@
              <td><strong>{{ props.item.name }}</strong></td>
              <td class="text-xs-left">{{ props.item.review }}</td>
              <td class="text-xs-left">
-               <v-icon color="red" v-for="i in props.item.score" :key="i">star</v-icon></td>
+               <v-icon color="red" v-for="i in props.item.score" :key="i">star</v-icon>
+             </td>
            </template>
          </v-data-table>
-         <div class="text-xs-center pt-2">
-          <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
-        </div>
+          <v-pagination v-model="pagination.page" :length="pages" :total-visible="10" @click="getPage"></v-pagination>
       </v-card>
 
   </v-layout>
@@ -49,7 +49,16 @@ export default {
     WritingReview,
     ReviewDetail,
   },
-  props :["movietag"],
+  created () {
+    this.items = this.$store.state.reviewList;
+    this.pagination.totalItems = this.$store.state.reviewCount;
+  },
+  watch : {
+    pagination () {
+      console.log(this.paginagtion);
+    }
+  },
+  props :["detailinfo"],
   data () {
      return {
        headers: [
@@ -57,18 +66,7 @@ export default {
          { text: '리뷰', value: 'review', sortable: false, align: 'center', width: '600'},
          { text: '평점', value: 'score',align: 'center', width:'200'},
        ],
-       items: [   // computed로 axios통해서 받아오기
-         {name: "jae7415", review:"리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용", score:1},
-         {name: "jae7415", review:"리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용", score:2},
-         {name: "jae7415", review:"리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용", score:4},
-         {name: "jae7415", review:"리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용", score:3},
-         {name: "jae7415", review:"리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용", score:2},
-         {name: "jae7415", review:"리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용", score:2},
-         {name: "jae7415", review:"리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용", score:3},
-         {name: "jae7415", review:"리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용", score:4},
-         {name: "jae7415", review:"리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용", score:3},
-         {name: "jae7415", review:"리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용", score:4},
-       ],
+       items: [],
        score : 0,
        pagination: {},
        selected: [],
@@ -117,6 +115,9 @@ export default {
        } else {
          this.validUser = true;
        }
+     },
+     getPage : function() {
+       console.log(this.pagination);
      }
    },
    computed: {
@@ -126,7 +127,7 @@ export default {
         ) return 0
 
         return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
-      }
+      },
     }
 }
 </script>

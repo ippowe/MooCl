@@ -34,6 +34,8 @@ export default {
       if(this.dialog){
         this.getDetailInfo();
         this.viewNormal();
+        this.getReviewList();
+        this.getReviewCount();
       } else {
         this.normal = false;
         this.detail = false;
@@ -48,7 +50,6 @@ export default {
       detail: false,
       width: false,
       detailInfo: [],
-      relatedMovie: []
     }
   },
   methods : {
@@ -70,23 +71,18 @@ export default {
       })
       .then((result) => {
         this.detailInfo = result.data;
-      }).then(() => {
-        this.$axios.post("/api/removie", {
-            movieId : this.detailInfo._id
-          }).then((result) => {
-          this.relatedMovie = this.slicedMovieList(result.data);
-        }).catch((error) => console.log(error))
-      })
-    .catch((error) => console.log(error))
+        })
+      .catch((error) => console.log(error))
     },
-    slicedMovieList (listForSlice) {
-      var temp_movieList = [];
-      var slice_list =[];
-      for(var i = 1; i<this.row+1; i++){
-        slice_list = listForSlice.slice((i-1)*5, (i*5))
-        temp_movieList.push(slice_list)
-      }
-      return temp_movieList
+    getReviewList () {
+      let movieId = this.movietag.movieId;
+      this.$store.dispatch('GETREVIEW', movieId)
+        .catch((error) => console.log(error));
+      },
+    getReviewCount () {
+      let movieId = this.movietag.movieId;
+      this.$store.dispatch('GETREVIEWCOUNT', movieId)
+        .catch((error) => console.log(error));
     }
   },
   computed : {
@@ -97,11 +93,6 @@ export default {
       } else {
         return this.movietag.movieTitle
       }
-    },
-    row () {
-      let temp_row = 0;
-      temp_row = parseInt(((this.detailInfo.person.length - 1) / 5)) + 1
-      return temp_row
     },
   }
 

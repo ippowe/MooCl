@@ -22,16 +22,16 @@ public class SearchService {
 	private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
 	
 	public List<Map<String, Object>> inteSearchResult(String keyword){
-		logger.info("inteSearchResult : " + keyword);
 		
 		List<InteMovieVo> daoResult = movieDao.getMovieInfoList(keyword);
+		System.out.println(daoResult);
 		
 		List<Map<String, Object>> searchResult = new ArrayList<>();
 		
 		
 		for(int i=0; i<daoResult.size(); i++) {
 			String movieTitle = daoResult.get(i).getMovie_title();
-			String posterUrl = daoResult.get(i).getPoster();
+			Object posterUrl = daoResult.get(i).getPoster();
 //			String movieRate = daoResult.get(i).getMovie_rate(); 영화 등급 가져오기
 			String movieId = daoResult.get(i).get_id();
 			String inteTitle = daoResult.get(i).getInte_title(); // 사이트별 통합을 위해서 띄어쓰기, 특수문자 지운 영화제목

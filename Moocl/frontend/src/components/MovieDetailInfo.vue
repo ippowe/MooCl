@@ -47,9 +47,9 @@
             <ScoreByClass :classscore="classScore"></ScoreByClass>
           </v-flex>
         </v-layout>
-        <PeopleList class="ma-0" :detailinfo="detailinfo" :relatedmovie="relatedmovies"></PeopleList>
+        <PeopleList class="ma-0" :infoswitch="openSwitch" :row="row" :slicedperson="slicedPersonList" :detailinfo="detailinfo" :relatedmovie="relatedmovies"></PeopleList>
         <v-layout justify-center class="white">
-          <ReviewList :movietag="detailinfo"></ReviewList>
+          <ReviewList :detailinfo="detailinfo"></ReviewList>
         </v-layout>
       </div>
 
@@ -126,6 +126,32 @@
           return "영화제목"
         }
       },
+      row () {
+        let temp_row = 0;
+        temp_row = parseInt(((this.detailinfo.person.length - 1) / 5)) + 1
+        return temp_row
+      },
+      openSwitch () {
+        let temp_switch = [];
+        let temp_inner_switch;
+        for(let i=1; i<this.row+1; i++){
+          temp_inner_switch = []
+          for(let j=0; j<this.slicedPersonList[i-1].length; j++){
+            temp_inner_switch.push(false);
+          }
+          temp_switch.push(temp_inner_switch);
+        }
+        return temp_switch;
+      },
+      slicedPersonList () {
+        var temp_personList = [];
+        var slice_list =[];
+        for(var i = 1; i<this.row+1; i++){
+          slice_list = this.detailinfo.person.slice((i-1)*5, (i*5))
+          temp_personList.push(slice_list)
+        }
+        return temp_personList
+      }
     }
   }
 </script>

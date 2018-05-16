@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection ="movie_info")
@@ -25,7 +24,7 @@ public class InteMovieVo {
 	private String genre;
 	private String inte_director;
 	private Object running_time;
-	private String poster;
+	private Object poster;
 	private List<PeopleVo> person;
 	private String watching_rate;
 	
@@ -33,7 +32,7 @@ public class InteMovieVo {
 	public InteMovieVo(String _id, List<Map<String, String>> movie_id, String inte_title, String movie_title,
 			String director, List<Map<String, Object>> review_cnt, List<Map<String, Object>> gender_ratio,
 			List<Map<String, Object>> age, List<Map<String, Object>> score, String nation, String open_date,
-			String genre, String inte_director, Object running_time, String poster, List<PeopleVo> person,
+			String genre, String inte_director, Object running_time, Object poster, List<PeopleVo> person,
 			String watching_rate) {
 		this._id = _id;
 		this.movie_id = movie_id;
@@ -97,7 +96,7 @@ public class InteMovieVo {
 	public Object getRunning_time() {
 		return running_time;
 	}
-	public String getPoster() {
+	public Object getPoster() {
 		return poster;
 	}
 	public List<PeopleVo> getPerson() {
@@ -148,7 +147,7 @@ public class InteMovieVo {
 	public void setRunning_time(Object running_time) {
 		this.running_time = running_time;
 	}
-	public void setPoster(String poster) {
+	public void setPoster(Object poster) {
 		this.poster = poster;
 	}
 	public void setPerson(List<PeopleVo> person) {

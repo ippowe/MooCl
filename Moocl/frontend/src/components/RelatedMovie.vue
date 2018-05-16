@@ -8,8 +8,8 @@
             <v-spacer></v-spacer>
             <v-btn :ripple="false" flat icon depressed @click="prevstep" ><v-icon>navigate_before</v-icon></v-btn>
             <v-spacer></v-spacer>
-            <v-flex v-for="i in slicedMovieList[n-1]" :key ="i" color="white">
-                <XsMoviePoster :movieinfo="i"></XsMoviePoster>
+            <v-flex v-for="(movieinfo, index) in slicedMovieList[n-1]" :key ="index" color="white">
+                <XsMoviePoster :movieinfo="movieinfo"></XsMoviePoster>
             </v-flex>
             <v-btn :ripple="false" flat icon depressed @click="nextstep"> <v-icon>navigate_next</v-icon></v-btn>
             <v-spacer></v-spacer>
@@ -29,17 +29,19 @@ export default {
   components: {
     XsMoviePoster
   },
-  props : ['movieInfo'],
+  updated () {
+    this.$emit('getAvgGrade');
+  },
+  props : ['movieinfo'],
   data : function() {
     return {
       stepNo : 1,   // Stepper를 위한 변수
-      movieList :["어벤져스", "메이즈러너", "인피니티워","데스큐어", "아이언맨","로건"]
     }
   },
   computed : {
     length () {
       var temp_length = 0;
-      temp_length = parseInt((this.movieInfo.length - 1) / 5)
+      temp_length = parseInt((this.movieinfo.length - 1) / 5)
       temp_length = temp_length + 1
       return temp_length
     },
@@ -47,7 +49,7 @@ export default {
       var temp_movieList = [];
       var slice_list =[];
       for(var i = 1; i<this.length+1; i++){
-        slice_list = this.movieInfo.slice((i-1)*5, (i*5))
+        slice_list = this.movieinfo.slice((i-1)*5, (i*5))
         temp_movieList.push(slice_list)
       }
       return temp_movieList
@@ -55,7 +57,6 @@ export default {
   },
   methods : {
     nextstep : function() {
-      console.log(this.stepNo)
       if (this.stepNo != this.length){
         this.stepNo = ++this.stepNo;
       } else {
@@ -63,7 +64,6 @@ export default {
       }
     },
     prevstep : function() {
-      console.log(this.stepNo)
       if(this.stepNo != 1){
         this.stepNo = --this.stepNo;
       } else {
