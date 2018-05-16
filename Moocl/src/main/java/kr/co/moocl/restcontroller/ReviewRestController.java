@@ -33,7 +33,7 @@ public class ReviewRestController {
 		long reviewCount = reviewService.getReviewCount(movieId);
 		System.out.println(reviewCount);
 		return reviewCount;
-	}
+	} 
 	
 	@RequestMapping("/reviewtest")
 	public List<ReviewVo> testReview(){
