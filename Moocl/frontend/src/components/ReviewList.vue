@@ -21,7 +21,15 @@
         <v-data-table light :headers="headers" :items="movieItems" :total-items="totalItems" hide-actions class="elevation-1 transparent" :pagination.sync="pagination">
            <template slot="items" slot-scope="props">
              <td><strong>{{ props.item.name }}</strong></td>
-             <td class="text-xs-left">{{ props.item.review }}</td>
+             <td class="text-xs-left">
+               {{ props.item.slicedReview ? props.item.slicedReview : props.item.review }}
+               <v-dialog :max-width="800" v-if="props.item.readMore">
+                 <span slot="activator" class="noselect">
+                   <strong>더보기</strong>
+                 </span>
+                 <ReviewDetail :movieinfo="detailinfo" :reviewcontent="props.item"></ReviewDetail>
+               </v-dialog>
+             </td>
              <td class="text-xs-left">
                <v-icon color="red" v-for="i in props.item.score" :key="i">star</v-icon>
              </td>
@@ -55,6 +63,7 @@ export default {
     pagination : {
       handler () {
         this.getReviewList();
+        console.log(this.$store.state.reviewList);
       },
       deep : true
     },
@@ -105,13 +114,28 @@ export default {
 
        this.$store.dispatch("GETREVIEW", parameters)
        .then((response) => {
-         let temp_reviewList= this.$store.state.reviewList
-           this.movieItems = temp_reviewList;
+         let temp_reviewList= this.$store.state.reviewList;
+         let str = "";
+
+         for(var i=0; i<temp_reviewList.length; i++){
+           temp_reviewList[i]["readMore"] = false;
+
+           let temp_review = temp_reviewList[i].review;
+           temp_review = temp_review.replace(' ', '');
+
+           if(temp_review.length > 100){
+             str = "";
+             str += temp_reviewList[i].review.slice(0,85);
+             str += "...";
+             temp_reviewList[i]["slicedReview"] = str;
+             temp_reviewList[i].readMore = true;
+           }
+         }
+         this.movieItems = temp_reviewList;
        })
      },
      refreshScore : function() {
        this.score = -1;
-
        this.getReviewList();
      }
    },

@@ -37,13 +37,22 @@ export default new Vuex.Store({
     },
     SETREVIEW (state, temp_list) {
       state.reviewList = [];
-      let name ="";
-      let review = "";
-      let score = 0;
       let temp_review_object ={};
+
       for(var i=0; i<temp_list.length; i++){
+        let temp_name = "";
+        if(temp_list[i].site == "daum"){
+          temp_name = temp_list[i].user_id.slice(7, 10);
+          temp_name = temp_name + "***";
+        } else if (temp_list[i].site = "cgv"){
+          temp_name = temp_list[i].user_id.slice(0,3);
+          temp_name = temp_name + "***";
+        } else {
+          temp_name = temp_list[i].user_id;
+        }
+
         temp_review_object = {
-            name: temp_list[i].user_id,
+            name: temp_name,
             review: temp_list[i].review_contents,
             score: Math.ceil(temp_list[i].user_grade / 2)
         }

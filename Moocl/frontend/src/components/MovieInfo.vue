@@ -34,7 +34,6 @@ export default {
       if(this.dialog){
         this.getDetailInfo();
         this.viewNormal();
-        // this.getReviewList();
         this.getReviewCount();
       } else {
         this.normal = false;
