@@ -50,10 +50,11 @@ public class ReviewDao {
 	}
 	
 	public long getReviewCount(String movieId) {
-// 		db.getCollection('review').find({"_id.movie_ref.$id" : movieId}).count()
+// 		db.review.find({ "_id.movie_ref.$id" : movieId, review_contents : {$ne : ""}}, {"_id" : 0}).count()
 
 		Criteria criteria = new Criteria("_id.movie_ref.$id");
 		criteria.is(movieId);
+		criteria.and("review_contents").ne("");
 		
 		Query query = new Query(criteria);
 		
@@ -64,5 +65,26 @@ public class ReviewDao {
 		
 	public List<ReviewVo> testDao() {
 		return null;
+	}
+
+	public List<ReviewVo> findByIdPageScore(String movieId, int pageNo, List<Integer> scores) {
+//		db.review.find({ "_id.movie_ref.$id" : "movieId", "user_grade" : score, review_contents : {$ne : ""}}
+//		, {"_id" : 0}).skip((pageNo-1)*5).limit(5).sort({"reg_date" : -1})		
+		
+		Criteria criteria = new Criteria("_id.movie_ref.$id");
+		criteria.is(movieId);
+		criteria.and("user_grade").in(scores);
+		criteria.and("review_contents").ne("");
+		
+		Query query = new Query(criteria);
+		query.skip((pageNo-1) * 5);
+		query.limit(5);
+		query.with(new Sort(Sort.Direction.DESC, "reg_date"));
+		query.fields().exclude("_id");
+		
+		List<ReviewVo> reviewList = mongoTemplate.find(query, ReviewVo.class, "review");
+		
+		System.out.println(reviewList);
+		return reviewList;
 	}
 }

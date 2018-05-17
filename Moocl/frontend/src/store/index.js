@@ -45,7 +45,7 @@ export default new Vuex.Store({
         temp_review_object = {
             name: temp_list[i].user_id,
             review: temp_list[i].review_contents,
-            score: temp_list[i].user_grade
+            score: Math.ceil(temp_list[i].user_grade / 2)
         }
         state.reviewList.push(temp_review_object);
       }
@@ -67,11 +67,12 @@ export default new Vuex.Store({
       axios.defaults.headers.common['Authorization'] = undefined
       commit('LOGOUT')
     },
-    GETREVIEW ({commit}, movieId) {
-      axios.get("/api/reviewlist", {
+    GETREVIEW ({commit}, parameters) {
+      return axios.get("/api/reviewlist", {
         params : {
-          movieId : movieId,
-          pageNo : 1
+          movieId : parameters.movieId,
+          pageNo : parameters.pageNo,
+          score : parameters.score,
         }
       })
       .then((result) => {

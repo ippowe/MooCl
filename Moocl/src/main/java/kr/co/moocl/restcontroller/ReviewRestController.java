@@ -1,6 +1,7 @@
 package kr.co.moocl.restcontroller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,17 +22,21 @@ public class ReviewRestController {
 
 	@RequestMapping("/reviewlist")
 	public List<ReviewVo> getReviewList(HttpServletRequest request){
+		
 		String movieId = request.getParameter("movieId");
 		int page = Integer.parseInt(request.getParameter("pageNo"));
+		int score = Integer.parseInt(request.getParameter("score"));
 		
-		List<ReviewVo> reviewList = reviewService.getReviewList(movieId, page);
+		List<ReviewVo> reviewList = reviewService.getReviewList(movieId, page, score);
+		
 		return reviewList;
 	}
 	
 	@RequestMapping("/reviewcount")
-	public long CountingReview(@RequestParam("movieId") String movieId) {
-		long reviewCount = reviewService.getReviewCount(movieId);
-		System.out.println(reviewCount);
+	public int CountingReview(@RequestParam("movieId") String movieId) {
+		
+		int reviewCount = reviewService.getReviewCount(movieId);
+		
 		return reviewCount;
 	} 
 	

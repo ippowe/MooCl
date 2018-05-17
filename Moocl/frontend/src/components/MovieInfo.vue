@@ -34,7 +34,7 @@ export default {
       if(this.dialog){
         this.getDetailInfo();
         this.viewNormal();
-        this.getReviewList();
+        // this.getReviewList();
         this.getReviewCount();
       } else {
         this.normal = false;
@@ -74,11 +74,15 @@ export default {
         })
       .catch((error) => console.log(error))
     },
-    getReviewList () {
-      let movieId = this.movietag.movieId;
-      this.$store.dispatch('GETREVIEW', movieId)
-        .catch((error) => console.log(error));
-      },
+    // getReviewList () {
+    //   let pageNo = 1;
+    //   let movieId = this.movietag.movieId;
+    //   let score = -1;
+    //   let parameters = {movieId, pageNo, score};
+    //
+    //   this.$store.dispatch('GETREVIEW', parameters)
+    //     .catch((error) => console.log(error));
+    //   },
     getReviewCount () {
       let movieId = this.movietag.movieId;
       this.$store.dispatch('GETREVIEWCOUNT', movieId)
