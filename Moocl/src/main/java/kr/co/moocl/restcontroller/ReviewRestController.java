@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.moocl.service.ReviewService;
 import kr.co.moocl.vo.ReviewVo;
+import kr.co.shineware.util.common.model.Pair;
 
 @RestController
 @RequestMapping("/api")
@@ -43,6 +44,12 @@ public class ReviewRestController {
 	@RequestMapping("/reviewtest")
 	public List<ReviewVo> testReview(){
 		return reviewService.testService();
+	}
+	
+	@RequestMapping("/reviewtest1")
+	public List<List<Pair<String,String>>> testReview1(){
+		System.out.println("hi");
+		return reviewService.applyKomoran("슈퍼액션에서 하고있는데 진짜 재밌어요");
 	}
 	
 	

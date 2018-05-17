@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import kr.co.moocl.dao.ReviewDao;
 import kr.co.moocl.vo.ReviewVo;
+import kr.co.shineware.nlp.komoran.core.analyzer.Komoran;
+import kr.co.shineware.util.common.model.Pair;
 
 @Service
 public class ReviewService {
@@ -47,4 +49,19 @@ public class ReviewService {
 	public List<ReviewVo> testService() {
 		return reviewDao.testDao();
 	}
+	
+	public List<List<Pair<String,String>>> applyKomoran(String review) {
+		Komoran komoran = new Komoran("src/main/resources/komoran/models-full");
+		List<List<Pair<String,String>>> result = komoran.analyze(review);
+		
+		for (List<Pair<String, String>> eojeolResult : result) {
+		for (Pair<String, String> wordMorph : eojeolResult) {
+		System.out.println(wordMorph);
+		}
+		System.out.println();
+		}
+		return result;
+	}
+	
+	
 }
