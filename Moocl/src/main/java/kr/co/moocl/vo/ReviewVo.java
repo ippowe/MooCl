@@ -1,5 +1,6 @@
 package kr.co.moocl.vo;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.annotation.Id;
@@ -16,6 +17,7 @@ public class ReviewVo {
 	private String review_contents;
 	private String reg_date;
 	private int user_grade;
+	private List<List<String>> pos_analyze;
 	
 	public ReviewVo(Map<String, Object> _id, String movie_id, String site, String user_id, String review_contents,
 			String reg_date, int user_grade) {
@@ -86,12 +88,21 @@ public class ReviewVo {
 	public void setUser_grade(int user_grade) {
 		this.user_grade = user_grade;
 	}
+	
+	public List<List<String>> getPos_analyze() {
+		return pos_analyze;
+	}
+
+	public void setPos_analyze(List<List<String>> pos_analyze) {
+		this.pos_analyze = pos_analyze;
+	}
 
 	@Override
 	public String toString() {
 		return "ReviewVo [_id=" + _id + ", movie_id=" + movie_id + ", site=" + site + ", user_id=" + user_id
 				+ ", review_contents=" + review_contents + ", reg_date=" + reg_date + ", user_grade=" + user_grade
-				+ "]";
+				+ ", pos_analyze=" + pos_analyze + "]";
 	}
+
 	
 }
