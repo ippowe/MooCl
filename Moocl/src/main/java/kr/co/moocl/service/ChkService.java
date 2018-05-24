@@ -16,54 +16,56 @@ public class ChkService {
 			global_index = idx;
 			return;
 		} else {
-			if (wordList.get(idx)[1].equals("NNG") || wordList.get(idx)[1].equals("NNP")) {
+			if (wordList.get(idx)[1].equals("NNG") || wordList.get(idx)[1].equals("NNP")|| wordList.get(idx)[1].equals("NNB") ) {
 				if (idx + 1 < wordList.size()
-						&& (wordList.get(idx + 1)[1].equals("NNG") || wordList.get(idx + 1)[1].equals("NNP"))) {
+						&& (wordList.get(idx + 1)[1].equals("NNG") || wordList.get(idx + 1)[1].equals("NNP")|| wordList.get(idx+1)[1].equals("NNB") )) {
 					conList.add(wordList.get(idx + 1));
 //					finalList.add(conList.stream().collect(Collectors.toList()));
-					finalList.add(word_marking_function(conList.stream().collect(Collectors.toList())));
+					finalList.add(wordMarkingFunction(conList.stream().collect(Collectors.toList())));
 
 					chk(wordList, idx + 1, conList, finalList);
 				} else if (idx + 1 < wordList.size() && wordList.get(idx + 1)[1].equals("JKG")) {
 
 					if (idx + 2 < wordList.size()
-							&& (wordList.get(idx + 2)[1].equals("NNG") || wordList.get(idx + 2)[1].equals("NNP"))) {
+							&& (wordList.get(idx + 2)[1].equals("NNG") || wordList.get(idx + 2)[1].equals("NNP")|| wordList.get(idx+2)[1].equals("NNB") )) {
 						conList.add(wordList.get(idx + 1));
 						conList.add(wordList.get(idx + 2));
 //						finalList.add(conList.stream().collect(Collectors.toList()));
-						finalList.add(word_marking_function(conList.stream().collect(Collectors.toList())));
+						finalList.add(wordMarkingFunction(conList.stream().collect(Collectors.toList())));
 
 						chk(wordList, idx + 2, conList, finalList);
 					}
 
+				}else if (idx + 1 < wordList.size()
+						&& (wordList.get(idx + 1)[1].equals("VA"))) {
+					conList.add(wordList.get(idx + 1));
+					finalList.add(wordMarkingFunction(conList.stream().collect(Collectors.toList())));
 				}
 
 			} else if (wordList.get(idx)[1].equals("VA")) {
 				if (idx + 1 < wordList.size()
-						&& (wordList.get(idx + 1)[1].equals("NNG") || wordList.get(idx + 1)[1].equals("NNP"))) {
+						&& (wordList.get(idx + 1)[1].equals("NNG") || wordList.get(idx + 1)[1].equals("NNP")|| wordList.get(idx+1)[1].equals("NNB") )) {
 					conList.add(wordList.get(idx + 1));
-//					finalList.add(conList.stream().collect(Collectors.toList()));
-					finalList.add(word_marking_function(conList.stream().collect(Collectors.toList())));
+					finalList.add(wordMarkingFunction(conList.stream().collect(Collectors.toList())));
 					chk(wordList, idx + 1, conList, finalList);
 
 					if (idx + 2 < wordList.size() && wordList.get(idx + 2)[1].equals("MAG")) {
 						conList.add(wordList.get(idx + 2));
-//						finalList.add(conList.stream().collect(Collectors.toList()));
-						finalList.add(word_marking_function(conList.stream().collect(Collectors.toList())));
+						finalList.add(wordMarkingFunction(conList.stream().collect(Collectors.toList())));
 						chk(wordList, idx + 2, conList, finalList);
 					}
-				} else if (idx + 1 < wordList.size()
-						&& (wordList.get(idx + 1)[1].equals("EC") || wordList.get(idx + 1)[1].equals("ET"))) {
-					conList.add(wordList.get(idx + 1));
-//					finalList.add(conList.stream().collect(Collectors.toList()));
-					finalList.add(word_marking_function(conList.stream().collect(Collectors.toList())));
-					chk(wordList, idx + 1, conList, finalList);
-				} else if (idx + 2 < wordList.size() && wordList.get(idx + 1)[1].equals("ETM")
-						&& (wordList.get(idx + 2)[1].equals("NNG") || wordList.get(idx + 2)[1].equals("NNP"))) {
+				} 
+//				else if (idx + 1 < wordList.size()
+//						&& (wordList.get(idx + 1)[1].equals("EC"))) {
+//					conList.add(wordList.get(idx + 1));
+//					finalList.add(wordMarkingFunction(conList.stream().collect(Collectors.toList())));
+//					chk(wordList, idx + 1, conList, finalList);
+//				} 
+				else if (idx + 2 < wordList.size() && wordList.get(idx + 1)[1].equals("ETM")
+						&& (wordList.get(idx + 2)[1].equals("NNG") || wordList.get(idx + 2)[1].equals("NNP")|| wordList.get(idx+2)[1].equals("NNB") )) {
 					conList.add(wordList.get(idx + 1));
 					conList.add(wordList.get(idx + 2));
-//					finalList.add(conList.stream().collect(Collectors.toList()));
-					finalList.add(word_marking_function(conList.stream().collect(Collectors.toList())));
+					finalList.add(wordMarkingFunction(conList.stream().collect(Collectors.toList())));
 					chk(wordList, idx + 2, conList, finalList);
 				}
 
@@ -71,19 +73,17 @@ public class ChkService {
 				if (idx + 1 < wordList.size()
 						&& (wordList.get(idx + 1)[1].equals("VA") || wordList.get(idx + 1)[1].equals("XR"))) {
 					conList.add(wordList.get(idx + 1));
-//					finalList.add(conList.stream().collect(Collectors.toList()));
-					finalList.add(word_marking_function(conList.stream().collect(Collectors.toList())));
+					finalList.add(wordMarkingFunction(conList.stream().collect(Collectors.toList())));
 					chk(wordList, idx + 1, conList, finalList);
 				}
 			} else if (wordList.get(idx)[1].equals("XR")) {
 				if (idx + 3 < wordList.size() && wordList.get(idx + 1)[1].equals("XSA")
 						&& wordList.get(idx + 2)[1].equals("ETM")
-						&& (wordList.get(idx + 3)[1].equals("NNG") || wordList.get(idx + 3)[1].equals("NNP"))) {
+						&& (wordList.get(idx + 3)[1].equals("NNG") || wordList.get(idx + 3)[1].equals("NNP")|| wordList.get(idx+3)[1].equals("NNB") )) {
 					conList.add(wordList.get(idx + 1));
 					conList.add(wordList.get(idx + 2));
 					conList.add(wordList.get(idx + 3));
-//					finalList.add(conList.stream().collect(Collectors.toList()));
-					finalList.add(word_marking_function(conList.stream().collect(Collectors.toList())));
+					finalList.add(wordMarkingFunction(conList.stream().collect(Collectors.toList())));
 					chk(wordList, idx + 3, conList, finalList);
 				}
 			}
@@ -92,12 +92,13 @@ public class ChkService {
 
 	public void pickup(List<String[]> wordList, List<String> finalList) {
 		for (String[] word : wordList) {
-			if (word[1].equals("NNG") || word[1].equals("NNP") || word[1].equals("NNB") || word[1].equals("VA")
+			if (word[1].equals("NNG") || word[1].equals("NNP") 
 					|| word[1].equals("NA") || word[1].equals("NF") || word[1].equals("NV")|| word[1].equals("IC")) {
-//				List<String[]> tempList = new LinkedList<>();
-//				tempList.add(word);
 				finalList.add(word[0]);
+			}else if(word[1].equals("VA")) {
+				finalList.add(vaChange(word)[0]);
 			}
+			
 		}
 	}
 
@@ -172,8 +173,33 @@ public class ChkService {
 		return result;
 
 	}
+	
+	public String[] vaChange(String[] va) {
+		List<Character> splitWord = fml(va[0]);
+		//true : 음
+		//false : 움
+		boolean chk = true;
+		if(splitWord.get(splitWord.size()-1)==' ') {
+			splitWord.set(splitWord.size()-1, 'ㅁ');
+			
+		}else if(splitWord.get(splitWord.size()-1)=='ㅂ') {
+			splitWord.set(splitWord.size()-1, ' ');
+			chk= false;
+		}
+		String temp = "";
+		for(int j = 0 ; j < splitWord.size()/3; j ++) {
+			temp += makeChar(splitWord.get(j*3),splitWord.get(j*3+1),splitWord.get(j*3+2));
+		}
+		if(chk) {
+			temp+="음";
+		}else {
+			temp+="움";
+		}
+		va[0] = temp;
+		return va;
+	}
 
-	public String word_marking_function(List<String[]> wordList) {
+	public String wordMarkingFunction(List<String[]> wordList) {
 		String finalWord = "";
 		List<String> result = new LinkedList<>();
 		int i = 0;
@@ -188,7 +214,6 @@ public class ChkService {
 					String[] o = {"운","GURUMI"};
 					wordList.set(i,o);
 				}
-				
 				String temp = "";
 				for(int j = 0 ; j < splitWord.size()/3; j ++) {
 					temp += makeChar(splitWord.get(j*3),splitWord.get(j*3+1),splitWord.get(j*3+2));
@@ -196,6 +221,13 @@ public class ChkService {
 				String[] gurumiWord = {temp,"GURUMI"};
 				wordList.set(i-1,gurumiWord);
 			} 
+			
+			if(i == wordList.size()-1 && wordList.get(i)[1].equals("VA")) {
+				System.out.println(wordList.get(i)[0]);
+				System.out.println(wordList.get(i)[1]);
+				wordList.set(i,vaChange(wordList.get(i).clone()));
+			}
+			
 			i++;
 		}
 		
@@ -203,7 +235,5 @@ public class ChkService {
 			finalWord += word[0];
 		}
 		return finalWord;
-
 	}
-
 }
