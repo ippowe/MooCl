@@ -90,13 +90,38 @@ public class ReviewService {
 				pos[1] = wordMorph.getSecond();
 				pos_analyze.add(pos);
 			}
-			System.out.println();
 		}
-		for(String[] a : pos_analyze) {
-			System.out.println(a[0]);
-			System.out.println(a[1]);
-		}
+//		for(String[] a : pos_analyze) {
+//			System.out.println(a[0]);
+//			System.out.println(a[1]);
+//		}
 		reviewDao.updatePosReview(commonId,userId,pos_analyze);
+		//chk 선언
+		ChkService chkService = new ChkService();
+		//파라미터 선언(초기화)
+		List<String[]> conList = new LinkedList<>();
+//		List<List<String[]>> finalList = new LinkedList<>();
+		List<String> finalList = new LinkedList<>();
+		
+		int i = 0 ;
+		while (i < pos_analyze.size()) {			
+			// 조합 결과값 선언
+			conList = new LinkedList<>();
+			conList.add(pos_analyze.get(i));
+			chkService.chk(pos_analyze, i, conList, finalList);
+			i++;
+		}
+		chkService.pickup(pos_analyze, finalList);
+//		for(List<String []> a : finalList) {
+//			for(String [] b :a) {
+//				System.out.print(" "+b[0]+" "+b[1]);
+//			}
+//			chkService.word_marking_function(a);
+//			System.out.println();
+//		}
+		for(String a : finalList) {
+			System.out.println(a);
+		}
 		
 		return pos_analyze;
 	}
