@@ -34,7 +34,7 @@ public class MovieDao {
 			
 		Query query = new Query().with(new Sort(Sort.Direction.DESC, "open_date"));
 		
-		query.limit(12);  //12개씩 불러오고 스크롤 내리면 더불러오게 나중에 코딩
+		query.limit(10);  //10개씩 불러오고 스크롤 내리면 더불러오게 나중에 코딩
 		
 		query.addCriteria(Criteria.where("inte_title").regex(keyword));
 		

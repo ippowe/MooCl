@@ -33,11 +33,12 @@ public class ReviewRestController {
 	}
 	
 	@RequestMapping("/reviewcount")
-	public int CountingReview(@RequestParam("movieId") String movieId) {
+	public Object CountingReview(HttpServletRequest request) {
 		
-		int reviewCount = reviewService.getReviewCount(movieId);
-		
-		return reviewCount;
+		String movieId = request.getParameter("movieId");
+		Map<String, Integer> reviewCounts = reviewService.getReviewCount(movieId);
+			
+		return reviewCounts;
 	} 
 	
 	@RequestMapping("/reviewtest")

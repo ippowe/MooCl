@@ -10,7 +10,7 @@
     <tr>
       <v-flex style="float: right;" class="mr-5 mb-5">
           <v-btn block @click.native="deleteList" large :ripple="false" class="elevation-3 mr-5" outline>삭제</v-btn>
-          <v-snackbar v-model="askDelete" vertical="true" v-if =" selected.length > 0" class="title">
+          <v-snackbar v-model="askDelete" :vertical="true" v-if =" selected.length > 0" class="title">
               {{ selected.length }} 개의 리스트를 삭제하시겠습니까?
               <v-layout>
                 <v-flex>

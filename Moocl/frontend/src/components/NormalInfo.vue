@@ -28,7 +28,9 @@
       </v-flex>
       <v-spacer></v-spacer>
       <v-flex class="mr-3 mb-3">
-        <WordCloud :moviename="movietag.movieId == undefined ? '영화제목' : movietag.movieId"></WordCloud>
+        <WordCloud :moviename="movietag.movieId == undefined ? '영화제목' : movietag.movieId"
+                    cloudstring=""
+        ></WordCloud>
       </v-flex>
     </v-layout>
   </div>
@@ -83,6 +85,14 @@ export default {
         return this.movietag.movieTitle
       }
     },
+    heart : function () {
+      let movieChecker = this.$state.favMovieList.indexOf(this.movieid);
+      if (movieChecker != -1 ){
+        return true;
+      } else {
+        return false;
+      }
+    }
   }
 
 }

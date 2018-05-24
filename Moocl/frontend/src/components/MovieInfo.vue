@@ -1,7 +1,7 @@
 <template lang="html">
   <!-- 영화 제목에 따른 알맞은 정보(포스터, 제목, 평점, 감독, 배우들, 워드 클라우드, 개봉일, 관객수, 좋아요 목록 추가 여부) 불러오기 -->
   <v-dialog :max-width="width ? 1200 : 800" v-model="dialog">
-    <BigMoviePoster :movietitle="trimTitle" slot="activator" :posterUrl="movietag.posterUrl"></BigMoviePoster>
+    <BigMoviePoster :movietitle="trimTitle" :movieid="movietag.movieId" slot="activator" :posterUrl="movietag.posterUrl"></BigMoviePoster>
     <NormalInfo v-if="normal" :movietag="movietag" v-on:viewdetail="changeInfo"></NormalInfo>
     <MovieDetailInfo v-else-if="detail" :detailinfo="detailInfo" :relatedmovies="relatedMovie"></MovieDetailInfo>
   </v-dialog>
@@ -28,7 +28,6 @@ export default {
     NormalInfo,
     MovieDetailInfo
   },
-
   watch : {
     dialog: function (val) {
       if(this.dialog){
@@ -40,7 +39,7 @@ export default {
         this.detail = false;
         this.width = false;
       }
-    }
+    },
   },
   data : function() {
     return {
@@ -73,20 +72,12 @@ export default {
         })
       .catch((error) => console.log(error))
     },
-    // getReviewList () {
-    //   let pageNo = 1;
-    //   let movieId = this.movietag.movieId;
-    //   let score = -1;
-    //   let parameters = {movieId, pageNo, score};
-    //
-    //   this.$store.dispatch('GETREVIEW', parameters)
-    //     .catch((error) => console.log(error));
-    //   },
     getReviewCount () {
       let movieId = this.movietag.movieId;
+
       this.$store.dispatch('GETREVIEWCOUNT', movieId)
-        .catch((error) => console.log(error));
-    }
+      .catch((error) => console.log(error));
+    },
   },
   computed : {
     trimTitle () {

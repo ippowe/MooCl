@@ -15,7 +15,10 @@ export default new Vuex.Store({
   state: {
     accessToken: null,
     reviewList: [],
-    reviewCount: 0,
+    reviewCount: {},
+    favMovieList: [],
+    favPersonList: [],
+    myReviewList: [],
   },
   getters: {
     isAuthenticated (state) {
@@ -61,6 +64,11 @@ export default new Vuex.Store({
     },
     SETREVIEWCOUNT (state, temp_count){
       state.reviewCount = temp_count;
+    },
+    SETINFOLIST(state, temp_object){
+      state.favMovieList= temp_object//영화리스트;
+      state.favPersonList= temp_object//인물리스트;
+      state.myReviewList= temp_object//내리뷰리스트;
     }
   },
   actions: {
@@ -101,6 +109,13 @@ export default new Vuex.Store({
         let temp_count = result.data;
         commit('SETREVIEWCOUNT', temp_count);
         return temp_count;
+      })
+    },
+    GETINFOLIST ({commit}, user_no){
+      axios.post("/api/url", user_no)
+      .then((result) => {
+        let temp_object = result.data;
+        commit('SETINFOLIST', temp_object);
       })
     }
   }

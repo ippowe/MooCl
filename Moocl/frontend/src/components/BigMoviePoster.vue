@@ -17,8 +17,8 @@
             </strong>
             <v-spacer></v-spacer>
             <v-avatar class="mr-1">
-              <v-btn flat icon @click="el = !el">
-                  <v-icon color="red accent-3">{{el ? "favorite" : "favorite_border"}}</v-icon>
+              <v-btn flat icon @click="putMovieList">
+                  <v-icon color="red accent-3">{{heart ? "favorite" : "favorite_border"}}</v-icon>
               </v-btn>
             </v-avatar>
           </v-toolbar>
@@ -30,17 +30,41 @@
 
 <script>
 export default {
-  props: ['movietitle', 'posterUrl'],
+  props: ['movietitle', 'posterUrl', 'movieid'],
   name: 'MovieCard',
   data: function() {
     return {
-      el: false
+      heart: false
     }
   },
   methods : {
     viewNormalInfo : function() {
       console.log("viewNormalInfo");
       this.$emit("viewNormalInfo");
+    },
+    putMovieList : function () {
+      if(sessionStorage.token){
+        //로그인 함
+        this.heart = !this.heart
+        if(this.heart) {
+          //좋아요 추가 요청
+          if(this.$state.favMovieList.indexOf(this.movieid) == -1){
+            //좋아요 목록에 없을 떄
+            console.log(this.movieid);
+            console.log(sessionStorage.userNo);
+          }
+        } else {
+          // 좋아요 삭제 요청
+          if(this.$state.favMovieList.indexOf(this.movieid) != -1){
+            //좋아요 목록에 있을 떄
+            console.log(this.movieid);
+            console.log(sessionStorage.userNo);
+          }
+        }
+      } else {
+        //로그인 안함
+        alert("로그인이 필요합니다.");
+      }
     }
   },
   computed : {
@@ -48,9 +72,17 @@ export default {
       if(this.posterUrl == null || this.posterUrl == "https://ssl.pstatic.net/static/movie/2012/06/dft_img203x290.png") {
         return "http://dytk.co.kr/twb_images/no.jpg";   //로컬파일에서 이미지 가져올 수 있게 코딩 필요
       } else {
-        return this.posterUrl
+        return this.posterUrl;
       }
     },
+    heart : function () {
+      let movieChecker = this.$state.favMovieList.indexOf(this.movieid);
+      if (movieChecker != -1 ){
+        return true;
+      } else {
+        return false;
+      }
+    }
   }
 }
 </script>

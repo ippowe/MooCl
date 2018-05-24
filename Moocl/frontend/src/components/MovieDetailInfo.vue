@@ -41,7 +41,7 @@
                 </tr>
               </table>
             </div> -->
-            <WordCloud :moviename="detailinfo.inte_title"></WordCloud>
+            <WordCloud :moviename="detailinfo.inte_title" cloudstring=""></WordCloud>
           </v-flex>
           <v-flex> <!--나이/ 연령별 평점  -->
             <ScoreByClass :classscore="classScore"></ScoreByClass>

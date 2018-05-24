@@ -1,4 +1,4 @@
-<template lang="html">
+  <template lang="html">
   <v-stepper v-model="stepNo" class="elevation-0" style="height: 250px">
     <v-stepper-items style="height: 250px">
       <v-stepper-content v-for="n in row" :key="n" :step="n" class="pa-0" style="height: 250px">
@@ -11,7 +11,6 @@
               <PersonCard :person="item" @openPersonInfo="openPersonInfo(n, index, item)"></PersonCard>
               <PersonInfo :person="item" :relatedmovie="relatedMovie" v-if="infoswitch[n-1][index]"
                           :dialog="dialog" @closePersonInfo="closePersonInfo(n, index)"></PersonInfo>
-
             </v-flex>
             <v-spacer></v-spacer>
             <v-btn :ripple="false" flat icon depressed @click="nextstep"> <v-icon>skip_next</v-icon></v-btn>

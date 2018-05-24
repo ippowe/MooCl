@@ -40,19 +40,23 @@ export default {
      }),
   methods: {
     submit () {
-      var email = this.email
-      var password = this.password
+      var email = this.email;
+      var password = this.password;
       this.$store.dispatch('LOGIN', {email, password})  //vuex의 LOGIN actions 실행
         .then((response) => {
-          console.log(response)
           if(response.token){
-            this.$router.push('/main')
-
+            this.getInfoList();
+            this.$router.push('/main');
           } else {
-            this.msg = "아이디 또는 비밀번호가 틀렸습니다."
+            this.msg = "아이디 또는 비밀번호가 틀렸습니다.";
           }
         })
         .catch(({message}) => console.log(message))
+    },
+    getInfoList () {
+      let user_no = sessionStorage.userNo;
+      this.$store.dispatch('GETINFOLIST', user_no)
+      .catch((message) => console.log(message))
     }
   }
 }

@@ -23,10 +23,10 @@
              <td><strong>{{ props.item.name }}</strong></td>
              <td class="text-xs-left">
                {{ props.item.slicedReview ? props.item.slicedReview : props.item.review }}
-               <v-dialog :max-width="800" v-if="props.item.readMore">
-                 <span slot="activator" class="noselect">
+                 <span @click="dialog = true" class="noselect" v-if="props.item.readMore">
                    <strong>더보기</strong>
                  </span>
+              <v-dialog :max-width="800" v-model='dialog' v-if="props.item.readMore">
                  <ReviewDetail :movieinfo="detailinfo" :reviewcontent="props.item"></ReviewDetail>
                </v-dialog>
              </td>
@@ -57,21 +57,29 @@ export default {
     ReviewDetail,
   },
   created () {
-    this.totalItems = this.$store.state.reviewCount;
+    this.totalItems = this.$store.state.reviewCount.total;
   },
   watch : {
     pagination : {
       handler () {
         this.getReviewList();
-        console.log(this.$store.state.reviewList);
       },
-      deep : true
+      deep : true  //pagination 객체 안에 있는 요소들의 변경을 확인 해줌
     },
     score : {
       handler () {
+        if(this.score > 0){
+          var prev_score = 2*this.score-1;
+          var next_score = 2*this.score;
+          this.pagination.totalItems = this.$store.state.reviewCount[prev_score] + this.$store.state.reviewCount[next_score];
+        } else if( this.score == -1){
+          this.pagination.totalItems = this.$store.state.reviewCount["total"];
+        } else {
+          this.pagination.totalItems = this.$store.state.reviewCount[0];
+        }
         this.getReviewList();
       }
-    }
+    },
   },
   props :["detailinfo"],
   data () {
@@ -89,6 +97,7 @@ export default {
        validUser: false,
        rawReviewList: [],
        pageNo: 0,
+       dialog: false,
      }
    },
    methods :{
@@ -137,18 +146,17 @@ export default {
      refreshScore : function() {
        this.score = -1;
        this.getReviewList();
-     }
+     },
    },
-   computed: {
-      pages () {
-        if (this.pagination.rowsPerPage == null ||
-          this.pagination.totalItems == null
-        ) return 0
+   computed : {
+     pages : function (){
+       if (this.pagination.rowsPerPage == null ||
+         this.pagination.totalItems == null
+       ) return 0
 
-        return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
-      },
-    }
-
+         return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
+     }
+   }
 }
 </script>
 

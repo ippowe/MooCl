@@ -1,7 +1,9 @@
 package kr.co.moocl.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +18,7 @@ public class ReviewService {
 	ReviewDao reviewDao;
 	
 	public List<ReviewVo> getReviewList(String movieId, int page, int score) {
-		
+				
 		if(score == -1) {
 			
 			List<ReviewVo> reviewList = reviewDao.findByMovieIdSortDate(movieId, page);
@@ -31,16 +33,27 @@ public class ReviewService {
 			List<ReviewVo> reviewList = reviewDao.findByIdPageScore(movieId, page, scores);
 			return reviewList;
 		}
-	
 	}
 	
+	public Map<String, Integer> getReviewCount(String movieId) {
 		
-	
-	public int getReviewCount(String movieId) {
-		long temp_count = reviewDao.getReviewCount(movieId);
-		int reviewCount = (int) temp_count;
+		Map<String, Integer> reviewCounts = new HashMap<>();
+		
+		int i = 0;
+		String score = "";
+		int totalCount = 0;
+		while( i < 11) {
+			long temp_count = reviewDao.getReviewCount(movieId, i);
+			score = String.valueOf(i);
+			totalCount += temp_count;
+			reviewCounts.put(score, (int) temp_count);
+			i++;
+		}
+		
+		reviewCounts.put("total", totalCount);
+		
 
-		return reviewCount;
+		return reviewCounts;
 	}
 	
 

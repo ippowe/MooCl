@@ -1,11 +1,13 @@
 <template lang="html">
   <v-app class="white">
-    <TestArea :movietag="MovieTag"></TestArea>
+    <v-dialog v-model="dialog">
+      <TestArea :movietag="MovieTag" reviewcontent="reviewContent"></TestArea>
+    </v-dialog>
   </v-app>
 </template>
 
 <script>
-import TestArea from './WritingReview.vue'
+import TestArea from './ReviewDetail.vue'
 export default {
   name: 'TestPage',
   created () {
@@ -26,7 +28,7 @@ export default {
            {site: "daum", grade: "3.5"},
            {site: "cgv", grade: "6.5"}
          ]
-      }
+      },
     }
   }
 

@@ -46,7 +46,6 @@ export default {
     FavoriteMovies,
     FavoritePeople,
     MyReviewPage
-
   },
   data : function() {
     return {

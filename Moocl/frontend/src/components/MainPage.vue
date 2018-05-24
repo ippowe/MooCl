@@ -1,9 +1,9 @@
 <template>
     <!-- 로그인후에 영화 차트순으로 정렬해서 포스터 보여주기 -->
     <v-container class="mb-5 ml-5 px-5">
-      <MovieChart style="position: absolute" class="ml-5" ></MovieChart>
-      <v-layout v-for="i in slicedMovieList.length" :key="i" justify-end class="mb-3 mr-5">
-        <MovieInfo class="mb-5 mx-3" v-for="k in slicedMovieList[i-1].length" :key="k" :movietag="movieTagList[4*(i-1)+k-1]"></MovieInfo>
+      <!-- <MovieChart style="position: absolute" class="ml-5" ></MovieChart> -->
+      <v-layout v-for="i in mainMovies.length" :key="i" justify-left class="mb-3 mx-5 pl-4">
+        <MovieInfo class="mb-5 mx-3" v-for="k in mainMovies[i-1].length" :key="k" :movietag="mainMovies[i-1][k-1]"></MovieInfo>
       </v-layout>
     </v-container>
 
@@ -23,34 +23,65 @@ export default {
   },
   created () {
     this.$eventBus.$emit('MainPage');
+    this.searching();
   },
   beforeMount () {
-    this.$eventBus.$on('fowardResult', (dataArray) => {
-      this.movieTagList = dataArray;
+    this.$eventBus.$on("SearchMovie", (keyword) => {
+      this.modifiedKeyword = keyword;
+      this.searching();
     })
   },
   data : function() {
     return{
-      movieTagList : []
+      movieTagList : [],
+      mainRow: 0,
+      mainMovies: [],
+      modifiedKeyword: ""
     }
   },
-  computed : {
+  methods : {
     row () {
       var temp_row = 0;
-      temp_row =  parseInt((this.movieTagList.length-1)/4);
+      temp_row =  parseInt((this.movieTagList.length-1)/5);
       temp_row = temp_row + 1;
-      return temp_row
+      this.mainRow = temp_row
     },
     slicedMovieList () {
       var temp_movieList = [];
       var slice_list = [];
-      for(var i =1; i<this.row+1; i++){
-        slice_list = this.movieTagList.slice((i-1)*4, (i*4))
+      for(var i =1; i<this.mainRow+1; i++){
+        slice_list = this.movieTagList.slice((i-1)*5, (i*5))
         temp_movieList.push(slice_list)
       }
-      return temp_movieList;
+      this.mainMovies = temp_movieList;
+    },
+    searching () {
+      let temp_keyword = "";
+      temp_keyword = this.$router.currentRoute.params['keyword'];
+      if(temp_keyword == undefined){
+        if(this.modifiedKeyword == ""){
+          temp_keyword = "";
+        } else {
+          temp_keyword = this.modifiedKeyword;
+        }
+      }
+      console.log(temp_keyword);
+      this.$axios.get('/api/search', {
+        params : {
+          keyword : temp_keyword
+        }
+      })
+      .then((result) => {
+        this.movieTagList = result.data;
+        this.row();
+        this.slicedMovieList();
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     }
-  }
+  },
+
 }
 </script>
 

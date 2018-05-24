@@ -49,12 +49,16 @@ public class ReviewDao {
 		return reviewList;
 	}
 	
-	public long getReviewCount(String movieId) {
-// 		db.review.find({ "_id.movie_ref.$id" : movieId, review_contents : {$ne : ""}}, {"_id" : 0}).count()
+	public long getReviewCount(String movieId, int scores) {
+// 		db.review.find({ "_id.movie_ref.$id" : movieId, "user_grade" : score, review_contents : {$ne : ""}}, {"_id" : 0}).count()
+		
+		System.out.println(scores);
 
 		Criteria criteria = new Criteria("_id.movie_ref.$id");
 		criteria.is(movieId);
+		criteria.and("user_grade").is(scores);
 		criteria.and("review_contents").ne("");
+	
 		
 		Query query = new Query(criteria);
 		
@@ -84,7 +88,6 @@ public class ReviewDao {
 		
 		List<ReviewVo> reviewList = mongoTemplate.find(query, ReviewVo.class, "review");
 		
-		System.out.println(reviewList);
 		return reviewList;
 	}
 }
