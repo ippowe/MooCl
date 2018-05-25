@@ -63,7 +63,7 @@ public class ReviewRestController {
 		
 		reviewService.saveReview(movieId, movieId,"gurumi", review, userId, Integer.parseInt(userGrade));
 		reviewService.applyKomoran(movieId,userId,review);
-		System.out.println("리뷰저장");
+		
 		return "완료!";
 	}
 	

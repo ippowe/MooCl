@@ -10,9 +10,9 @@
       </span>
     </v-flex>
     <v-spacer></v-spacer>
-    <v-dialog max-width="600px">
+    <v-dialog max-width="600px" v-model="writeDialog">
       <v-avatar slot="activator" @click="checkLogin"  class="my-0 mr-4 noselect"><v-icon color="light-blue">create</v-icon></v-avatar>
-      <WritingReview v-show="validUser" :movietitle="detailinfo.movie_title" :movieid="detailinfo._id"></WritingReview>
+      <WritingReview v-show="validUser" :movietitle="detailinfo.movie_title" :movieid="detailinfo._id"  @finWriting="writeDialog = !writeDialog"></WritingReview>
       <NeedLogin v-show="!validUser"></NeedLogin>
     </v-dialog>
   </v-layout>
@@ -94,10 +94,10 @@ export default {
        score : -1,
        pagination: {},
        selected: [],
-       validUser: false,
        rawReviewList: [],
        pageNo: 0,
        dialog: false,
+       writeDialog: false,
      }
    },
    methods :{
@@ -155,6 +155,13 @@ export default {
        ) return 0
 
          return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
+     },
+     validUser : function() {
+       if(sessionStorage.userNo != undefined) {
+         return false
+       } else {
+         return true
+       }
      }
    }
 }

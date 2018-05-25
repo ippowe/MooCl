@@ -41,17 +41,13 @@ export default {
         movieId : this.movieid,
         email : sessionStorage.email
       }
-
       this.$axios.post('/api/saveReview', {
         score: parameter.score,
         review: parameter.review,
         movieId: parameter.movieId,
         email: parameter.email
       }).then((result) => {
-        console.log(this.result.data);
-        if(this.result.data){
-            this.$emit("finWriting");
-        }
+          this.$emit("finWriting");
       }).catch((error) => {
         console.log(error);
       })

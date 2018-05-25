@@ -19,18 +19,16 @@
       <v-spacer></v-spacer>
       <v-flex xs2 class="ml-4">
         <span><strong class="title black--text">{{sliceTitle == undefined ? "영화제목" : sliceTitle }}</strong></span><br>
-        <v-dialog max-width="600px">
+        <v-dialog max-width="600px" v-model="dialog">
           <v-btn slot="activator" class="black--text" flat :ripple="false" block  @click="checkLogin"> 리뷰 쓰기 </v-btn>
-          <WritingReview v-show="validUser" :movietitle="movietag.movieTitle" :movieid="movietag.movieId" @finWriting="closeWriteModal"></WritingReview>
+          <WritingReview v-show="validUser" :movietitle="movietag.movieTitle" :movieid="movietag.movieId" @finWriting="dialog = !dialog" ></WritingReview>
           <NeedLogin v-show="!validUser"></NeedLogin>
         </v-dialog>
         <v-btn class="black--text" flat :ripple="false" block @click="viewDetail"> 더보기 </v-btn>
       </v-flex>
       <v-spacer></v-spacer>
       <v-flex class="mr-3 mb-3">
-        <WordCloud :moviename="movietag.movieId == undefined ? '영화제목' : movietag.movieId"
-                    cloudstring=""
-        ></WordCloud>
+        <WordCloud :moviename="movietag.movieId == undefined ? '영화제목' : movietag.movieId"></WordCloud>
       </v-flex>
     </v-layout>
   </div>
@@ -73,9 +71,6 @@ export default {
       } else {
         this.validUser = true;
       }
-    },
-    closeWriteModal : function() {
-      this.dialog = false;
     }
   },
   computed : {
