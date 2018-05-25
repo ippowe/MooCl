@@ -48,6 +48,7 @@ export default {
         movieId: parameter.movieId,
         email: parameter.email
       }).then((result) => {
+        console.log(this.result.data);
         if(this.result.data){
             this.$emit("finWriting");
         }
