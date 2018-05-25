@@ -24,6 +24,9 @@ export default {
   created () {
     this.$eventBus.$emit('MainPage');
     this.searching();
+    if(sessionStorage.userNo != undefined) {
+      this.$store.dispatch("GETINFOLIST", sessionStorage.userNo)  
+    }
   },
   beforeMount () {
     this.$eventBus.$on("SearchMovie", (keyword) => {
@@ -57,15 +60,15 @@ export default {
     },
     searching () {
       let temp_keyword = "";
-      temp_keyword = this.$router.currentRoute.params['keyword'];
-      if(temp_keyword == undefined){
+      if(this.$router.currentRoute.params['keyword'] == undefined){
         if(this.modifiedKeyword == ""){
           temp_keyword = "";
         } else {
           temp_keyword = this.modifiedKeyword;
         }
+      } else {
+          temp_keyword = this.$router.currentRoute.params['keyword'];
       }
-      console.log(temp_keyword);
       this.$axios.get('/api/search', {
         params : {
           keyword : temp_keyword

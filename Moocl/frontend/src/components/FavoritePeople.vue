@@ -1,44 +1,92 @@
 <template lang="html">
     <v-container class="mb-5 ml-4 px-5 mt-4" >
-      <v-layout v-for="i in slicedPersonList.length" :key="i"  class=" mb-2 mx-5 px-5">
-          <PersonInfo class="mx-5 mb-3 px-1" v-for="name in slicedPersonList[i-1]" :key="name" :personname="name" :roleview="true"></PersonInfo>
+      <v-layout v-for="i in slicedFavPersonList.length" :key="i"  class=" mb-2 mx-5 px-5">
+        <v-flex v-for="(item, index) in slicedFavPersonList[i-1]" :key ="index">
+          <PersonCard :person="item" @openPersonInfo="openPersonInfo(i, index, item)"></PersonCard>
+          <PersonInfo :person="item" :relatedmovie="relatedMovie" v-if="infoSwitch[i-1][index]"
+                      :dialog="dialog" @closePersonInfo="closePersonInfo(i, index)"></PersonInfo>
+        </v-flex>
+          <!-- <PersonCard @openPersonInfo="openPersonInfo(i, index, item)" class="mx-5 mb-3 px-1" v-for="(item, index) in slicedFavPersonList[i-1]" :key="index" :person="item"></PersonCard>
+          <PersonInfo :person="item" :relatedmovie="relatedMovie" v-if="infoSwitch[i-1][index]" :dialog="dialog" @closePersonInfo="closePersonInfo(i, index)"></PersonInfo> -->
       </v-layout>
     </v-container>
 </template>
 
 <script>
+import PersonCard from "./PersonCard.vue"
 import PersonInfo from "./PersonInfo.vue"
 
 export default {
   name: "FavoritePeople",
   components : {
+    PersonCard,
     PersonInfo
+  },
+  created () {
+    setTimeout(function() {
+      this.favPersonList = this.$store.state.myPageData.personInfoList;
+      this.row();
+      this.slicedPersonList();
+      this.openSwitch();
+    }.bind(this), 500);
   },
   data : function() {
     return {
-      names : ["이병현", "이동욱", "한효주", "수지", "로버트 다우 주니어", "휴 잭맨", "정우성", "이병현", "이동욱", "한효주", "수지",
-      "로버트 다우 주니어", "휴 잭맨"],
+      favRow : 0,
+      favPersonList: [],
+      slicedFavPersonList: [],
+      dialog: false,
+      relatedMovie: [],
+      infoSwitch : []
     }
   },
-  computed : {
+  methods : {
     row () {
       var temp_row = 0;
-      temp_row = parseInt((this.names.length-1 / 6));
+      temp_row = parseInt(((this.favPersonList.length-1) / 6));
       temp_row = temp_row + 1;
-      return temp_row
+      this.favRow = temp_row
     },
     slicedPersonList () {
         var temp_personList = [];
         var slice_list = [];
-        for(var i =1; i<this.row+1; i++){
-          slice_list = this.names.slice((i-1)*6, (i*6))
+        for(var i =1; i<this.favRow+1; i++){
+          slice_list = this.favPersonList.slice((i-1)*6, (i*6))
           temp_personList.push(slice_list)
         }
-        return temp_personList;
+        this.slicedFavPersonList = temp_personList;
+    },
+    openPersonInfo : function(i, index, item) {
+        this.infoSwitch[i-1][index] = true;
+        let sending_id = item.person_id;
+        this.$axios.post("/api/removie", {
+            personId : sending_id
+          }).then((result) => {
+          this.relatedMovie = result.data;
+        }).catch((error) => console.log(error))
+        this.dialog = true;
+        this.reloadPage();
+    },
+    closePersonInfo : function(n, index) {
+      this.infoSwitch[n-1][index] = false;
+      this.dialog = false;
+    },
+    openSwitch () {
+      let temp_switch = [];
+      let temp_inner_switch;
+      for(let i=1; i<this.favRow+1; i++){
+        temp_inner_switch = []
+        for(let j=0; j<this.slicedFavPersonList[i-1].length; j++){
+          temp_inner_switch.push(false);
+        }
+        temp_switch.push(temp_inner_switch);
+      }
+      this.infoSwitch = temp_switch;
+    },
+    reloadPage () {
+      this.slicedPersonList();
     }
   }
-
-
 }
 </script>
 

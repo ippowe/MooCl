@@ -1,9 +1,11 @@
 package kr.co.moocl.restcontroller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,7 +28,7 @@ public class MainRestController {
 		
 		return movieData;
 	}
-	
+
 	
 	@RequestMapping("/test")
 	public List<Document> testController() {

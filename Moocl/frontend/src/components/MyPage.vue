@@ -40,6 +40,7 @@ import MyReviewPage from "./MyReviewPage.vue"
 export default {
   created () {
     this.$eventBus.$emit("MainPage")
+    this.getMypageData();
   },
   name : "MyPage",
   components : {
@@ -51,7 +52,8 @@ export default {
   data : function() {
     return {
       page : "Favorite",
-      subpage : "Movie"
+      subpage : "Movie",
+      movieInfoList : [],
     }
   },
   methods : {
@@ -60,6 +62,10 @@ export default {
     },
     myReview () {
       this.page = "MyReviewPage"
+    },
+    getMypageData () {
+      this.$store.dispatch("MYPAGEDATA", sessionStorage.userNo)
+      .catch((error) => console.log(error))
     }
   }
 }

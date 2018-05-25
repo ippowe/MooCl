@@ -64,6 +64,7 @@ export default {
       if(currentPage != 'MainPage'){
         this.$router.push({name : 'MainPage', params: {'keyword' : modifyKeyword}});
       } else {
+        this.$router.currentRoute.params['keyword'] = undefined
         this.$eventBus.$emit("SearchMovie", modifyKeyword);
       }
 

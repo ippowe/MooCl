@@ -33,14 +33,19 @@
 export default {
   name : "XsMoviePoster",
   props: ['movieinfo'],
+  created () {
+    this.checkFavList();
+  },
   beforeMount () {
-    this.setSiteScore()
+    this.setSiteScore();
+    this.checkFavList();
   },
   data : function() {
     return{
       showFB : false,
       favorite : false,
       isActor : true,
+      heart : false,
       scores : {
         naver : {score: 0, color: "green"},
         daum : {score: 0, color: "yellow"},
@@ -71,25 +76,39 @@ export default {
     putMovieList : function () {
       if(sessionStorage.token){
         //로그인 함
-        this. heart = !this.heart
-        if(this.heart) {
+          let favMovieIndex = this.$store.state.favMovieList.indexOf(this.movieid);
           //좋아요 추가 요청
-          if(this.$state.favMovieList.indexOf(this.movieid) == -1){
-            //좋아요 목록에 없을 떄
-            console.log(this.movieid);
-            console.log(sessionStorage.userNo);
-          }
-        } else {
+          if(favMovieIndex == -1){
+            let movieId = this.movieid;
+            let userId = sessionStorage.userNo;
+            this.$axios.post('/api/addfavmovie', {movieId, userId})
+            .then(() => {
+              this.$store.state.favMovieList.push(movieId);
+              this.heart = true;
+            })
+            .catch((error) => console.log(error));
+          } else if( favMovieIndex != -1) {
           // 좋아요 삭제 요청
-          if(this.$state.favMovieList.indexOf(this.movieid) != -1){
-            //좋아요 목록에 있을 떄
-            console.log(this.movieid);
-            console.log(sessionStorage.userNo);
-          }
+          //좋아요 목록에 있을 떄
+          let movieId = this.movieid;
+          let userId = sessionStorage.userNo;
+          this.$axios.post('/api/delfavmovie', {movieId, userId})
+          .then(() => {
+            this.$store.state.favMovieList.splice(favMovieIndex, 1);
+            this.heart = false;
+          })
         }
       } else {
         //로그인 안함
         alert("로그인이 필요합니다.");
+      }
+    },
+    checkFavList : function() {
+      let movieChecker = this.$store.state.favMovieList.indexOf(this.movieinfo._id);
+      if (movieChecker != -1 ){
+        this.heart =  true;
+      } else {
+        this.heart = false;
       }
     }
   },
@@ -102,14 +121,6 @@ export default {
         return str;
       } else {
         return temp_title;
-      }
-    },
-    heart : function () {
-      let movieChecker = this.$state.favMovieList.indexOf(this.movieid);
-      if (movieChecker != -1 ){
-        return true;
-      } else {
-        return false;
       }
     }
   }

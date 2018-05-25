@@ -34,4 +34,14 @@ public class PersonDao {
 		return peopleInfoList;
 		
 	}
+
+	public List<PeopleVo> getPersonListByIdList(List<Integer> personIds) {
+		Criteria criteria = new Criteria("_id");
+		criteria.in(personIds);
+		
+		Query query = new Query(criteria);
+		List<PeopleVo> personInfoList = mongoTemplate.find(query, PeopleVo.class, "people");
+				
+		return personInfoList;
+	}
 }

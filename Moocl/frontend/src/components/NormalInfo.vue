@@ -2,7 +2,7 @@
   <div>
     <v-layout class="white">
       <v-flex class="ma-2" xs3>
-            <SmallMoviePoster :posterUrl="movietag.posterUrl"></SmallMoviePoster>
+        <SmallMoviePoster :posterUrl="movietag.posterUrl" :movieid="movietag.movieId"></SmallMoviePoster>
       </v-flex>
       <v-flex xs8>
         <ScoreBySite :sitescore="movietag.score"></ScoreBySite>

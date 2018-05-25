@@ -4,11 +4,13 @@
 	
 	<!-- ==>여러번쓰는 데이터 타입의 별칭을 정해주는 태그 -->
 	<typeAliases>
-		<typeAlias alias ="UsersVo" type="kr.co.moocl.vo.UsersVo"/>		
+		<typeAlias alias ="UsersVo" type="kr.co.moocl.vo.UsersVo"/>
+		<typeAlias alias ="FavVo" type="kr.co.moocl.vo.FavVo"/>				
 	</typeAliases>			
 	
 	<mappers>
 		<mapper resource="mybatis/mappers/users.xml" />
+		<mapper resource="mybatis/mappers/fav.xml" />
 	</mappers>
 	
 </configuration>

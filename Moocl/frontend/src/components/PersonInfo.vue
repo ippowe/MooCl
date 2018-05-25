@@ -7,8 +7,8 @@
             <v-flex xs8></v-flex>   <!-- 하트를 오른쪽 보내기 위한 테그 -->
             <v-flex xs5  class="pa-0 ma-0">
               <!--버튼 눌렀을때 favorite 목록에 추가되는 기능 필요  -->
-              <v-btn :ripple="false" v-show="showFB" flat icon small @click="favorite = !favorite" depressed>
-                  <v-icon color="red accent-3">{{favorite ? "favorite" : "favorite_border"}}</v-icon>
+              <v-btn :ripple="false" v-show="showFB" flat icon small @click="putPersonList" depressed>
+                  <v-icon color="red accent-3">{{heart ? "favorite" : "favorite_border"}}</v-icon>
               </v-btn>
             </v-flex>
           </v-card-media>
@@ -56,6 +56,12 @@ export default {
     WordCloud,
     RelatedMovie
   },
+  created () {
+    setTimeout(function() {
+      this.checkFavList();
+    }.bind(this), 500);
+
+  },
   watch : {
     dialog : function() {
       if(this.dialog){
@@ -70,7 +76,8 @@ export default {
     return {
       showFB: false,
       favorite: false,
-      avgScore : 0
+      avgScore : 0,
+      heart: false
     }
   },
   methods : {
@@ -109,6 +116,44 @@ export default {
       temp_avg_grade = temp_grade_sum / grade_list.length;
       temp_avg_grade = temp_avg_grade.toFixed(1);
       return temp_avg_grade
+    },
+    putPersonList : function () {
+      if(sessionStorage.token){
+        //로그인 함
+          //좋아요 추가 요청
+          let favPersonIndex = this.$store.state.favPersonList.indexOf(this.person.person_id.toString());
+          if (favPersonIndex == -1){
+            let personId = this.person.person_id;
+            let userId = sessionStorage.userNo;
+            this.$axios.post('/api/addfavpeople', {personId, userId})
+            .then(() => {
+              this.$store.state.favPersonList.push(personId.toString());
+              this.heart = true;
+            })
+          } else if(favPersonIndex != -1 ){
+          // 좋아요 삭제 요청
+            //좋아요 목록에 있을 떄
+            let personId = this.person.person_id;
+            let userId = sessionStorage.userNo;
+            this.$axios.post('/api/delfavpeople', {personId, userId})
+            .then(() => {
+              this.$store.state.favPersonList.splice(favPersonIndex, 1);
+              this.heart = false;
+            })
+            .catch((error) => console.log(error))
+        }
+      } else {
+        //로그인 안함
+        alert("로그인이 필요합니다.");
+      }
+    },
+    checkFavList : function () {
+      let personChecker = this.$store.state.favPersonList.indexOf(this.person.person_id.toString());
+      if (personChecker != -1){
+        this.heart =  true;
+      } else {
+        this.heart = false;
+      }
     }
   }
 }

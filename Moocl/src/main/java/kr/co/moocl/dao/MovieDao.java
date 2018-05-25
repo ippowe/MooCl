@@ -99,5 +99,15 @@ public class MovieDao {
 	    List<Document> movieList= (List<Document>) mongoOperation.scriptOps().execute(filmoScript, stringMovieId); 
         return movieList;
 	}
+
+	public List<InteMovieVo> getMovieInfoList(List<String> movieIds) {
+		Criteria criteria = new Criteria("_id");
+		criteria.in(movieIds);
+		
+		Query query = new Query(criteria);
+		
+		List<InteMovieVo> movieList = mongoTemplate.find(query, InteMovieVo.class, "movie_info");
+		return movieList;
+	}
 	
 }

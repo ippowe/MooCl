@@ -1,7 +1,9 @@
 package kr.co.moocl.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -42,6 +44,36 @@ public class MainService {
 	public List<Document> testService() {
 
 		return null;
+	}
+
+	public List<Map<String, Object>> getMovieList(List<String> movieIds) {
+		
+		List<InteMovieVo> movieList = new ArrayList<>();
+		List<Map<String, Object>> searchResult = new ArrayList<>();
+		
+		movieList = movieDao.getMovieInfoList(movieIds);
+		
+		for(int i=0; i<movieList.size(); i++) {
+			String movieTitle = movieList.get(i).getMovie_title();
+			Object posterUrl = movieList.get(i).getPoster();
+//			String movieRate = movieList.get(i).getMovie_rate(); 영화 등급 가져오기
+			String movieId = movieList.get(i).get_id();
+			String inteTitle = movieList.get(i).getInte_title(); // 사이트별 통합을 위해서 띄어쓰기, 특수문자 지운 영화제목
+			List<Map<String, Object>> score = movieList.get(i).getScore();
+			
+			Map<String, Object> simpleMovieInfo = new HashMap<>();
+			simpleMovieInfo.put("movieTitle", movieTitle);
+			simpleMovieInfo.put("posterUrl", posterUrl);
+//			simpleMovieInfo.put("movieRate", movieRate);
+			simpleMovieInfo.put("movieId", movieId);
+			simpleMovieInfo.put("inteTitle", inteTitle);
+			simpleMovieInfo.put("score", score);
+			
+			searchResult.add(simpleMovieInfo);
+			
+		}
+				
+		return searchResult;
 	}
 	
 

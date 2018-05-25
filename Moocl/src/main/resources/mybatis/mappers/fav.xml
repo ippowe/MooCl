@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fav">
+
+	<insert id = "addFavouriteMovie" parameterType= "FavVo">	
+		<![CDATA[
+		
+				insert into Fav_movie values(#{UserNo}, #{MovieId})
+		]]>
+	</insert>
+	
+	<select id = "allFavouriteMovies" parameterType = "int" resultType="String">
+		<![CDATA[
+				
+				select movie_id
+				from FAV_MOVIE
+				where USER_ID = #{UserNo}
+		]]>
+	</select>
+	
+	<delete id="deleteFavouriteMovie" parameterType="map">
+		<![CDATA[
+				delete from FAV_MOVIE
+				where user_id = #{userId} and movie_id = #{movieId}
+		]]>
+	</delete>
+	
+	<select id = "showFavouritePeople" parameterType = "int" resultType="String">
+		<![CDATA[
+				
+				select PERSON_ID
+				from FAV_PERSON
+				where USER_ID = #{UserNo}
+		]]>
+	</select>
+	
+	<insert id = "addFavouritePerson" parameterType= "FavVo">	
+		<![CDATA[
+		
+				insert into FAV_PERSON values(#{UserNo}, #{PersonId})
+		]]>
+	</insert>
+		
+	<delete id="deleteFavouritePerson" parameterType="map">
+		<![CDATA[
+				delete from FAV_PERSON
+				where user_id = #{userId} and person_id = #{personId}
+		]]>
+	</delete>
+	
+	
+</mapper>
