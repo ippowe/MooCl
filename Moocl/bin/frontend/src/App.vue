@@ -1,21 +1,19 @@
 <template>
-<div id="app" class="pa-0">
-  <router-view/>
-  <div is="MenuBar" v-if="mainPageChecker"></div>
-  <div is="FooterVue">
-
-  </div>
-</div>
+  <v-app class="white ma-0">
+      <ToolBar v-if="mainPageChecker"></ToolBar>
+      <router-view/>
+      <div is="FooterVue"></div>
+  </v-app>
 </template>
 
 <script>
-import MenuBar from './components/MenuBar.vue'
+import ToolBar from './components/ToolBar.vue'
 import FooterVue from './components/Footer.vue'
 
 export default {
   name: 'App',
   components: {
-    MenuBar,
+    ToolBar,
     FooterVue
   },
   data: function() {
@@ -32,8 +30,7 @@ export default {
       this.mainPageChecker = true;
     })
 
-  }
-
+  },
 }
 </script>
 

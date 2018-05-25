@@ -11,7 +11,7 @@ logging:   #로깅 설정
 spring:
   datasource: #오라클DB 설정    
     driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@localhost:1521:xe    #다른 컴퓨터에 있는 Oracle을 사용하기 위해서는 localhost를 ip로 변경
+    url: jdbc:oracle:thin:@192.168.1.64:1521:xe    #다른 컴퓨터에 있는 Oracle을 사용하기 위해서는 localhost를 ip로 변경
     username: testdb
     password : testdb 
    
