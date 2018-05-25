@@ -97,7 +97,7 @@ public class ReviewDao {
 		mongoTemplate.save(saveVo, "test_review");
 	}
 	
-	public void updatePosReview(String commonId, String userId, List<String[]> posAnalyze ) {
+	public void updatePosReview(String commonId, String userId, List<String[]> pos_analyze , List<String> gurumi_word ) {
 
 		Query query = new Query();
 		query.addCriteria( new Criteria().andOperator(
@@ -106,8 +106,8 @@ public class ReviewDao {
 		));
 //		System.out.println(mongoTemplate.find(query, TestReviewVo.class, "test_review"));
 		Update update = new Update();
-//		update.set("test", "test");
-		update.set("pos_analyze", posAnalyze);
+		update.set("pos_analyze", pos_analyze);
+		update.set("gurumi_word", gurumi_word);
 		
 		mongoTemplate.updateFirst(query, update,"test_review");
 		System.out.println(mongoTemplate.find(query, ReviewVo.class, "test_review"));
