@@ -8,6 +8,11 @@ import  Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import 'babel-polyfill'
+import 'expose-loader?$!expose-loader?jQuery!jquery'
+import jQuery from 'jqcloud2/dist/jqcloud.js'
+import 'jqcloud2/dist/jqcloud.css'
+import store from './store'
+
 
 
 Vue.config.productionTip = false
@@ -20,5 +25,6 @@ new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  store
 })

@@ -1,5 +1,6 @@
 <template lang="html">
   <v-card height="638">
+    <!-- 영화진흥원에서 가져온 데이터를 주기적으로 적용시키기 -->
     <v-navigation-drawer class="pa-0 deep-purple lighten-2" floating permanent>
       <v-toolbar flat class="deep-purple transparent" height="70">
         <v-list class="pa-0">
@@ -10,9 +11,9 @@
         </v-list>
       </v-toolbar>
       <v-list class="pt-0 deep-purple lighten-2">
-        <v-list-tile avatar @click='' v-for="n in 10" :key='`3${i}`' class="text-lg-center ">
-          <v-flex xs2>
-              <v-tab :ripple="false" class="white--text transparent" style="font-size: 20px; font-weight: bold;" >{{n}}</v-tab>
+        <v-list-tile avatar @click='' v-for="i in 10" :key='`3${i}`' class="text-lg-center ">
+          <v-flex xs3 >
+            <span :ripple="false" class="white--text transparent" style="font-size: 20px; font-weight: bold;"  >{{i}}</span>
           </v-flex>
           <v-flex xs10>
             <v-list-tile-action>
