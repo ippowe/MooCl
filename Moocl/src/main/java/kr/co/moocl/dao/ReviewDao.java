@@ -25,7 +25,7 @@ public class ReviewDao {
 		
 		Query query = new Query(criteria);
 		query.fields().exclude("_id");
-		System.out.println(query.toString());
+
 		List<ReviewVo> reviewList = mongoTemplate.find(query, ReviewVo.class, "review");
 		
 		return reviewList;
@@ -54,8 +54,6 @@ public class ReviewDao {
 	public long getReviewCount(String movieId, int scores) {
 // 		db.review.find({ "_id.movie_ref.$id" : movieId, "user_grade" : score, review_contents : {$ne : ""}}, {"_id" : 0}).count()
 		
-		System.out.println(scores);
-
 		Criteria criteria = new Criteria("_id.movie_ref.$id");
 		criteria.is(movieId);
 		criteria.and("user_grade").is(scores);
@@ -97,7 +95,7 @@ public class ReviewDao {
 	public void saveReview(Map<String, Object> _id, String movieId, String site, String userId, String reviewContents, String regDate,int userGrade) {
 
 		ReviewVo saveVo = new ReviewVo(_id,movieId,site,userId,reviewContents,regDate ,userGrade);
-		mongoTemplate.save(saveVo, "test_review");
+		mongoTemplate.save(saveVo, "review");
 	}
 	
 	public void updatePosReview(String commonId, String userId, List<String[]> pos_analyze , List<String> gurumi_word ) {
@@ -112,7 +110,7 @@ public class ReviewDao {
 		update.set("pos_analyze", pos_analyze);
 		update.set("gurumi_word", gurumi_word);
 		
-		mongoTemplate.updateFirst(query, update,"test_review");
-		System.out.println(mongoTemplate.find(query, ReviewVo.class, "test_review"));
+		mongoTemplate.updateFirst(query, update,"review");
+		System.out.println(mongoTemplate.find(query, ReviewVo.class, "review"));
 	}
 }

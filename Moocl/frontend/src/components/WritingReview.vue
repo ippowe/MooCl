@@ -29,7 +29,6 @@ export default {
     return {
       score : 0,
       review : "",
-      movieId : "",
       userNo : ""
     }
   },
@@ -39,16 +38,16 @@ export default {
       let parameter = {
         score : this.score,
         review : this.review,
-        movieId : this.movieId,
-        uesrNo : this.userNo
+        movieId : this.movieid,
+        email : sessionStorage.email
       }
 
-      console.log(paramter);
-      axios.post('/api/reviewtest1', {
-        nickname: parameter.score,
+      console.log(parameter);
+      this.$axios.post('/api/saveReview', {
+        score: parameter.score,
         review: parameter.review,
         movieId: parameter.movieId,
-        userNo: parameter.userNo
+        email: parameter.email
       }).then((result) => {
         this.joinResult = true
       }).catch((error) => {

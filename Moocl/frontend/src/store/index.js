@@ -32,6 +32,7 @@ export default new Vuex.Store({
       state.accessToken = data
       sessionStorage.token = data.token
       sessionStorage.userNo = data.userNo
+      sessionStorage.email = data.email
       return sessionStorage
     },
     LOGOUT (state) {
@@ -41,6 +42,7 @@ export default new Vuex.Store({
       state.myReviewList = [];
       delete sessionStorage.token
       delete sessionStorage.userNo
+      delete sessionStorage.email
     },
     SETREVIEW (state, temp_list) {
       state.reviewList = [];
@@ -51,7 +53,7 @@ export default new Vuex.Store({
         if(temp_list[i].site == "daum"){
           temp_name = temp_list[i].user_id.slice(7, 10);
           temp_name = temp_name + "***";
-        } else if (temp_list[i].site = "cgv"){
+        } else if (temp_list[i].site == "cgv"){
           temp_name = temp_list[i].user_id.slice(0,3);
           temp_name = temp_name + "***";
         } else {

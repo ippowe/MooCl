@@ -35,6 +35,7 @@ public class UsersService {
 			if(userPass.equals(userInfo.getPassword())) {
 				sessionData.put("token", true);
 				sessionData.put("userNo", userInfo.getUserNo());
+				sessionData.put("email", userEmail);
 				return sessionData;
 			} else {
 				sessionData.put("token", false);

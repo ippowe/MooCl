@@ -6,14 +6,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.moocl.service.ReviewService;
 import kr.co.moocl.vo.ReviewVo;
-import kr.co.shineware.util.common.model.Pair;
 
 @RestController
 @RequestMapping("/api")
@@ -48,26 +47,19 @@ public class ReviewRestController {
 		return reviewService.testService();
 	}
 	
-	@RequestMapping("/reviewtest1")
-	public List<String[]> testReview1(){
-		System.out.println("hi");
-		return reviewService.applyKomoran("test","reviewking","슈퍼액션에서 하고있는데 진짜 재밌어요");
-	}
+//	@RequestMapping("/reviewtest1")
+//	public List<String[]> testReview1(){
+//		System.out.println("hi");
+//		return reviewService.applyKomoran("test","reviewking","슈퍼액션에서 하고있는데 진짜 재밌어요");
+//	}
 	
-	@RequestMapping(value = "/saveReview",method = RequestMethod.GET)
-	public String saveReview(@RequestParam("movieId") String movieId,
-			@RequestParam("review") String review,
-			@RequestParam("userId") String userId,
-			@RequestParam("userGrade") String userGrade		
-			){
-		
-		/*
-		 * 
-		 * 	@RequestMapping(value = "/saveReview",method = RequestMethod.GET)
-	public String saveReview(@RequestBody("reviewParam") Map<String, Object> reviewParam){
+	@RequestMapping(value = "/saveReview",method = RequestMethod.POST)
+	public String saveReview(@RequestBody Map<String, String> reviewData){
 
-		 * */
-//		String nickName = reviewParam.get("nickname");
+		String userGrade = reviewData.get("score");
+		String review = reviewData.get("review");
+		String movieId = reviewData.get("movieId");
+		String userId = reviewData.get("email");
 		
 		reviewService.saveReview(movieId, movieId,"gurumi", review, userId, Integer.parseInt(userGrade));
 		reviewService.applyKomoran(movieId,userId,review);
