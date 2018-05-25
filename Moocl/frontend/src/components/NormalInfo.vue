@@ -21,7 +21,7 @@
         <span><strong class="title black--text">{{sliceTitle == undefined ? "영화제목" : sliceTitle }}</strong></span><br>
         <v-dialog max-width="600px">
           <v-btn slot="activator" class="black--text" flat :ripple="false" block  @click="checkLogin"> 리뷰 쓰기 </v-btn>
-          <WritingReview v-show="validUser" :movietitle="movietag.movieTitle" :movieid="movietag.movieId"></WritingReview>
+          <WritingReview v-show="validUser" :movietitle="movietag.movieTitle" :movieid="movietag.movieId" @finWriting="closeWriteModal"></WritingReview>
           <NeedLogin v-show="!validUser"></NeedLogin>
         </v-dialog>
         <v-btn class="black--text" flat :ripple="false" block @click="viewDetail"> 더보기 </v-btn>
@@ -73,7 +73,9 @@ export default {
       } else {
         this.validUser = true;
       }
-
+    },
+    closeWriteModal : function() {
+      this.dialog = false;
     }
   },
   computed : {
