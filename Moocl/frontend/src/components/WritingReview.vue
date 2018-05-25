@@ -42,8 +42,22 @@ export default {
         movieId : this.movieId,
         uesrNo : this.userNo
       }
-      
+
       console.log(paramter);
+      axios.post('/api/reviewtest1', {
+        nickname: parameter.score,
+        review: parameter.review,
+        movieId: parameter.movieId,
+        userNo: parameter.userNo
+      }).then((result) => {
+        this.joinResult = true
+      }).catch((error) => {
+        this.errorMsg= error
+        this.errorMsgShow=true
+      })
+
+
+
     },
     fillstar(i) {
       if(this.score != i){
