@@ -93,6 +93,7 @@ public class ReviewService {
 	public List<String[]> applyKomoran(String commonId, String userId,String review) {
 
 		Komoran komoran = new Komoran("src/main/resources/komoran/models-full");
+		komoran.setUserDic("src/main/resources/komoran/user_dic.data");;
 		List<List<Pair<String, String>>> result = komoran.analyze(review);
 		List<String[]> pos_analyze = new LinkedList<>();
 
@@ -109,6 +110,16 @@ public class ReviewService {
 		//파라미터 선언(초기화)
 		List<String[]> conList = new LinkedList<>();
 		List<String> finalList = new LinkedList<>();
+		
+		int j = 3;
+        while (j < pos_analyze.size()) {        	
+        	if (pos_analyze.get(j)[0].equals(pos_analyze.get(j-1)[0]) &&pos_analyze.get(j)[0].equals(pos_analyze.get(j-2)[0]) 
+        			&& pos_analyze.get(j)[0].equals(pos_analyze.get(j-3)[0]) ){
+        		pos_analyze.remove(j);
+        	} else {
+        		j = j + 1;
+        	}
+        }
 		
 		int i = 0 ;
 		while (i < pos_analyze.size()) {			
