@@ -69,9 +69,11 @@ export default {
             let userId = sessionStorage.userNo;
             this.$axios.post('/api/delfavmovie', {movieId, userId})
             .then(() => {
-              this.$store.state.favMovieList.splice(favMovieIndex, 1);
+              // this.$store.state.favMovieList.splice(favMovieIndex, 1);
+              this.$eventBus.$emit('delInPage', movieId, favMovieIndex);
               this.heart = false;
             })
+
           }
         }
       } else {

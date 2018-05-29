@@ -6,31 +6,27 @@
         <table>
           <tr>
               <v-flex class="pa-1">
-                <SmallMoviePoster></SmallMoviePoster>
+                <SmallMoviePoster :posterUrl="reviewInfo._id.movie_ref.poster" :movieid="reviewInfo.movie_id" ></SmallMoviePoster>
               </v-flex>
             <td>
               <v-flex class="pa-1">
                 <v-card-text class="pa-0">
                   <v-card-title primary-title class="pa-0 title">
-                    <v-avatar class="mr-2" size=30>
-                      <img src="../assets/전체관람가.png">
-                    </v-avatar>
-                    <strong>{{ moviename }}</strong>
+                    <strong>{{ reviewInfo._id.movie_ref.movie_title }}</strong>
                   </v-card-title>
                   <v-card-media class="py-2 subheading">
-                    영화 기본 정보
+                    {{ reviewInfo._id.movie_ref.genre }}
                   </v-card-media>
-
                     <p style="text-align: left;" class="py-2" >
-                      {{review}}
+                      {{ reviewInfo.review_contents }}
                       <span @click="myReviewDetail = true" style="cursor: pointer;"><strong>더보기</strong></span>
                       <v-dialog v-model="myReviewDetail" max-width="800px">
                         <v-card class="pa-3">
                           <v-layout>
-                            <SmallMoviePoster></SmallMoviePoster>
-                            <WordCloud :moviename="moviename"></WordCloud>
+                            <SmallMoviePoster :posterUrl="reviewInfo._id.movie_ref.poster" :movieid="reviewInfo.movie_id"></SmallMoviePoster>
+                            <WordCloud :moviename="reviewInfo.movie_id"></WordCloud>
                           </v-layout>
-                          <v-card-text>{{ review }}</v-card-text>
+                          <v-card-text>{{ reviewInfo.review_contents }}</v-card-text>
                           <v-card-media>
                             <v-flex xs8></v-flex>
                             <v-flex xs4 class="pl-4">
@@ -58,22 +54,25 @@ import SmallMoviePoster from "./SmallMoviePoster.vue"
 import WordCloud from "./WordCloud.vue"
 export default {
   name: "MyReviewCard",
-  props: ['moviename'],
+  props: ['reviewInfo'],
   components: {
     SmallMoviePoster,
     WordCloud
   },
   data: function() {
     return {
-      review: "리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용...",
       selection: [],
       myReviewDetail: false
     }
   },
+  updated() {
+    this.$eventBus.$on('reSelection', () => {
+      this.selection = []
+    })
+  },
   methods: {
     selected() {
-      this.$eventBus.$emit('selected', this.moviename)
-      console.log("보낸 제목:" + this.moviename)
+      this.$eventBus.$emit('selected', this.reviewInfo)
     }
   }
 }

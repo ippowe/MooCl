@@ -79,7 +79,7 @@ export default {
           let favMovieIndex = this.$store.state.favMovieList.indexOf(this.movieid);
           //좋아요 추가 요청
           if(favMovieIndex == -1){
-            let movieId = this.movieid;
+            let movieId = this.movieinfo._id;
             let userId = sessionStorage.userNo;
             this.$axios.post('/api/addfavmovie', {movieId, userId})
             .then(() => {
@@ -94,7 +94,8 @@ export default {
           let userId = sessionStorage.userNo;
           this.$axios.post('/api/delfavmovie', {movieId, userId})
           .then(() => {
-            this.$store.state.favMovieList.splice(favMovieIndex, 1);
+            //this.$store.state.favMovieList.splice(favMovieIndex, 1);
+            this.$eventBus.$emit('delInPage', movieId, favMovieIndex);
             this.heart = false;
           })
         }

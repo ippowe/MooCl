@@ -157,10 +157,10 @@ export default {
          return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
      },
      validUser : function() {
-       if(sessionStorage.userNo != undefined) {
-         return false
-       } else {
+       if(sessionStorage.token == "true") {
          return true
+       } else {
+         return false
        }
      }
    }

@@ -18,7 +18,6 @@ export default new Vuex.Store({
     reviewCount: {},
     favMovieList: [],
     favPersonList: [],
-    myReviewList: [],
     myPageData: {},
   },
   getters: {
@@ -37,9 +36,7 @@ export default new Vuex.Store({
     },
     LOGOUT (state) {
       state.accessToken = null;
-      state.faveMovieList = [];
-      state.favPersonList = [];
-      state.myReviewList = [];
+      state.myPageData ={};
       delete sessionStorage.token
       delete sessionStorage.userNo
       delete sessionStorage.email
@@ -68,16 +65,18 @@ export default new Vuex.Store({
         state.reviewList.push(temp_review_object);
       }
     },
+    SETINFOLIST(state, temp_object) {
+      state.favMovieList = temp_object.FavMovieList;
+      state.favPersonList = temp_object.favpeopleList;
+    },
     SETREVIEWCOUNT (state, temp_count){
       state.reviewCount = temp_count;
     },
-    SETINFOLIST(state, temp_object){
-      state.favMovieList= temp_object.FavMovieList;
-      state.favPersonList= temp_object.favpeopleList;
-      state.myReviewList= temp_object//내리뷰리스트;
-    },
     SETMYAPAGEDATA(state, mypage_data){
       state.myPageData = mypage_data;
+    },
+    SETREVIEWDATA(state, review_data){
+      state.myPageData["myReviewData"] = review_data;
     }
   },
   actions: {
@@ -139,6 +138,12 @@ export default new Vuex.Store({
       })
       .then((result) => {
         commit('SETMYAPAGEDATA', result.data)
+      })
+    },
+    MYREVIEWDATA({commit}, email){
+      axios.post("/api/reviewsearch", {email})
+      .then((result) => {
+        commit('SETREVIEWDATA', result.data);
       })
     }
   }

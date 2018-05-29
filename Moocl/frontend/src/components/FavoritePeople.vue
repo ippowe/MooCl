@@ -29,6 +29,19 @@ export default {
       this.slicedPersonList();
       this.openSwitch();
     }.bind(this), 500);
+
+    this.$eventBus.$on('delInPage', (personId, favPersonIndex) => {
+      let length = this.favPersonList.length
+      for(var i=0; i<length; i++){
+        if(personId == this.favPersonList[i].person_id){
+          this.$store.state.favPersonList.splice(favPersonIndex, 1);
+          this.favPersonList.splice(i, 1);
+          let temp_row = parseInt(i-1 / 6);
+          let temp_index = i % 6;
+          this.slicedFavPersonList[temp_row].splice(temp_index, 1);
+        }
+      }
+    })
   },
   data : function() {
     return {

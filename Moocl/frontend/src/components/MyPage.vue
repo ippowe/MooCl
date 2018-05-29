@@ -40,7 +40,8 @@ import MyReviewPage from "./MyReviewPage.vue"
 export default {
   created () {
     this.$eventBus.$emit("MainPage")
-    this.getMypageData();
+    this.getFavData();
+    this.getMyReview();
   },
   name : "MyPage",
   components : {
@@ -63,9 +64,13 @@ export default {
     myReview () {
       this.page = "MyReviewPage"
     },
-    getMypageData () {
+    getFavData () {
       this.$store.dispatch("MYPAGEDATA", sessionStorage.userNo)
       .catch((error) => console.log(error))
+    },
+    getMyReview() {
+      this.$store.dispatch("MYREVIEWDATA", sessionStorage.email)
+      .catch((erro) => console.log(error))
     }
   }
 }

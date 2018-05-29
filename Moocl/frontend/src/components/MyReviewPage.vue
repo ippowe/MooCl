@@ -2,8 +2,8 @@
   <table>
     <tr>
       <v-container class="pa-0">
-        <v-layout class="mr-5 ml-0 pb-5 pt-0 mt-0"  style="float: left" v-for="i in slicedMovieList.length" :key="i">
-            <MyReviewCard class="mx-3 pa-0" v-for="moviename in slicedMovieList[i-1]" :key="moviename" :moviename="moviename"></MyReviewCard>
+        <v-layout class="mr-5 ml-0 pb-5 pt-0 mt-0"  style="float: left" v-for="i in slicedReviewList.length" :key="i">
+          <MyReviewCard class="mx-3 pa-0" v-for="n in slicedReviewList[i-1].length" :key="n" :review-info="slicedReviewList[i-1][n-1]"></MyReviewCard>
         </v-layout>
       </v-container>
     </tr>
@@ -39,11 +39,30 @@ export default {
   components : {
     MyReviewCard
   },
+  created () {
+    setTimeout(function() {
+      this.myReviewList = this.$store.state.myPageData.myReviewData;
+      this.row();
+      this.slicedMovieList();
+    }.bind(this), 500);
+  },
+  mounted() {
+    this.$eventBus.$on('selected', (reviewObject) => {
+      var elementIndex = this.selected.indexOf(reviewObject);
+        if(elementIndex  == -1){
+          this.selected.push(reviewObject)
+        } else {
+          this.selected.splice(reviewObject, 1)
+        }
+      })
+    },
   data : function() {
     return {
-      movienames: ["어벤져스", "영화제목_3","영화제목_4",],
+      myReviewList: [],
       selected: [],
-      askDelete: false
+      askDelete: false,
+      reviewRow : 0,
+      slicedReviewList : []
     }
   },
   methods: {
@@ -51,36 +70,37 @@ export default {
       this.askDelete = true
     },
     confirmDelete : function() {
-      this.askDelete = true
-    }
-  },
-  mounted() {
-    this.$eventBus.$on('selected', (moviename) => {
-      console.log(moviename)
-      var elementIndex = this.selected.indexOf(moviename);
-      console.log(elementIndex)
-      if(elementIndex  == -1){
-        this.selected.push(moviename)
-      } else {
-        this.selected.splice(elementIndex, 1)
-      }
-    })
-  },
-  computed : {
+      let reivewList = this.selected;
+      this.$axios.post("/api/delreview", {reivewList})
+      .then((result) => {
+        this.askDelete = false;
+        let reviewList = this.selected
+        alert(result.data + "개의 리뷰가 삭제되었습니다.")
+        for (let i=0; i<reviewList.length; i++){
+          let delIndex = this.myReviewList.indexOf(reviewList[i]);
+          if( delIndex != -1 ){
+            let row_index = parseInt(delIndex-1 / 4);
+            let index = delIndex % 4;
+            this.slicedReviewList[row_index].splice(index, 1);
+            this.$eventBus.$emit("reSelection")
+          }
+        }
+      })
+    },
     row () {
       var temp_row = 0;
-      temp_row =  parseInt((this.movienames.length-1)/4);
+      temp_row =  parseInt((this.myReviewList.length-1)/4);
       temp_row = temp_row + 1;
-      return temp_row
-    },
+      this.reviewRow = temp_row
+      },
     slicedMovieList () {
       var temp_movieList = [];
       var slice_list = [];
-      for(var i =1; i<this.row+1; i++){
-        slice_list = this.movienames.slice((i-1)*4, (i*4))
+      for(var i =1; i<this.reviewRow+1; i++){
+        slice_list = this.myReviewList.slice((i-1)*4, (i*4))
         temp_movieList.push(slice_list)
       }
-      return temp_movieList;
+      this.slicedReviewList = temp_movieList;
     }
   },
 }

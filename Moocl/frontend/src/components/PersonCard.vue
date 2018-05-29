@@ -75,7 +75,8 @@ export default {
             let userId = sessionStorage.userNo;
             this.$axios.post('/api/delfavpeople', {personId, userId})
             .then(() => {
-              this.$store.state.favPersonList.splice(favPersonIndex, 1);
+              //this.$store.state.favPersonList.splice(favPersonIndex, 1);
+              this.$eventBus.$emit('delInPage', personId, favPersonIndex);
               this.heart = false;
             })
         }
