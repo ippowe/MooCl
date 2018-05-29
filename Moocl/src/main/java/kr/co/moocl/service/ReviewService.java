@@ -25,7 +25,7 @@ import kr.co.shineware.util.common.model.Pair;
 public class ReviewService {
 
 	@Autowired
-	ReviewDao reviewDao;
+	ReviewDao reviewDao; 
 	
 	public List<ReviewVo> getReviewList(String movieId, int page, int score) {
 				
