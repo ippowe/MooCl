@@ -11,13 +11,13 @@
       <v-toolbar-items>
         <v-tabs color="transparent" hide-slider>
           <v-tab v-if="loginChecker == 'false'" to="login" style="font-size : 18px;" >
-            <strong class="pt-4 loginFont"  >로그인</strong>
+            <strong class="pt-4 loginFont"  >Login</strong>
           </v-tab>
           <v-tab v-if="loginChecker == 'true'" @click="logoutMethod" style="font-size : 18px;">
-            <strong class="pt-4 logoutFont">로그아웃</strong>
+            <strong class="pt-4 loginFont">Logout</strong>
           </v-tab>
           <v-tab v-if="loginChecker == 'true'" to="mypage" style="font-size : 18px;">
-            <strong class="pt-4 mypageFont">마이페이지</strong>
+            <strong class="pt-4 loginFont">Mypage</strong>
           </v-tab>
         </v-tabs>
       </v-toolbar-items>
@@ -76,7 +76,7 @@ export default {
 </script>
 
 <style lang="css">
-.loginFont {color : #00426B !important;}
-.logoutFont {color : #00426B !important;}
-.mypageFont {color : #00426B !important;}
+
+.loginFont {color : #00426B !important; font-family: 'Noto_Sans' !important;}
+
 </style>

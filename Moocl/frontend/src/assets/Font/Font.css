@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family:'Noto_Sans';
+  src: url('../Font/Noto_sans/NotoSans-Medium.eot');
+  src: url('../Font/Noto_sans/NotoSans-Medium.eot?#iefix') format('embedded-opentype'),
+       url('../Font/Noto_sans/NotoSans-Medium.woff') format('woff'),
+       url('../Font/Noto_sans/NotoSans-Medium.ttf') format('truetype');
+}

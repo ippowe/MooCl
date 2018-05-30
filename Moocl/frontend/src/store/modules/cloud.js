@@ -19,7 +19,7 @@ const actions = {
         }
       })
       .then((result) => {
-        // console.log(result.data);
+          console.log(result.data);
       })
     }
 }
