@@ -1,13 +1,11 @@
 <template lang="html">
   <v-app class="white">
-    <v-dialog v-model="dialog">
       <TestArea :movietag="MovieTag" reviewcontent="reviewContent"></TestArea>
-    </v-dialog>
   </v-app>
 </template>
 
 <script>
-import TestArea from './ReviewDetail.vue'
+import TestArea from './ScoreBySite.vue'
 export default {
   name: 'TestPage',
   created () {
@@ -18,6 +16,7 @@ export default {
   },
   data : function() {
     return {
+      // dialog: true,
       MovieTag : {
         movieTitle : "영화제목영화제목영화제목영화제목영화제목영화제목영화제목영화제목영화제목영화제목영화제목영화제목영화제목영화제목영화제목",
         movieId : 123456,

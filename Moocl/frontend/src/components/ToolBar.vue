@@ -2,21 +2,22 @@
   <!-- 로그인 로그아웃에 따른 메뉴 내용 변경 -->
   <!-- 로그(side-icon) 눌렀을 때 홈으로 이동 -->
   <!-- 검색 기능 구현 -->
-    <v-toolbar dark color="light-blue">
+    <v-toolbar dark color="blue lighten-4" height ="75px" >
       <v-toolbar-side-icon @click="search"><img src="../assets/moocl_logo.jpg" style="height: 28px"></v-toolbar-side-icon>
       <v-spacer></v-spacer>
-      <v-text-field label="Search" append-icon="search" :append-icon-cb="search" v-model="keyword" solo-inverted></v-text-field>
+      <v-text-field label="Search" append-icon="search" :append-icon-cb="search" v-model="keyword" solo-inverted style="border-radius :15px">
+      </v-text-field>
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-tabs color="transparent" hide-slider>
-          <v-tab v-if="loginChecker == 'false'" to="login">
-            <strong color="text--white" >로그인</strong>
+          <v-tab v-if="loginChecker == 'false'" to="login" style="font-size : 18px;" >
+            <strong class="pt-4 loginFont"  >로그인</strong>
           </v-tab>
-          <v-tab v-if="loginChecker == 'true'" @click="logoutMethod">
-            <strong color="text--white" >로그아웃</strong>
+          <v-tab v-if="loginChecker == 'true'" @click="logoutMethod" style="font-size : 18px;">
+            <strong class="pt-4 logoutFont">로그아웃</strong>
           </v-tab>
-          <v-tab v-if="loginChecker == 'true'" to="mypage">
-            <strong color="text--white" >마이페이지</strong>
+          <v-tab v-if="loginChecker == 'true'" to="mypage" style="font-size : 18px;">
+            <strong class="pt-4 mypageFont">마이페이지</strong>
           </v-tab>
         </v-tabs>
       </v-toolbar-items>
@@ -75,5 +76,7 @@ export default {
 </script>
 
 <style lang="css">
-
+.loginFont {color : #00426B !important;}
+.logoutFont {color : #00426B !important;}
+.mypageFont {color : #00426B !important;}
 </style>
