@@ -16,8 +16,8 @@ export default {
   },
   created () {
     setTimeout(function() {
-      this.favMovieInfoList = this.$store.state.myPageData.movieInfoList;
-      this.favMovieList =  this.$store.state.favMovieList;
+      this.favMovieInfoList = this.$store.getters.getMyPageData.movieInfoList;
+      this.favMovieList =  this.$store.getters.getFavMovieList;
       this.row();
       this.slicedMovieList();
     }.bind(this), 500);
@@ -26,7 +26,7 @@ export default {
       let length = this.favMovieInfoList.length
       for(var i=0; i<length; i++){
         if(movieId == this.favMovieInfoList[i].movieId){
-          this.$store.state.favMovieList.splice(favMovieIndex, 1);
+          this.$store.getters.getFavMovieList.splice(favMovieIndex, 1);
           this.favMovieInfoList.splice(i, 1);
           let temp_row = parseInt(i-1 / 5);
           let temp_index = i % 5;

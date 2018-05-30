@@ -28,6 +28,9 @@ export default {
     NormalInfo,
     MovieDetailInfo
   },
+  beforeUpdate(){
+    this.getCloudData()
+  },
   watch : {
     dialog: function (val) {
       if(this.dialog){
@@ -76,8 +79,17 @@ export default {
       let movieId = this.movietag.movieId;
 
       this.$store.dispatch('GETREVIEWCOUNT', movieId)
+      .then((result) => {
+        console.log(result);
+      })
       .catch((error) => console.log(error));
     },
+    getCloudData () {
+      let movieId = this.movietag.movieId;
+
+      this.$store.dispatch('GETCLOUDDATA', movieId)
+
+    }
   },
   computed : {
     trimTitle () {

@@ -11,9 +11,7 @@ import 'babel-polyfill'
 import 'expose-loader?$!expose-loader?jQuery!jquery'
 import jQuery from 'jqcloud2/dist/jqcloud.js'
 import 'jqcloud2/dist/jqcloud.css'
-import store from './store'
-
-
+import store from './store/store'
 
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios;

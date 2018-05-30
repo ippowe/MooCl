@@ -76,14 +76,14 @@ export default {
     putMovieList : function () {
       if(sessionStorage.token){
         //로그인 함
-          let favMovieIndex = this.$store.state.favMovieList.indexOf(this.movieid);
+          let favMovieIndex = this.$store.getters.getFavMovieList.indexOf(this.movieid);
           //좋아요 추가 요청
           if(favMovieIndex == -1){
             let movieId = this.movieinfo._id;
             let userId = sessionStorage.userNo;
             this.$axios.post('/api/addfavmovie', {movieId, userId})
             .then(() => {
-              this.$store.state.favMovieList.push(movieId);
+              this.$store.getters.getFavMovieList.push(movieId);
               this.heart = true;
             })
             .catch((error) => console.log(error));
@@ -94,7 +94,7 @@ export default {
           let userId = sessionStorage.userNo;
           this.$axios.post('/api/delfavmovie', {movieId, userId})
           .then(() => {
-            //this.$store.state.favMovieList.splice(favMovieIndex, 1);
+            //this.$store.getters.getFavMovieList.splice(favMovieIndex, 1);
             this.$eventBus.$emit('delInPage', movieId, favMovieIndex);
             this.heart = false;
           })
@@ -105,7 +105,7 @@ export default {
       }
     },
     checkFavList : function() {
-      let movieChecker = this.$store.state.favMovieList.indexOf(this.movieinfo._id);
+      let movieChecker = this.$store.getters.getFavMovieList.indexOf(this.movieinfo._id);
       if (movieChecker != -1 ){
         this.heart =  true;
       } else {

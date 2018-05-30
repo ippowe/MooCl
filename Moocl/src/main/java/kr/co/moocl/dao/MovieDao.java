@@ -117,7 +117,7 @@ public class MovieDao {
 	    BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader(
-			        new File("C:\\Users\\1\\git\\MooCl\\Moocl\\src\\main\\resources\\static\\static\\js\\getWordListByMovieId.js")));
+			        new File("C:\\Users\\1\\git\\MooCl\\Moocl\\src\\main\\resources\\JavaScript\\getWordListByMovieId.js")));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -25,7 +25,7 @@ export default {
     this.$eventBus.$emit('MainPage');
     this.searching();
     if(sessionStorage.userNo != undefined) {
-      this.$store.dispatch("GETINFOLIST", sessionStorage.userNo)  
+      this.$store.dispatch("GETINFOLIST", sessionStorage.userNo)
     }
   },
   beforeMount () {

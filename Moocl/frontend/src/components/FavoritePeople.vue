@@ -24,7 +24,7 @@ export default {
   },
   created () {
     setTimeout(function() {
-      this.favPersonList = this.$store.state.myPageData.personInfoList;
+      this.favPersonList = this.$store.getters.getMyPageData.personInfoList;
       this.row();
       this.slicedPersonList();
       this.openSwitch();
@@ -34,7 +34,7 @@ export default {
       let length = this.favPersonList.length
       for(var i=0; i<length; i++){
         if(personId == this.favPersonList[i].person_id){
-          this.$store.state.favPersonList.splice(favPersonIndex, 1);
+          this.$store.getters.getFavPersonList.splice(favPersonIndex, 1);
           this.favPersonList.splice(i, 1);
           let temp_row = parseInt(i-1 / 6);
           let temp_index = i % 6;

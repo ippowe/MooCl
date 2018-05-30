@@ -57,7 +57,8 @@ export default {
     ReviewDetail,
   },
   created () {
-    this.totalItems = this.$store.state.reviewCount.total;
+    console.log(this.$store.getters.getReviewCount)
+    this.totalItems = this.$store.getters.getReviewCount.total;
   },
   watch : {
     pagination : {
@@ -71,11 +72,11 @@ export default {
         if(this.score > 0){
           var prev_score = 2*this.score-1;
           var next_score = 2*this.score;
-          this.pagination.totalItems = this.$store.state.reviewCount[prev_score] + this.$store.state.reviewCount[next_score];
+          this.pagination.totalItems = this.$store.getters.getReviewCount[prev_score] + this.$store.getters.getReviewCount[next_score];
         } else if( this.score == -1){
-          this.pagination.totalItems = this.$store.state.reviewCount["total"];
+          this.pagination.totalItems = this.$store.getters.getReviewCount["total"];
         } else {
-          this.pagination.totalItems = this.$store.state.reviewCount[0];
+          this.pagination.totalItems = this.$store.getters.getReviewCount[0];
         }
         this.getReviewList();
       }
@@ -123,7 +124,7 @@ export default {
 
        this.$store.dispatch("GETREVIEW", parameters)
        .then((response) => {
-         let temp_reviewList= this.$store.state.reviewList;
+         let temp_reviewList= this.$store.getters.getReviewList;
          let str = "";
 
          for(var i=0; i<temp_reviewList.length; i++){

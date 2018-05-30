@@ -64,14 +64,14 @@ export default {
     putPersonList : function () {
       if(sessionStorage.token){
         //로그인 함
-          let favPersonIndex = this.$store.state.favPersonList.indexOf(this.person.person_id.toString());
+          let favPersonIndex = this.$store.getters.getFavPersonList.indexOf(this.person.person_id.toString());
           //좋아요 추가 요청
           if (favPersonIndex == -1){
             let personId = this.person.person_id;
             let userId = sessionStorage.userNo;
             this.$axios.post('/api/addfavpeople', {personId, userId})
             .then(() => {
-              this.$store.state.favPersonList.push(personId.toString());
+              this.$store.getters.getFavPersonList.push(personId.toString());
               this.heart = true;
             })
           } else if (favPersonIndex != -1 || personIntCheker != -1){
@@ -81,7 +81,7 @@ export default {
             let userId = sessionStorage.userNo;
             this.$axios.post('/api/delfavpeople', {personId, userId})
             .then(() => {
-              //this.$store.state.favPersonList.splice(favPersonIndex, 1);
+              //this.$store.getters.getFavPersonList.splice(favPersonIndex, 1);
               this.$eventBus.$emit('delInPage', personId, favPersonIndex);
               this.heart = false;
             })
@@ -92,8 +92,8 @@ export default {
       }
     },
     checkFavList : function () {
-      let personChecker = this.$store.state.favPersonList.indexOf(this.person.person_id.toString());
-      let personIntCheker = this.$store.state.favPersonList.indexOf(this.person.person_id);
+      let personChecker = this.$store.getters.getFavPersonList.indexOf(this.person.person_id.toString());
+      let personIntCheker = this.$store.getters.getFavPersonList.indexOf(this.person.person_id);
       if (personChecker != -1 || personIntCheker != -1){
         this.heart =  true;
       } else {

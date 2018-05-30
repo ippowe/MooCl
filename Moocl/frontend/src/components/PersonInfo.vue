@@ -121,13 +121,13 @@ export default {
       if(sessionStorage.token){
         //로그인 함
           //좋아요 추가 요청
-          let favPersonIndex = this.$store.state.favPersonList.indexOf(this.person.person_id.toString());
+          let favPersonIndex = this.$store.getters.getFavPersonList.indexOf(this.person.person_id.toString());
           if (favPersonIndex == -1){
             let personId = this.person.person_id;
             let userId = sessionStorage.userNo;
             this.$axios.post('/api/addfavpeople', {personId, userId})
             .then(() => {
-              this.$store.state.favPersonList.push(personId.toString());
+              this.$store.getters.getFavPersonList.push(personId.toString());
               this.heart = true;
             })
           } else if(favPersonIndex != -1 ){
@@ -137,7 +137,7 @@ export default {
             let userId = sessionStorage.userNo;
             this.$axios.post('/api/delfavpeople', {personId, userId})
             .then(() => {
-              this.$store.state.favPersonList.splice(favPersonIndex, 1);
+              this.$store.getters.getFavPersonList.splice(favPersonIndex, 1);
               this.heart = false;
             })
             .catch((error) => console.log(error))
@@ -148,7 +148,7 @@ export default {
       }
     },
     checkFavList : function () {
-      let personChecker = this.$store.state.favPersonList.indexOf(this.person.person_id.toString());
+      let personChecker = this.$store.getters.getFavPersonList.indexOf(this.person.person_id.toString());
       if (personChecker != -1){
         this.heart =  true;
       } else {

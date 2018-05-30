@@ -17,6 +17,7 @@ public class WordcloudRestController {
 	WordCloudService wordCloudService; 
 	@RequestMapping("/getWord")
 	public List<Document> getWordList(@RequestParam("movieId") String movieId){
+		System.out.println(movieId);
 		List<Document> result = (List<Document>) wordCloudService.getWordList(movieId);
 		return result;
 	}

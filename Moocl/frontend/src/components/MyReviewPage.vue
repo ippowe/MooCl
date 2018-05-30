@@ -41,7 +41,7 @@ export default {
   },
   created () {
     setTimeout(function() {
-      this.myReviewList = this.$store.state.myPageData.myReviewData;
+      this.myReviewList = this.$store.getters.getMyPageData.myReviewData;
       this.row();
       this.slicedMovieList();
     }.bind(this), 500);
