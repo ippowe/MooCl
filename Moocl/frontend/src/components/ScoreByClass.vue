@@ -42,7 +42,29 @@ export default {
     return{
       siteName : "naver",
       genderscore : [],
-      agescore : []
+      agescore : [],
+      naverEmptGender : {
+        "site" : "naver",
+        "male" : 0
+      },
+      cgvEmptGender : {
+        "site" : "cgv",
+        "male" : 0
+      },
+      naverEmptAge: {
+        "site" : "naver",
+        "teen" : 0,
+        "twenty" : 0,
+        "thirty" : 0,
+        "forty" : 0
+      },
+      cgvEmptAge: {
+        "site" : "cgv",
+        "teen" : 0,
+        "twenty" : 0,
+        "thirty" : 0,
+        "forty" : 0
+      }
     }
   },
   methods : {
@@ -111,26 +133,25 @@ export default {
     }
   },
   mounted () {
-    if(this.classscore[0].length < 2){
+    for(var i=0; i<this.classscore.length; i++){
+      let gender = [this.naverEmptGender, this.cgvEmptGender]
+      let age = [this.naverEmptAge, this.cgvEmptAge]
 
-      this.classscore[0].push({
-        "site" : "cgv",
-        "male" : 0
-      });
+      if(this.classscore[i] == null){
+        this.classscore = [[],[]];
+        this.classscore[0].push(gender[i]);
+        this.classscore[1].push(age[i]);
+      } else if( this.classscore[0].length < 2 ){
+        this.classscore[0].push(this.cgvEmptGender);
+        this.classscore[1].push(this.cgvEmptAge);
 
-      this.classscore[1].push({
-        "site" : "cgv",
-        "teen" : 0,
-        "twenty" : 0,
-        "thirty" : 0,
-        "forty" : 0
-      });
 
-      this.setGenderRatio();
-      this.setAgeRatio();
-    } else{
-      this.setGenderRatio();
-      this.setAgeRatio();
+        this.setGenderRatio();
+        this.setAgeRatio();
+      } else {
+        this.setGenderRatio();
+        this.setAgeRatio();
+      }
     }
   }
 }

@@ -1,9 +1,8 @@
 <template lang="html">
-      <v-card class="ma-0 ml-3" @mouseenter="showButton" @mouseleave="hideButton" depressed width="168" height="240" :img ="posterUrl">
+      <v-card class="ma-0 ml-3" @mouseenter="showButton" @mouseleave="hideButton" depressed width="168" height="240" :img ="checkedPosterUrl">
         <v-card-media>
           <v-flex xs10></v-flex>   <!-- 하트를 오른쪽 보내기 위한 테그 -->
           <v-flex xs3>
-            <!--버튼 눌렀을때 favorite 목록에 추가되는 기능 필요  -->
             <v-btn :ripple="false" v-show="showFB" flat icon small @click="putMovieList" depressed>
                 <v-icon color="red accent-3">{{heart ? "favorite" : "favorite_border"}}</v-icon>
             </v-btn>
@@ -76,7 +75,13 @@ export default {
     }
   },
   computed : {
-
+    checkedPosterUrl : function() {
+      if(this.posterUrl == null || this.posterUrl == "https://ssl.pstatic.net/static/movie/2012/06/dft_img203x290.png") {
+        return "http://dytk.co.kr/twb_images/no.jpg";   //로컬파일에서 이미지 가져올 수 있게 코딩 필요
+      } else {
+        return this.posterUrl;
+      }
+    },
   }
 }
 </script>

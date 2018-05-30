@@ -1,6 +1,6 @@
 <template lang="html">
  <v-container class="pa-0">
-   <v-card class="ma-0" @mouseenter="showButton" @mouseleave="hideButton" depressed width="126" height="180" :img ="movieinfo.poster">
+   <v-card class="ma-0" @mouseenter="showButton" @mouseleave="hideButton" depressed width="126" height="180" :img ="checkedPosterUrl">
      <v-card-media>
        <v-flex xs8></v-flex>   <!-- 하트를 오른쪽 보내기 위한 테그 -->
        <v-flex xs4>
@@ -123,7 +123,14 @@ export default {
       } else {
         return temp_title;
       }
-    }
+    },
+    checkedPosterUrl : function() {
+      if(this.movieinfo.poster == null || this.movieinfo.poster == "https://ssl.pstatic.net/static/movie/2012/06/dft_img203x290.png") {
+        return "http://dytk.co.kr/twb_images/no.jpg";   //로컬파일에서 이미지 가져올 수 있게 코딩 필요
+      } else {
+        return this.movieinfo.poster;
+      }
+    },
   }
 }
 </script>

@@ -17,10 +17,10 @@ public class PersonDao {
 	@Autowired
 	MongoTemplate mongoTemplate;
 	
-	public List<Object> getPersonInfoByPplList(List<Object> temp_personId) {
+	public List<PeopleVo> getPersonInfoByPplList(List<Object> temp_personId) {
 
 		
-		List<Object> peopleInfoList = new ArrayList<>();
+		List<PeopleVo> peopleInfoList = new ArrayList<>();
 		
 		for(int i=0; i<temp_personId.size(); i++) {
 			Criteria criteria = new Criteria("_id");

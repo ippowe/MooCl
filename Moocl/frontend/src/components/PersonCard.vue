@@ -40,8 +40,14 @@ export default {
   computed : {
     resizeUrl : function() {
       var url = this.person.people_img;
-      var size = '111_139';
-      var tempUrl = url.replace(/77_96/, size);
+      var tempUrl = "";
+
+      if(url == "hasNoImg"){
+          tempUrl = "https://ssl.pstatic.net/static/movie/2012/06/dft_img77x96_1.png"
+      } else {
+          var size = '111_139';
+          tempUrl = url.replace(/77_96/, size);
+      }
       return tempUrl;
     }
   },

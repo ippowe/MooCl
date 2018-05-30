@@ -27,17 +27,29 @@ public class MainService {
 		InteMovieVo rawMovieData = movieDao.getMovieInfoById(movieId);
 		
 		List<Object> temp_personId = new ArrayList<>(); 
-		for(int i=0; i<rawMovieData.getPerson().size(); i++ ) {
-			temp_personId.add(rawMovieData.getPerson().get(i).getPerson_id());
-		}
+		List<PeopleVo> tempPersonList = rawMovieData.getPerson();
 		
-		List<Object> pplListHasImg = personDao.getPersonInfoByPplList(temp_personId);
-		
-		for(int j=0; j<pplListHasImg.size(); j++) {
-			String tempImg = ((PeopleVo) pplListHasImg.get(j)).getPeople_img();
-			rawMovieData.getPerson().get(j).setPeople_img(tempImg);
+		if(tempPersonList == null) {
+			
+			temp_personId = null;
+		} else { 
+			
+			for(int i=0; i<tempPersonList.size(); i++ ) {
+				temp_personId.add(tempPersonList.get(i).getPerson_id());
+			}
+			
+			List<PeopleVo> pplListHasImg = personDao.getPersonInfoByPplList(temp_personId);
+			
+			for(int j=0; j<pplListHasImg.size(); j++) {
+				String tempImg = "";
+				if(pplListHasImg.get(j) == null) {
+					tempImg = "hasNoImg";
+				} else {
+					tempImg =  pplListHasImg.get(j).getPeople_img();	
+				}
+				rawMovieData.getPerson().get(j).setPeople_img(tempImg);
+			}
 		}
-
 		return rawMovieData;
 	}
 	
