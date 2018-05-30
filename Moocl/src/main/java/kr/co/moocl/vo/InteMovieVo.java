@@ -27,6 +27,8 @@ public class InteMovieVo {
 	private Object poster;
 	private List<PeopleVo> person;
 	private String watching_rate;
+	private String wordcloudDate;
+	private List<String> wordcloudList;
 	
 	
 	public InteMovieVo(String _id, List<Map<String, String>> movie_id, String inte_title, String movie_title,
@@ -156,13 +158,26 @@ public class InteMovieVo {
 	public void setWatching_rate(String watching_rate) {
 		this.watching_rate = watching_rate;
 	}
+	public String getWordcloudDate() {
+		return wordcloudDate;
+	}
+	public void setWordcloudDate(String wordcloudDate) {
+		this.wordcloudDate = wordcloudDate;
+	}
+	public List<String> getWordcloudList() {
+		return wordcloudList;
+	}
+	public void setWordcloudList(List<String> wordcloudList) {
+		this.wordcloudList = wordcloudList;
+	}
 	@Override
 	public String toString() {
 		return "InteMovieVo [_id=" + _id + ", movie_id=" + movie_id + ", inte_title=" + inte_title + ", movie_title="
 				+ movie_title + ", director=" + director + ", review_cnt=" + review_cnt + ", gender_ratio="
 				+ gender_ratio + ", age=" + age + ", score=" + score + ", nation=" + nation + ", open_date=" + open_date
 				+ ", genre=" + genre + ", inte_director=" + inte_director + ", running_time=" + running_time
-				+ ", poster=" + poster + ", person=" + person + ", watching_rate=" + watching_rate + "]";
+				+ ", poster=" + poster + ", person=" + person + ", watching_rate=" + watching_rate + ", wordcloudDate="
+				+ wordcloudDate + ", wordcloudList=" + wordcloudList + "]";
 	}
 	
 	

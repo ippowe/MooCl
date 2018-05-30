@@ -14,10 +14,12 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.data.mongodb.core.script.ExecutableMongoScript;
 import org.springframework.stereotype.Component;
 
 import kr.co.moocl.vo.InteMovieVo;
+import kr.co.moocl.vo.ReviewVo;
 
 
 
@@ -108,6 +110,48 @@ public class MovieDao {
 		
 		List<InteMovieVo> movieList = mongoTemplate.find(query, InteMovieVo.class, "movie_info");
 		return movieList;
+	}
+
+	public List<Document> getWordListByMovieId(String movieId) {
+	    StringBuilder text = new StringBuilder();
+	    BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader(
+			        new File("C:\\Users\\bit\\Desktop\\getWordListByMovieId.js")));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    try {
+	        while (true) {
+	            String line= "";
+				try {
+					line = br.readLine();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	            if (line == null)
+	                break;
+	            text.append(line).append("\n");
+	        }
+	    } finally {
+	        try { br.close(); } catch (Exception ignore) {}
+	    }
+	    ExecutableMongoScript wordcloudScript = new ExecutableMongoScript(text.toString());
+	    List<Document> movieList= (List<Document>) mongoOperation.scriptOps().execute(wordcloudScript, movieId); 
+        return movieList;
+	}
+	
+	public void updateCloudWord(String movieId, Object result, String date) {
+
+		Query query = new Query( new Criteria("_id").is(movieId));
+		Update update = new Update();
+		update.set("wordcloudList", result);
+		update.set("wordcloudDate", date);
+		
+		mongoTemplate.updateFirst(query, update,"movie_info");
+		System.out.println(mongoTemplate.find(query, InteMovieVo.class, "movie_info"));
 	}
 	
 }
