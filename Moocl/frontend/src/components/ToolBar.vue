@@ -5,7 +5,8 @@
     <v-toolbar dark color="blue lighten-4" height ="75px" >
       <v-toolbar-side-icon @click="search"><img src="../assets/moocl_logo.jpg" style="height: 28px"></v-toolbar-side-icon>
       <v-spacer></v-spacer>
-      <v-text-field label="Search" append-icon="search" :append-icon-cb="search" v-model="keyword" solo-inverted style="border-radius :15px">
+      <v-text-field label="Search" append-icon="search" :append-icon-cb="search" v-model="keyword"
+                    solo-inverted style="border-radius :15px" @keyup.enter="search">
       </v-text-field>
       <v-spacer></v-spacer>
       <v-toolbar-items>

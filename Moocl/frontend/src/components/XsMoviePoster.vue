@@ -1,16 +1,18 @@
 <template lang="html">
  <v-container class="pa-0">
-   <v-card class="ma-0" @mouseenter="showButton" @mouseleave="hideButton" depressed width="126" height="180" :img ="checkedPosterUrl">
-     <v-card-media>
-       <v-flex xs8></v-flex>   <!-- 하트를 오른쪽 보내기 위한 테그 -->
-       <v-flex xs4>
-         <!--버튼 눌렀을때 favorite 목록에 추가되는 기능 필요  -->
-         <v-btn :ripple="false" v-show="showFB" flat icon small @click="putMovieList" depressed>
-             <v-icon color="red accent-3">{{heart ? "favorite" : "favorite_border"}}</v-icon>
-         </v-btn>
-       </v-flex>
-     </v-card-media>
-   </v-card>
+   <div @click="openMovieInfo">
+     <v-card class="ma-0" @mouseenter="showButton" @mouseleave="hideButton" depressed width="126" height="180" :img ="checkedPosterUrl">
+       <v-card-media>
+         <v-flex xs8></v-flex>   <!-- 하트를 오른쪽 보내기 위한 테그 -->
+         <v-flex xs4>
+           <!--버튼 눌렀을때 favorite 목록에 추가되는 기능 필요  -->
+           <v-btn :ripple="false" v-show="showFB" flat icon small @click.stop="putMovieList" depressed>
+               <v-icon color="red accent-3">{{heart ? "favorite" : "favorite_border"}}</v-icon>
+           </v-btn>
+         </v-flex>
+       </v-card-media>
+     </v-card>
+   </div>
    <v-card width="126" flat class="pt-1">
      <v-card-title class="pa-0 ma-0 text-xs-left">
        <strong>{{ trimTitle }}</strong>
@@ -30,6 +32,8 @@
 </template>
 
 <script>
+
+
 export default {
   name : "XsMoviePoster",
   props: ['movieinfo'],
@@ -111,6 +115,10 @@ export default {
       } else {
         this.heart = false;
       }
+    },
+    openMovieInfo : function() {
+      let componentName = 'MovieInfo'
+      this.$eventBus.$emit('OpenMovieInfo', componentName);
     }
   },
   computed : {

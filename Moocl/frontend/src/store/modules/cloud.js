@@ -2,12 +2,12 @@
 import axios from 'axios'
 
 const state = {
-    wordCloud: []
+    wordCloudList: []
 }
 
 const getters = {
-    getWordCloud (state) {
-      return state.wordCloud;
+    getWordCloudList (state) {
+      return state.wordCloudList;
     }
 }
 
@@ -19,13 +19,35 @@ const actions = {
         }
       })
       .then((result) => {
-          console.log(result.data);
+        let wordInfo = {
+          words : result.data,
+          movie : movieId
+        }
+
+        commit('SETCLOUDDATA', wordInfo);
       })
     }
 }
 
 const mutations = {
+  SETCLOUDDATA : function(state, wordInfo){
 
+    let wordCloud = {
+      movieId: wordInfo.movie,
+      words : wordInfo.words
+    }
+
+    if(state.wordCloudList.length == 0){
+      state.wordCloudList.push(wordCloud);
+    } else {
+      let length = state.wordCloudList.length
+      for(var i=0; i<length; i++){
+        if(state.wordCloudList.indexOf(wordCloud) == -1){
+          state.wordCloudList.push(wordCloud);
+        }
+      }
+    }
+  }
 }
 
 export default {

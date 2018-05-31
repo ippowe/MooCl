@@ -1,9 +1,25 @@
 @charset "UTF-8";
 
 @font-face {
+  font-family:'Hyundai_R';
+  src: url('./../Font/Hyundai_R/Hyundai_R1012.eot');
+  src: url('./../Font/Hyundai_R/Hyundai_R1012.eot?#iefix') format('embedded-opentype'),
+       url('./../Font/Hyundai_R/Hyundai_R1012.woff') format('woff'),
+       url('./../Font/Hyundai_R/Hyundai_R1012.ttf') format('truetype');
+}
+
+@font-face {
   font-family:'Noto_Sans';
   src: url('../Font/Noto_sans/NotoSans-Medium.eot');
   src: url('../Font/Noto_sans/NotoSans-Medium.eot?#iefix') format('embedded-opentype'),
        url('../Font/Noto_sans/NotoSans-Medium.woff') format('woff'),
        url('../Font/Noto_sans/NotoSans-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family:'Binggrae';
+  src: url('../Font/Binggrae/Binggrae.eot');
+  src: url('../Font/Binggrae/Binggrae.eot?#iefix') format('embedded-opentype'),
+       url('../Font/Binggrae/Binggrae.woff') format('woff'),
+       url('../Font/Binggrae/Binggrae.ttf') format('truetype');
 }
