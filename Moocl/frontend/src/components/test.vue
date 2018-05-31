@@ -1,11 +1,11 @@
 <template lang="html">
   <v-app class="white">
-      <TestArea :movietag="MovieTag" reviewcontent="reviewContent"></TestArea>
+      <TestArea :movietag="MovieTag" :classscore="scores"></TestArea>
   </v-app>
 </template>
 
 <script>
-import TestArea from './ScoreBySite.vue'
+import TestArea from './MainPage.vue'
 export default {
   name: 'TestPage',
   created () {
@@ -28,6 +28,25 @@ export default {
            {site: "cgv", grade: "6.5"}
          ]
       },
+
+      scores : [[{
+        "site" : "naver",
+        "male" : 30
+      },{
+        "site" : "cgv",
+        "male" : 30
+      }],[{
+        "site" : "naver",
+        "twenty" : 20,
+        "thirty" : 50,
+        "teen" : 10,
+        "forty" : 40
+      },{
+        "site" : "cgv",
+        "twenty" : 20,
+        "thirty" : 30,
+        "teen" : 10,
+        "forty" : 40}]]
     }
   }
 

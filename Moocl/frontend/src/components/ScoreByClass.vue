@@ -1,32 +1,33 @@
 <template lang="html">
 <v-layout>
   <v-card height=200 flat class="transparent mt-4">
-    <v-tooltip v-for="data in genderscore" :key="data.gender" bottom :color="data.color">
-      <v-progress-circular slot="activator" :value="data.value" :color="data.color" size="120" :rotate="-90" :width="20" class="mx-3">
+    <v-tabs hide-slider :ripple="false" right style="padding-bottom : 10px;">
+      <v-tab @click="naverData">
+        <v-avatar size="22" ><img src="../assets/naver_icon.png" alt=""></v-avatar>
+      </v-tab>
+      <v-tab @click="cgvData">
+        <v-avatar size="42"><img src="../assets/cgv_icon.png" alt=""></v-avatar>
+      </v-tab>
+    </v-tabs>
+    <v-tooltip v-for="data in genderscore" :key="data.gender" bottom :color="data.color" style="padding-left: 22px;">
+      <v-progress-circular slot="activator" :value="data.value" :color="data.color" size="128" :rotate="-90" :width="18" class="mx-2">
       </v-progress-circular>
       <span><v-icon>person</v-icon> {{data.value}}%</span>
     </v-tooltip>
     <v-card flat class="transparent py-0" height="200">
-      <v-list class="transparent" v-for="inform in agescore" :key="inform.age * 10" style="height: 45px;">
+      <v-list class="transparent" v-for="inform in agescore" :key="inform.age * 10" style="height: 34px;">
         <v-tooltip right :color="inform.color">
         <v-list-tile slot="activator">
           <v-list-tile-action>
-            <v-avatar size="40"><strong>{{inform.age}}대</strong></v-avatar>
+            <v-avatar size="50"><p style="font-size: 14px; font-weight: bold; padding: 16px 0px 0px 16px;">{{inform.age}}대</p>
+            </v-avatar>
           </v-list-tile-action>
-            <v-progress-linear height="20" :value="inform.percent*1.5" :color="inform.color"></v-progress-linear>
+            <v-progress-linear height="11" style="border-radius : 22px;" :value="inform.percent*1.5" :color="inform.color"></v-progress-linear>
         </v-list-tile>
         <span><v-icon>person</v-icon> {{inform.percent}}%</span>
       </v-tooltip>
       </v-list>
     </v-card>
-    <v-tabs hide-slider :ripple="false" centered>
-      <v-tab @click="naverData">
-        <v-avatar size="35"><img src="../assets/naver_icon.png" alt=""></v-avatar>
-      </v-tab>
-      <v-tab @click="cgvData">
-        <v-avatar size="50"><img src="../assets/cgv_icon.png" alt=""></v-avatar>
-      </v-tab>
-    </v-tabs>
   </v-card>
 
 </v-layout>
@@ -89,7 +90,7 @@ export default {
           temp_male["color"] = "blue";
 
           temp_female["gender"] = "female";
-          temp_female["color"] = "pink"
+          temp_female["color"] = "pink accent-2"
           if(temp_male["value"] != 0) {
             temp_female["value"] = 100 - this.classscore[0][i].male;
           } else {
@@ -113,19 +114,19 @@ export default {
         if(this.classscore[1][i].site == this.siteName){
           temp_teen["age"] = 10;
           temp_teen["percent"] = this.classscore[1][i].teen;
-          temp_teen["color"] = "green";
+          temp_teen["color"] = "deep-purple lighten-2 ";
 
           temp_twenty["age"] = 20;
           temp_twenty["percent"] = this.classscore[1][i].twenty;
-          temp_twenty["color"] = "yellow";
+          temp_twenty["color"] = "pink lighten-4";
 
           temp_thirty["age"] = 30;
           temp_thirty["percent"] = this.classscore[1][i].thirty;
-          temp_thirty["color"] = "blue";
+          temp_thirty["color"] = "teal lighten-3";
 
           temp_forty["age"] = 40;
           temp_forty["percent"] = this.classscore[1][i].forty;
-          temp_forty["color"] = "cyan";
+          temp_forty["color"] = "amber lighten-1";
 
           this.agescore = [temp_teen, temp_twenty, temp_thirty, temp_forty];
         }
@@ -133,6 +134,7 @@ export default {
     }
   },
   mounted () {
+    console.log(this.classscore);
     for(var i=0; i<this.classscore.length; i++){
       let gender = [this.naverEmptGender, this.cgvEmptGender]
       let age = [this.naverEmptAge, this.cgvEmptAge]
@@ -158,4 +160,6 @@ export default {
 </script>
 
 <style lang="css">
+
+
 </style>

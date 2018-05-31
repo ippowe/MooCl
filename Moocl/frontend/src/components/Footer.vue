@@ -1,5 +1,5 @@
 <template>
-  <v-footer absolute >
+  <v-footer absolute class="indigo lighten-5" >
     <v-layout row wrap justify-center>
       <v-flex xl12 text-xl-center >
          <strong class="blue-grey--text"><h1> &copy; 2018 - MooCL</h1></strong>

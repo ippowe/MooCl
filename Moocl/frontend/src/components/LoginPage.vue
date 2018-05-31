@@ -1,5 +1,5 @@
 <template>
-    <v-container fill-height>
+    <v-container fill-height class="indigo lighten-5">
       <v-layout align-center justify-center>
         <v-flex xs4 class="pt-0 mt-0 mb-5 pb-5">
           <router-link :to="{ name: 'MainPage' }"><v-avatar size="300"><img src="../assets/moocl_logo.jpg" style=""></v-avatar></router-link>

@@ -1,7 +1,7 @@
 <template>
-  <v-app class="white ma-0">
+  <v-app class=" indigo lighten-5 ma-0">
       <ToolBar v-if="mainPageChecker"></ToolBar>
-      <router-view/>
+      <router-view class= "indigo lighten-5"/>
       <div is="FooterVue"></div>
   </v-app>
 </template>

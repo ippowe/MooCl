@@ -1,9 +1,9 @@
 <template>
     <!-- 로그인후에 영화 차트순으로 정렬해서 포스터 보여주기 -->
-    <v-container class="mb-5 ml-5 px-5">
+    <v-container class="mb-5 ml-5 px-5 " color= "indigo lighten-5">
       <!-- <MovieChart style="position: absolute" class="ml-5" ></MovieChart> -->
       <v-layout v-for="i in mainMovies.length" :key="i" justify-left class="mb-3 mx-5 pl-4">
-        <MovieInfo class="mb-5 mx-3" v-for="k in mainMovies[i-1].length" :key="k" :movietag="mainMovies[i-1][k-1]"></MovieInfo>
+        <MovieInfo class="mb-5 mx-3 pt-4" v-for="k in mainMovies[i-1].length" :key="k" :movietag="mainMovies[i-1][k-1]"></MovieInfo>
       </v-layout>
     </v-container>
 

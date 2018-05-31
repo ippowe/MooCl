@@ -1,13 +1,13 @@
 <template lang="html">
   <div>
     <v-layout class="white">
-      <v-flex class="ma-2" xs3>
+      <v-flex class="ma-2 pt-4" xs3>
         <SmallMoviePoster :posterUrl="movietag.posterUrl" :movieid="movietag.movieId"></SmallMoviePoster>
       </v-flex>
       <v-flex xs8>
         <ScoreBySite :sitescore="movietag.score"></ScoreBySite>
         <v-card color ="transparent" flat>
-          <v-card-title class="headline black--text">
+          <v-card-title class="headline black--text pt-5">
             개봉일  2018.04.20
             <v-spacer></v-spacer>
             관객수 100,000,000명
@@ -15,7 +15,7 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <v-layout class="white pl-3">
+    <v-layout class="white pl-3 pt-4">
       <v-spacer></v-spacer>
       <v-flex xs2 class="ml-4">
         <span><strong class="title black--text">{{sliceTitle == undefined ? "영화제목" : sliceTitle }}</strong></span><br>

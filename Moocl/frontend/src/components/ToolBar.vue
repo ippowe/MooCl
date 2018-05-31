@@ -3,7 +3,7 @@
   <!-- 로그(side-icon) 눌렀을 때 홈으로 이동 -->
   <!-- 검색 기능 구현 -->
     <v-toolbar dark color="blue lighten-4" height ="75px" >
-      <v-toolbar-side-icon @click="search"><img src="../assets/moocl_logo.jpg" style="height: 28px"></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click="search"><img src="../assets/moocl_logo.jpg" class=" pl-5 mt-4" style="height:95px"></v-toolbar-side-icon>
       <v-spacer></v-spacer>
       <v-text-field label="Search" append-icon="search" :append-icon-cb="search" v-model="keyword" solo-inverted style="border-radius :15px">
       </v-text-field>
@@ -11,13 +11,13 @@
       <v-toolbar-items>
         <v-tabs color="transparent" hide-slider>
           <v-tab v-if="loginChecker == 'false'" to="login" style="font-size : 18px;" >
-            <strong class="pt-4 loginFont"  >Login</strong>
+            <strong class="pt-4 ToolBarFont"  >Login</strong>
           </v-tab>
           <v-tab v-if="loginChecker == 'true'" @click="logoutMethod" style="font-size : 18px;">
-            <strong class="pt-4 loginFont">Logout</strong>
+            <strong class="pt-4 ToolBarFont">Logout</strong>
           </v-tab>
           <v-tab v-if="loginChecker == 'true'" to="mypage" style="font-size : 18px;">
-            <strong class="pt-4 loginFont">Mypage</strong>
+            <strong class="pt-4 ToolBarFont">Mypage</strong>
           </v-tab>
         </v-tabs>
       </v-toolbar-items>
@@ -77,6 +77,7 @@ export default {
 
 <style lang="css">
 
-.loginFont {color : #00426B !important; font-family: 'Noto_Sans' !important;}
+.ToolBarFont {color : #00426B !important; font-family: 'Noto_Sans' !important;}
+.Logocolor {color: transparent !important;}
 
 </style>

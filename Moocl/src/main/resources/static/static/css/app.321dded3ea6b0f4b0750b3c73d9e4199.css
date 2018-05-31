@@ -1,4 +1,23 @@
-@font-face{font-family:Noto_Sans;src:url(/static/fonts/NotoSans-Medium.fbb08cd.eot);src:url(/static/fonts/NotoSans-Medium.fbb08cd.eot?#iefix) format("embedded-opentype"),url(/static/fonts/NotoSans-Medium.fcafe90.woff) format("woff"),url(/static/fonts/NotoSans-Medium.9ec3449.ttf) format("truetype")}#app{font-family:Avenir,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-align:center;color:#2c3e50;margin-top:60px}.loginFont{color:#00426b!important;font-family:Noto_Sans!important}.noselect{-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer}.reviewarea{border-left:2px solid grey}
+@font-face{font-family:Noto_Sans;src:url(/static/fonts/NotoSans-Medium.fbb08cd.eot);src:url(/static/fonts/NotoSans-Medium.fbb08cd.eot?#iefix) format("embedded-opentype"),url(/static/fonts/NotoSans-Medium.fcafe90.woff) format("woff"),url(/static/fonts/NotoSans-Medium.9ec3449.ttf) format("truetype")}#app{font-family:Avenir,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-align:center;color:#2c3e50;margin-top:60px}.ToolBarFont{color:#00426b!important;font-family:Noto_Sans!important}.Logocolor{color:transparent!important}.noselect{-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer}.reviewarea{border-left:2px solid grey}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -575,4 +594,4 @@
  * Copyright 2014-2017 Damien "Mistic" Sorel (http://www.strangeplanet.fr)
  * Licensed under MIT (http://opensource.org/licenses/MIT)
  */.jqcloud{font:10px Helvetica,Arial,sans-serif;line-height:normal;overflow:hidden;position:relative}.jqcloud-word{margin:0;padding:0}.jqcloud-word.w1{color:#aab5f0;font-size:100%}.jqcloud-word.w2{color:#9ce;font-size:150%}.jqcloud-word.w3{color:#a0ddff;font-size:200%}.jqcloud-word.w4{color:#90c5f0;font-size:250%}.jqcloud-word.w5{color:#90a0dd;font-size:300%}.jqcloud-word.w6{color:#90c5f0;font-size:350%}.jqcloud-word.w7{color:#39d;font-size:400%}.jqcloud-word.w8{color:#0cf;font-size:450%}.jqcloud-word.w9{color:#0cf;font-size:500%}.jqcloud-word.w10{color:#0cf;font-size:550%}.jqcloud-word a{color:inherit;font-size:inherit;text-decoration:none}.jqcloud-word a:hover{color:#0cf}
-/*# sourceMappingURL=app.be41ae304b250ae1564a0faeb94eb248.css.map */
+/*# sourceMappingURL=app.321dded3ea6b0f4b0750b3c73d9e4199.css.map */
