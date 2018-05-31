@@ -9,10 +9,6 @@
 
 <script>
 import BigMoviePoster from "./BigMoviePoster.vue"
-import SmallMoviePoster from "./SmallMoviePoster.vue"
-import ScoreBySite from "./ScoreBySite.vue"
-import WordCloud from "./WordCloud.vue"
-import WritingReview from "./WritingReview.vue"
 import NormalInfo from "./NormalInfo.vue"
 import MovieDetailInfo from "./MovieDetailInfo.vue"
 
@@ -20,16 +16,15 @@ export default {
   name: "MovieInfo",
   props: ['movietag'],
   components:{
-    SmallMoviePoster,
-    ScoreBySite,
-    WordCloud,
     BigMoviePoster,
-    WritingReview,
     NormalInfo,
     MovieDetailInfo
   },
-  beforeUpdate(){
-    this.getCloudData()
+  mounted(){
+    this.getCloudData();
+  },
+  updated(){
+    this.getCloudData();
   },
   watch : {
     dialog: function (val) {
@@ -79,15 +74,13 @@ export default {
       let movieId = this.movietag.movieId;
 
       this.$store.dispatch('GETREVIEWCOUNT', movieId)
-      .then((result) => {
-        console.log(result);
-      })
       .catch((error) => console.log(error));
     },
     getCloudData () {
       let movieId = this.movietag.movieId;
 
       this.$store.dispatch('GETCLOUDDATA', movieId)
+      .catch((error) => console.log(error));
 
     }
   },

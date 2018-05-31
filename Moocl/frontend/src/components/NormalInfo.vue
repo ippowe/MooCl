@@ -28,7 +28,7 @@
       </v-flex>
       <v-spacer></v-spacer>
       <v-flex class="mr-3 mb-3">
-        <WordCloud :moviename="movietag.movieId == undefined ? '영화제목' : movietag.movieId"></WordCloud>
+        <WordCloud :moviename="movietag.movieId == undefined ? '영화제목' : movietag.movieId" :movieid="movietag.movieId"></WordCloud>
       </v-flex>
     </v-layout>
   </div>

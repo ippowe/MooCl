@@ -6,7 +6,7 @@
           <v-container text-xs-center fill-height class="pa-0" style="height: 250px">
             <v-layout wrap align-center align-content-center >
               <v-spacer></v-spacer>
-              <v-btn :ripple="false" flat icon depressed @click="prevstep" ><v-icon>skip_previous</v-icon></v-btn>
+              <v-btn :ripple="false" flat icon depressed @click="prevstep" ><v-icon>navigate_before</v-icon></v-btn>
               <v-spacer></v-spacer>
               <v-flex v-for="(item, index) in slicedperson[n-1]" :key ="index">
                 <PersonCard :person="item" @openPersonInfo="openPersonInfo(n, index, item)"></PersonCard>
@@ -14,7 +14,7 @@
                             :dialog="dialog" @closePersonInfo="closePersonInfo(n, index)"></PersonInfo>
               </v-flex>
               <v-spacer></v-spacer>
-              <v-btn :ripple="false" flat icon depressed @click="nextstep"> <v-icon>skip_next</v-icon></v-btn>
+              <v-btn :ripple="false" flat icon depressed @click="nextstep"> <v-icon>navigate_next</v-icon></v-btn>
               <v-spacer></v-spacer>
             </v-layout>
           </v-container>
@@ -22,7 +22,7 @@
       </v-stepper-items>
     </v-stepper>
     <v-card v-else class="pa-0 elevation-0"  style="height: 250px">
-      <v-card-title justify-center class="display-3 pa-5">
+      <v-card-title class="display-3 pa-5">
         인물정보 준비중 입니다.
       </v-card-title>
     </v-card>
@@ -32,12 +32,16 @@
 <script>
 import PersonInfo from "./PersonInfo.vue"
 import PersonCard from "./PersonCard.vue"
+import NormalInfo from "./NormalInfo.vue"
+import MovieDetailInfo from "./MovieDetailInfo.vue"
 
 export default {
   name: "PeopleList",
   components : {
     PersonInfo,
-    PersonCard
+    PersonCard,
+    NormalInfo,
+    MovieDetailInfo
   },
   created () {
     if(this.row != 0){
@@ -52,7 +56,7 @@ export default {
         stepNo: 1,
         relatedMovie: [],
         dialog: false,
-        hasPersonList: true,
+        hasPersonList: true
       }
     },
   methods : {

@@ -4,7 +4,7 @@
           <v-flex @click="openPersonInfo" xs8></v-flex>   <!-- 하트를 오른쪽 보내기 위한 테그 -->
           <v-flex @click="openPersonInfo" xs5  class="pa-0 ma-0">
             <!--버튼 눌렀을때 favorite 목록에 추가되는 기능 필요  -->
-            <v-btn :ripple="false" v-show="showFB" flat icon small @click="putPersonList" depressed>
+            <v-btn :ripple="false" v-show="showFB" flat icon small @click.stop="putPersonList" depressed>
                 <v-icon color="red accent-3">{{heart ? "favorite" : "favorite_border"}}</v-icon>
             </v-btn>
           </v-flex>

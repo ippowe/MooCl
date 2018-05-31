@@ -58,6 +58,9 @@ const mutations = {
       } else if (temp_list[i].site == "cgv"){
         temp_name = temp_list[i].user_id.slice(0,3);
         temp_name = temp_name + "***";
+      } else if (temp_list[i].site == "gurumi"){
+        temp_name = temp_list[i].user_id.slice(0,3);
+        temp_name = temp_name + "***";
       } else {
         temp_name = temp_list[i].user_id;
       }

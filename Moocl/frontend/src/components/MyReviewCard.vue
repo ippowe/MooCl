@@ -8,19 +8,21 @@
               <v-flex class="pa-1">
                 <SmallMoviePoster :posterUrl="reviewInfo._id.movie_ref.poster" :movieid="reviewInfo.movie_id" ></SmallMoviePoster>
               </v-flex>
-            <td>
+            <td style="vertical-align: top;">
               <v-flex class="pa-1">
                 <v-card-text class="pa-0">
                   <v-card-title primary-title class="pa-0 title">
                     <strong>{{ reviewInfo._id.movie_ref.movie_title }}</strong>
                   </v-card-title>
-                  <v-card-media class="py-2 subheading">
+                  <v-card-media class="py-2 subheading text-xs-left">
                     {{ reviewInfo._id.movie_ref.genre }}
                   </v-card-media>
                     <p style="text-align: left;" class="py-2" >
-                      {{ reviewInfo.review_contents }}
-                      <span @click="myReviewDetail = true" style="cursor: pointer;"><strong>더보기</strong></span>
-                      <v-dialog v-model="myReviewDetail" max-width="800px">
+                      {{ trimedReview }}
+                      <span @click="myReviewDetail = true" style="cursor: pointer;" v-if=" reviewInfo.review_contents.length > 100">
+                        <strong>더보기</strong>
+                      </span>
+                      <v-dialog v-model="myReviewDetail" max-width="800px" v-if=" reviewInfo.review_contents.length > 100">
                         <v-card class="pa-3">
                           <v-layout>
                             <SmallMoviePoster :posterUrl="reviewInfo._id.movie_ref.poster" :movieid="reviewInfo.movie_id"></SmallMoviePoster>
@@ -73,6 +75,17 @@ export default {
   methods: {
     selected() {
       this.$eventBus.$emit('selected', this.reviewInfo)
+    }
+  },
+  computed: {
+    trimedReview () {
+      let temp_content = ""
+      if(this.reviewInfo.review_contents.length > 100){
+        temp_content = this.reviewInfo.review_contents.substring(0, 101);
+      } else {
+        temp_content = this.reviewInfo.review_contents
+      }
+      return temp_content
     }
   }
 }

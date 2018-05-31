@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <v-card :id="moviename" class="transparent noselect" flat>
+    <v-card :id="moviename" class="transparent noselect cloudFont" flat>
     </v-card>
   </div>
 
@@ -11,7 +11,7 @@ import MovieRecommend from "./MovieRecommend.vue"
 
 export default {
   name: "WordCloud",
-  props: ['moviename'],
+  props: ['moviename', 'movieid'],
   components : {
     MovieRecommend
   },
@@ -20,24 +20,71 @@ export default {
       RecommendView: false
     }
   },
+  methods : {
+    replaceAll : function(str, searchStr, replaceStr){
+      return str.split(searchStr).join(replaceStr);
+    }
+  },
   computed: {
+    wordList : function() {
+      let wordSets = this.$store.getters.getWordCloudList;
+      let length = wordSets.length
+      let temp_cloud = {}
+      for(var i=0; i<length; i++){
+        if(this.movieid == wordSets[i].movieId){
+          temp_cloud = wordSets[i].words;
+        }
+      }
+
+      return temp_cloud;
+    },
     cloudData: function() {
-      let tempArray = []
-      for (name of this.nameTag) {
-        var temp = {
-          text: name,
-          weight: this.countSet[name],
-          handlers : {
-            mouseover : function(){
-            },
-            click : function() {
-              console.log("클릭 이벤트: " + this.innerHTML)
+      let tempArray = this.wordList;
+      let setType = typeof this.wordList[0];
+      let returnArray = []
+
+      if(setType == "string"){
+        let length = tempArray.length
+        for(let i=0; i<length; i++){
+          let tempObject = JSON.parse(tempArray[i]);
+
+          let cloudData = {
+            text : tempObject.term,
+            weight : tempObject.count,
+            handlers : {
+              mouseover : function(){
+                //키워드 추가 제거
+              },
+              click : function () {
+                //영화 추천 함수
+                console.log("클릭 이벤트: " + this.innerHTML);
+              }
             }
           }
+          returnArray.push(cloudData);
         }
-        tempArray.push(temp)
+      } else {
+        let length = tempArray.length
+        for(let i=0; i<length; i++){
+
+          let cloudData = {
+            text : tempArray[i].term,
+            weight : tempArray[i].count,
+            handlers : {
+              mouseover : function(){
+                //키워드 추가 제거
+              },
+              click : function () {
+                //영화 추천 함수
+                console.log("클릭 이벤트: " + this.innerHTML);
+              }
+            }
+          }
+
+          returnArray.push(cloudData);
+        }
       }
-      return tempArray
+       return returnArray;
     }
   },
   mounted() {
@@ -48,7 +95,11 @@ export default {
       $(select_id).jQCloud(word_array, {
         height: 200,
         width : 600,
-        colors : ["#F44336", "#9C27B0", "#3F51B5", "#03A9F4", "#009688", "#64DD17", "#795548"]
+        autoResize : true,
+        fontSize : {
+          from : 0.07,
+          to : 0.02
+        }
       });
     });
   }
@@ -57,4 +108,5 @@ export default {
 
 <style lang="css">
 .noselect { -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; cursor: pointer}
+.cloudFont { font-family: 'Binggrae' !important;}
 </style>

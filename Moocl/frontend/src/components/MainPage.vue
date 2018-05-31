@@ -22,13 +22,27 @@ export default {
     MovieDetailInfo
   },
   created () {
+    this.$store.state.movie.normalInfoList = [];
     this.$eventBus.$emit('MainPage');
-    this.searching();
+    this.$axios.get('/api/search', {
+      params : {
+        keyword : ""
+      }})
+    .then((response) => {
+      let normalInfoList = response.data;
+      this.setPageView(normalInfoList);
+    })
     if(sessionStorage.userNo != undefined) {
       this.$store.dispatch("GETINFOLIST", sessionStorage.userNo)
     }
   },
+  beforeUpdate() {
+    this.$store.state.movie.normalInfoList = [];
+    this.$store.state.cloud.wordCloudList = [];
+  }
   beforeMount () {
+    console.log("bMount")
+    this.$store.state.movie.normalInfoList = [];
     this.$eventBus.$on("SearchMovie", (keyword) => {
       this.modifiedKeyword = keyword;
       this.searching();
@@ -69,19 +83,34 @@ export default {
       } else {
           temp_keyword = this.$router.currentRoute.params['keyword'];
       }
-      this.$axios.get('/api/search', {
-        params : {
-          keyword : temp_keyword
-        }
-      })
-      .then((result) => {
-        this.movieTagList = result.data;
-        this.row();
-        this.slicedMovieList();
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+
+      this.$store.dispatch('GETMOVIEINFO', temp_keyword)
+      .catch((error) => console.log(error))
+
+      setTimeout(function() {
+        let normalInfoList = this.$store.getters.getNormalInfo;
+        this.setPageView(normalInfoList)
+      }.bind(this), 400);
+
+      // this.$axios.get('/api/search', {
+      //   params : {
+      //     keyword : temp_keyword
+      //   }
+      // })
+      // .then((result) => {
+      //   this.movieTagList = result.data;
+      //   this.row();
+      //   this.slicedMovieList();
+      // })
+      // .catch((error) => {
+      //   console.log(error)
+      // })
+    },
+
+    setPageView (normalInfoList) {
+      this.movieTagList = normalInfoList;
+      this.row();
+      this.slicedMovieList();
     }
   },
 
