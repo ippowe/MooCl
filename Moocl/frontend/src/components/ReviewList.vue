@@ -57,7 +57,6 @@ export default {
     ReviewDetail,
   },
   created () {
-    console.log(this.$store.getters.getReviewCount)
     this.totalItems = this.$store.getters.getReviewCount.total;
   },
   watch : {

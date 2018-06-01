@@ -11,6 +11,7 @@ import ModifyInfo from '@/components/ModifyInfo.vue'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/login',
@@ -31,15 +32,14 @@ export default new Router({
       path: '/mypage',
       name: 'MyPage',
       component: MyPage,
-      // beforeEnter: function(to, from, next){  //로그인이 안돼어있을때, 로그인 페이지로 보냄
-      //   console.log("라우터 가드")
-      //   const isAuthenticated = false
-      //   if(sessionStorage.token) {
-      //     next()
-      //   } else {
-      //     next('/login')
-      //   }
-      // }
+      beforeEnter: function(to, from, next){  //로그인이 안돼어있을때, 로그인 페이지로 보냄
+        const isAuthenticated = false
+        if(sessionStorage.token) {
+          next()
+        } else {
+          next('/login')
+        }
+      }
     },
     {
       path: '/userinfo',

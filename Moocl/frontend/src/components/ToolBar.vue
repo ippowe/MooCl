@@ -3,7 +3,7 @@
   <!-- 로그(side-icon) 눌렀을 때 홈으로 이동 -->
   <!-- 검색 기능 구현 -->
     <v-toolbar dark color="blue lighten-4" height ="75px" >
-      <v-toolbar-side-icon @click="search"><img src="../assets/moocl_logo.jpg" class=" pl-5 mt-4" style="height:95px"></v-toolbar-side-icon>
+      <v-toolbar-side-icon to="/main"><img src="../assets/moocl_logo.jpg" class=" pl-5 mt-4" style="height:95px"></v-toolbar-side-icon>
       <v-spacer></v-spacer>
       <v-text-field label="Search" append-icon="search" :append-icon-cb="search" v-model="keyword"
                     solo-inverted style="border-radius :15px" @keyup.enter="search">
@@ -54,7 +54,7 @@ export default {
       .then(() => this.$router.push('login'))
     },
     search () {
-
+      this.$store.state.movie.normalInfoList = [];
       let temp_keyword = "";
       let modifyKeyword = "";
       let currentPage = "";
@@ -66,7 +66,7 @@ export default {
       if(currentPage != 'MainPage'){
         this.$router.push({name : 'MainPage', params: {'keyword' : modifyKeyword}});
       } else {
-        this.$router.currentRoute.params['keyword'] = undefined
+        this.$router.currentRoute.params['keyword'] = ""
         this.$eventBus.$emit("SearchMovie", modifyKeyword);
       }
 

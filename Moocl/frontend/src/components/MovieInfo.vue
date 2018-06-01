@@ -60,15 +60,14 @@ export default {
       this.width = false;
     },
     getDetailInfo () {
-      this.$axios.get("/api/detailinfo", {
-        params : {
-          movieId : this.movietag.movieId
-        }
-      })
+
+      let movieId = this.movietag.movieId;
+
+      this.$store.dispatch("GETDETAILINFO", movieId)
       .then((result) => {
-        this.detailInfo = result.data;
-        })
-      .catch((error) => console.log(error))
+        this.detailInfo = result;
+      }).catch((err) => console.log(err))
+
     },
     getReviewCount () {
       let movieId = this.movietag.movieId;

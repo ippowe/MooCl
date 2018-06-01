@@ -24,25 +24,16 @@ export default {
   created () {
     this.$store.state.movie.normalInfoList = [];
     this.$eventBus.$emit('MainPage');
-    this.$axios.get('/api/search', {
-      params : {
-        keyword : ""
-      }})
-    .then((response) => {
-      let normalInfoList = response.data;
-      this.setPageView(normalInfoList);
-    })
+    this.searching();
+
     if(sessionStorage.userNo != undefined) {
       this.$store.dispatch("GETINFOLIST", sessionStorage.userNo)
     }
   },
   beforeUpdate() {
-    this.$store.state.movie.normalInfoList = [];
     this.$store.state.cloud.wordCloudList = [];
-  }
+  },
   beforeMount () {
-    console.log("bMount")
-    this.$store.state.movie.normalInfoList = [];
     this.$eventBus.$on("SearchMovie", (keyword) => {
       this.modifiedKeyword = keyword;
       this.searching();
@@ -74,7 +65,7 @@ export default {
     },
     searching () {
       let temp_keyword = "";
-      if(this.$router.currentRoute.params['keyword'] == undefined){
+      if(this.$router.currentRoute.params['keyword'] == ""){
         if(this.modifiedKeyword == ""){
           temp_keyword = "";
         } else {
@@ -85,28 +76,13 @@ export default {
       }
 
       this.$store.dispatch('GETMOVIEINFO', temp_keyword)
+      .then((result) => {
+        let normalInfoList = result;
+        this.setPageView(normalInfoList);
+      })
       .catch((error) => console.log(error))
 
-      setTimeout(function() {
-        let normalInfoList = this.$store.getters.getNormalInfo;
-        this.setPageView(normalInfoList)
-      }.bind(this), 400);
-
-      // this.$axios.get('/api/search', {
-      //   params : {
-      //     keyword : temp_keyword
-      //   }
-      // })
-      // .then((result) => {
-      //   this.movieTagList = result.data;
-      //   this.row();
-      //   this.slicedMovieList();
-      // })
-      // .catch((error) => {
-      //   console.log(error)
-      // })
     },
-
     setPageView (normalInfoList) {
       this.movieTagList = normalInfoList;
       this.row();

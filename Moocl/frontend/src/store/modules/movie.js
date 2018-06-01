@@ -3,26 +3,56 @@ import axios from 'axios'
 
 const state = {
   normalInfoList : [],
+  detailInfo: {}
 
 }
 
 const getters = {
   getNormalInfo () {
     return state.normalInfoList;
+  },
+  getDetailInfo () {
+    return state.detailInfo
   }
 }
 
 const actions = {
   GETMOVIEINFO({commit}, word){
-    axios.get('/api/search', {
-      params : {
-        keyword : word
-      }})
-    .then((response) => {
-      let normalInfoList = response.data
-      commit('SETMOVIEINFO', normalInfoList)
-
-    })
+    return new Promise(function(resolve, reject) {
+      let temp_word = word
+      if(temp_word == undefined){
+        temp_word = ""
+      }
+      
+      axios.get('/api/search', {
+        params : {
+          keyword : temp_word
+        }})
+      .then((response) => {
+        let normalInfoList = response.data
+        commit('SETMOVIEINFO', normalInfoList)
+        resolve(normalInfoList);
+      }, error =>{
+        reject(error);
+      })
+    });
+  },
+  GETDETAILINFO({commit}, movieId){
+    return new Promise(function(resolve, reject) {
+      let temp_movieId = movieId
+      axios.get("/api/detailinfo", {
+        params : {
+          movieId : temp_movieId
+        }
+      })
+      .then((result) => {
+        let detailInfo = result.data
+        commit("SETDETAILINFO", detailInfo)
+        resolve(detailInfo);
+      }, error => {
+        reject(error)
+      })
+    });
   }
 }
 
@@ -33,8 +63,10 @@ const mutations = {
     for(var i=0; i<temp_list.length; i++){
         state.normalInfoList.push(temp_list[i])
     }
-
-    console.log(state.normalInfoList);
+  },
+  SETDETAILINFO(state, detailInfo){
+    let temp_info = detailInfo;
+    state.detailInfo = temp_info;
   }
 }
 

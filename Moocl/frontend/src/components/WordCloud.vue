@@ -65,23 +65,26 @@ export default {
         }
       } else {
         let length = tempArray.length
+        let blackList = ["영화", "관람객", "있음", "없음", "같음","다름", "것같음", "때", "다만", "그렇음", "이렇음", "많음", "적음","하", "아","넘","텐데","큼"
+                          ,"말","정도","급","볼","감", "영화중", "어", "다", "편", "어떻음", "안", "진짜", "전", "글", "수없음", "애"]
         for(let i=0; i<length; i++){
-
-          let cloudData = {
-            text : tempArray[i].term,
-            weight : tempArray[i].count,
-            handlers : {
-              mouseover : function(){
-                //키워드 추가 제거
-              },
-              click : function () {
-                //영화 추천 함수
-                console.log("클릭 이벤트: " + this.innerHTML);
+          let value = Math.pow(tempArray[i].count, 2)
+          if(blackList.indexOf(tempArray[i].term) == -1){
+            let cloudData = {
+              text : tempArray[i].term,
+              weight : value,
+              handlers : {
+                mouseover : function(){
+                  //키워드 추가 제거
+                },
+                click : function () {
+                  //영화 추천 함수
+                  console.log("클릭 이벤트: " + this.innerHTML);
+                }
               }
             }
+            returnArray.push(cloudData);
           }
-
-          returnArray.push(cloudData);
         }
       }
        return returnArray;
@@ -97,7 +100,7 @@ export default {
         width : 600,
         autoResize : true,
         fontSize : {
-          from : 0.07,
+          from : 0.1,
           to : 0.02
         }
       });
