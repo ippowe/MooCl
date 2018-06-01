@@ -2,7 +2,6 @@ package kr.co.moocl.dao;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
@@ -115,37 +114,7 @@ public class MovieDao {
 	}
 
 	public List<Document> getWordListByMovieId(String movieId) {
-		StringBuilder text = new StringBuilder();
-		BufferedReader br = null;
-		try {
-			br = new BufferedReader(new FileReader(new File(
-					resourceLoader.getResource("classpath:JavaScript/getWordListByMovieId.js").getURI().getPath())));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
-			while (true) {
-				String line = "";
-				try {
-					line = br.readLine();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				if (line == null)
-					break;
-				text.append(line).append("\n");
-			}
-		} finally {
-			try {
-				br.close();
-			} catch (Exception ignore) {
-			}
-		}
-		ExecutableMongoScript wordcloudScript = new ExecutableMongoScript(text.toString());
+		ExecutableMongoScript wordcloudScript = scriptMaker("JavaScript/getWordListByMovieId.js");
 		List<Document> movieList = (List<Document>) mongoOperation.scriptOps().execute(wordcloudScript, movieId);
 		return movieList;
 	}
@@ -161,4 +130,44 @@ public class MovieDao {
 		System.out.println(mongoTemplate.find(query, InteMovieVo.class, "movie_info"));
 	}
 
+
+	public List<Document> getMovieByStd(String movieId, String clickWord, String condition, int grade) {
+		ExecutableMongoScript wordcloudScript = scriptMaker("JavaScript/getMovieByStd.js");
+		List<Document> movieList = 
+				(List<Document>) mongoOperation.scriptOps().execute(wordcloudScript, movieId,clickWord,condition,grade);
+		return movieList;
+	}
+
+	private ExecutableMongoScript scriptMaker (String path) {
+		String resourcePath = "classpath:";
+		resourcePath += path;
+		StringBuilder text = new StringBuilder();
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader(new File(
+					resourceLoader.getResource(resourcePath).getURI().getPath())));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			while (true) {
+				String line = "";
+				try {
+					line = br.readLine();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				if (line == null)
+					break;
+				text.append(line).append("\n");
+			}
+		} finally {
+			try {
+				br.close();
+			} catch (Exception ignore) {
+			}
+		}
+		ExecutableMongoScript script = new ExecutableMongoScript(text.toString());
+		return script;
+	}
 }
