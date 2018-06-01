@@ -1,5 +1,7 @@
 package kr.co.moocl.vo;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,7 +15,8 @@ public class PeopleVo {
 	private String role;
 	private String part;
 	private String people_img;
-	
+	private String wordcloudDate;
+	private List<String> wordcloudList;
 	
 	public PeopleVo(Object _id, Object person_id, String person_name, String role, String part, String people_img) {
 		this._id = _id;
@@ -75,11 +78,29 @@ public class PeopleVo {
 		this.people_img = people_img;
 	}
 	
+	public String getWordcloudDate() {
+		return wordcloudDate;
+	}
+
+	public void setWordcloudDate(String wordcloudDate) {
+		this.wordcloudDate = wordcloudDate;
+	}
+
+	public List<String> getWordcloudList() {
+		return wordcloudList;
+	}
+
+	public void setWordcloudList(List<String> wordcloudList) {
+		this.wordcloudList = wordcloudList;
+	}
+
 	@Override
 	public String toString() {
 		return "PeopleVo [_id=" + _id + ", person_id=" + person_id + ", person_name=" + person_name + ", role=" + role
-				+ ", part=" + part + ", people_img=" + people_img + "]";
+				+ ", part=" + part + ", people_img=" + people_img + ", wordcloudDate=" + wordcloudDate
+				+ ", wordcloudList=" + wordcloudList + "]";
 	}
+
 
 	
 }
