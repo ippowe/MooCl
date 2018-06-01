@@ -23,19 +23,15 @@ export default {
     PersonInfo
   },
   created () {
-    setTimeout(function() {
-      this.favPersonList = this.$store.getters.getMyPageData.personInfoList;
-      this.row();
-      this.slicedPersonList();
-      this.openSwitch();
-    }.bind(this), 500);
+    this.setFavPersonList();
 
     this.$eventBus.$on('delInPage', (personId, favPersonIndex) => {
-      let length = this.favPersonList.length
+      let length = this.favPersonInfoList.length
+      console.log(this.favPersonInfoList);
       for(var i=0; i<length; i++){
-        if(personId == this.favPersonList[i].person_id){
+        if(personId == this.favPersonInfoList[i].person_id){
           this.$store.getters.getFavPersonList.splice(favPersonIndex, 1);
-          this.favPersonList.splice(i, 1);
+          this.favPersonInfoList.splice(i, 1);
           let temp_row = parseInt(i-1 / 6);
           let temp_index = i % 6;
           this.slicedFavPersonList[temp_row].splice(temp_index, 1);
@@ -46,6 +42,7 @@ export default {
   data : function() {
     return {
       favRow : 0,
+      favPersonInfoList: [],
       favPersonList: [],
       slicedFavPersonList: [],
       dialog: false,
@@ -56,7 +53,7 @@ export default {
   methods : {
     row () {
       var temp_row = 0;
-      temp_row = parseInt(((this.favPersonList.length-1) / 6));
+      temp_row = parseInt(((this.favPersonInfoList.length-1) / 6));
       temp_row = temp_row + 1;
       this.favRow = temp_row
     },
@@ -64,7 +61,7 @@ export default {
         var temp_personList = [];
         var slice_list = [];
         for(var i =1; i<this.favRow+1; i++){
-          slice_list = this.favPersonList.slice((i-1)*6, (i*6))
+          slice_list = this.favPersonInfoList.slice((i-1)*6, (i*6))
           temp_personList.push(slice_list)
         }
         this.slicedFavPersonList = temp_personList;
@@ -98,6 +95,13 @@ export default {
     },
     reloadPage () {
       this.slicedPersonList();
+    },
+    setFavPersonList() {
+      this.favPersonList = this.$store.getters.getFavPersonList;
+      this.favPersonInfoList = this.$store.getters.getMyPageData.personInfoList;
+      this.row();
+      this.slicedPersonList();
+      this.openSwitch();
     }
   }
 }

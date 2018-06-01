@@ -40,11 +40,7 @@ export default {
     MyReviewCard
   },
   created () {
-    setTimeout(function() {
-      this.myReviewList = this.$store.getters.getMyPageData.myReviewData;
-      this.row();
-      this.slicedMovieList();
-    }.bind(this), 500);
+    this.getMyReview()
   },
   mounted() {
     this.$eventBus.$on('selected', (reviewObject) => {
@@ -101,6 +97,14 @@ export default {
         temp_movieList.push(slice_list)
       }
       this.slicedReviewList = temp_movieList;
+    },
+    getMyReview() {
+      this.$store.dispatch("MYREVIEWDATA", sessionStorage.email)
+      .then((result) => {
+          this.myReviewList = result;
+          this.row();
+          this.slicedMovieList();
+      }).catch((err) => (err));
     }
   },
 }

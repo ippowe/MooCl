@@ -134,7 +134,6 @@ export default {
     }
   },
   mounted () {
-    console.log(this.classscore);
     for(var i=0; i<this.classscore.length; i++){
       let gender = [this.naverEmptGender, this.cgvEmptGender]
       let age = [this.naverEmptAge, this.cgvEmptAge]

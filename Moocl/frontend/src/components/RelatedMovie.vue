@@ -9,7 +9,11 @@
             <v-btn :ripple="false" flat icon depressed @click="prevstep" ><v-icon>navigate_before</v-icon></v-btn>
             <v-spacer></v-spacer>
             <v-flex v-for="(movieinfo, index) in slicedMovieList[n-1]" :key ="index" color="white">
-                <XsMoviePoster :movieinfo="movieinfo"></XsMoviePoster>
+                <XsMoviePoster :movieinfo="movieinfo"  @openNormal="openNormalInfo(n, index)"></XsMoviePoster>
+                <v-dialog :max-width="infoSwitch[n-1][index].width ? 1200 : 800" v-model="infoSwitch[n-1][index].dialog">
+                  <NormalInfo v-if="infoSwitch[n-1][index].normal" :movietag="movieTag(movieinfo)" v-if="infoSwitch[n-1][index].normal"></NormalInfo>
+                  <MovieDetailInfo class="pt-3 white" v-if="detail" :detailinfo="movieinfo"></MovieDetailInfo>
+                </v-dialog>
             </v-flex>
             <v-btn :ripple="false" flat icon depressed @click="nextstep"> <v-icon>navigate_next</v-icon></v-btn>
             <v-spacer></v-spacer>
@@ -53,6 +57,25 @@ export default {
         temp_movieList.push(slice_list)
       }
       return temp_movieList
+    },
+    infoSwitch () {
+      let temp_switch = [];
+      let temp_inner_switch = [];
+      let temp_object = {
+          normal : false,
+          detail : false,
+          width : false,
+          dialog: false,
+      };
+
+      for(let i=1; i<this.length +1; i++){
+        temp_inner_switch = [];
+        for(let j=0; j<this.slicedMovieList[i-1].length; j++){
+          temp_inner_switch[j] = temp_object
+        }
+        temp_switch[i-1] = temp_inner_switch;
+      }
+      return temp_switch;
     }
   },
   methods : {
@@ -69,6 +92,21 @@ export default {
       } else {
         this.stepNo = this.length;
       }
+    },
+    openNormalInfo : function(n, index) {
+      this.infoSwitch[n-1][index].normal = true;
+      this.infoSwitch[n-1][index].dialog = true;
+    },
+    movieTag : function() {
+      let temp_tag = {
+        inteTitle : this.movieinfo.inte_title,
+        movieId : this.movieinfo.movie_id,
+        movieTitle : this.movieinfo.movie_title,
+        posterUrl : this.movieinfo.poster,
+        score : this.movieinfo.score,
+        watchingRate : this.movieinfo.watching_rate
+      }
+      return temp_tag;
     }
   }
 }

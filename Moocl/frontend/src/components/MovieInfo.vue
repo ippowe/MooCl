@@ -1,10 +1,13 @@
 <template lang="html">
   <!-- 영화 제목에 따른 알맞은 정보(포스터, 제목, 평점, 감독, 배우들, 워드 클라우드, 개봉일, 관객수, 좋아요 목록 추가 여부) 불러오기 -->
-  <v-dialog :max-width="width ? 1200 : 800" v-model="dialog">
-    <BigMoviePoster :movietitle="trimTitle" :movieid="movietag.movieId" slot="activator" :posterUrl="movietag.posterUrl"></BigMoviePoster>
-    <NormalInfo v-if="normal" :movietag="movietag" v-on:viewdetail="changeInfo"></NormalInfo>
-    <MovieDetailInfo class="pt-3 white" v-else-if="detail" :detailinfo="detailInfo" :relatedmovies="relatedMovie"></MovieDetailInfo>
-  </v-dialog>
+  <div>
+    <BigMoviePoster :movietitle="trimTitle" :movieid="movietag.movieId" @click.stop="dialog = true" :posterUrl="movietag.posterUrl"></BigMoviePoster>
+    <v-dialog :max-width="width ? 1200 : 800" v-model="dialog">
+      <NormalInfo v-if="normal" :movietag="movietag" v-on:viewdetail="changeInfo"></NormalInfo>
+      <MovieDetailInfo class="pt-3 white" v-else-if="detail" :detailinfo="detailInfo"></MovieDetailInfo>
+    </v-dialog>
+  </div>
+
 </template>
 
 <script>
@@ -60,14 +63,12 @@ export default {
       this.width = false;
     },
     getDetailInfo () {
-
       let movieId = this.movietag.movieId;
 
       this.$store.dispatch("GETDETAILINFO", movieId)
       .then((result) => {
         this.detailInfo = result;
       }).catch((err) => console.log(err))
-
     },
     getReviewCount () {
       let movieId = this.movietag.movieId;
@@ -80,7 +81,6 @@ export default {
 
       this.$store.dispatch('GETCLOUDDATA', movieId)
       .catch((error) => console.log(error));
-
     }
   },
   computed : {

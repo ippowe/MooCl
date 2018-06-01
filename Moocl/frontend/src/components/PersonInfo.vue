@@ -57,9 +57,7 @@ export default {
     RelatedMovie
   },
   created () {
-    setTimeout(function() {
-      this.checkFavList();
-    }.bind(this), 500);
+    this.checkFavList();
 
   },
   watch : {

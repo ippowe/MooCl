@@ -1,8 +1,8 @@
 <template lang="html">
   <v-flex class="pa-0 ma-0">
-    <v-card width="400px" flat>
+    <v-card width="400px" flat color="transparent">
       <v-layout align-start>
-        <v-checkbox @click.native="selected" v-model="selection" style="width: 30px" class="mr-3" :ripple="false" color="grey lighten-1"> </v-checkbox>
+        <v-checkbox @click.native="selected" v-model="selection" style="width: 30px" class="mr-3" :ripple="false" > </v-checkbox>
         <table>
           <tr>
               <v-flex class="pa-1">
@@ -14,7 +14,7 @@
                   <v-card-title primary-title class="pa-0 title">
                     <strong>{{ reviewInfo._id.movie_ref.movie_title }}</strong>
                   </v-card-title>
-                  <v-card-media class="py-2 subheading text-xs-left">
+                  <v-card-media class="py-2 subheading text-xs-left ">
                     {{ reviewInfo._id.movie_ref.genre }}
                   </v-card-media>
                     <p style="text-align: left;" class="py-2" >

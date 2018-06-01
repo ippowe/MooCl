@@ -15,12 +15,7 @@ export default {
     MovieInfo
   },
   created () {
-    setTimeout(function() {
-      this.favMovieInfoList = this.$store.getters.getMyPageData.movieInfoList;
-      this.favMovieList =  this.$store.getters.getFavMovieList;
-      this.row();
-      this.slicedMovieList();
-    }.bind(this), 500);
+    this.getFavData();
 
     this.$eventBus.$on('delInPage', (movieId, favMovieIndex) => {
       let length = this.favMovieInfoList.length
@@ -59,6 +54,18 @@ export default {
       }
       this.slicedfavMovieInfoList =  temp_movieList;
     },
+    getFavData() {
+      this.$store.dispatch("GETFAVLIST", sessionStorage.userNo)
+      .then((result) => {
+        this.favMovieList = this.FavMovieList;
+      })
+      this.$store.dispatch("MYPAGEDATA", sessionStorage.userNo)
+      .then((result) => {
+          this.favMovieInfoList = result.movieInfoList;
+          this.row();
+          this.slicedMovieList();
+      }).catch((err) => console.log(err));
+    }
   }
 }
 </script>

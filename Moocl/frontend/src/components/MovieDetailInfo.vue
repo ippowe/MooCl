@@ -47,7 +47,7 @@
             <ScoreByClass :classscore="classScore"></ScoreByClass>
           </v-flex>
         </v-layout>
-        <PeopleList class="ma-0" :infoswitch="openSwitch" :row="personRow" :slicedperson="slicedPersonList" :detailinfo="detailinfo" :relatedmovie="relatedmovies"></PeopleList>
+        <PeopleList class="ma-0" :infoswitch="openSwitch" :row="personRow" :slicedperson="slicedPersonList" :detailinfo="detailinfo"></PeopleList>
         <v-layout justify-center class="white">
           <ReviewList :detailinfo="detailinfo"></ReviewList>
         </v-layout>
@@ -73,7 +73,7 @@
       PeopleList,
       ReviewList
     },
-    props: ['detailinfo', 'relatedmovies'],
+    props: ['detailinfo'],
     data : function() {
       return {
         detailInfo : [],

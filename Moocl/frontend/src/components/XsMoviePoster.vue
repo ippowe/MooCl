@@ -1,7 +1,7 @@
 <template lang="html">
  <v-container class="pa-0">
    <div @click="openMovieInfo">
-     <v-card class="ma-0" @mouseenter="showButton" @mouseleave="hideButton" depressed width="126" height="180" :img ="checkedPosterUrl">
+     <v-card class="ma-0"  @mouseenter="showButton" @mouseleave="hideButton" depressed width="126" height="180" :img ="checkedPosterUrl">
        <v-card-media>
          <v-flex xs8></v-flex>   <!-- 하트를 오른쪽 보내기 위한 테그 -->
          <v-flex xs4>
@@ -55,7 +55,7 @@ export default {
         daum : {score: 0, color: "yellow"},
         cgv :{score: 0, color: "red"}
       },
-      role: "주연: 캡틴아메리카"
+      role: "",
     }
   },
   methods : {
@@ -117,8 +117,8 @@ export default {
       }
     },
     openMovieInfo : function() {
-      let componentName = 'MovieInfo'
-      this.$eventBus.$emit('OpenMovieInfo', componentName);
+      console.log('openMovieInfo')
+      this.$emit('openNormal')
     }
   },
   computed : {
@@ -138,7 +138,7 @@ export default {
       } else {
         return this.movieinfo.poster;
       }
-    },
+    }
   }
 }
 </script>
