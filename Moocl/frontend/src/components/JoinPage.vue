@@ -32,7 +32,7 @@
           <v-card-title class="headline">회원가입을 축하합니다!!</v-card-title>
           <v-card-actions>
             <v-spacer></v-spacer>
-           <v-btn color="green darken-1" flat="flat" @click.native="dialog = false" to="login">확인</v-btn>
+           <v-btn color="blue-grey darken-3" flat="flat" @click.native="dialog = false" to="login">확인</v-btn>
          </v-card-actions>
         </v-card>
       </v-dialog>

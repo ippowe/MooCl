@@ -4,7 +4,7 @@
       <v-stepper-items style="height: 250px">
         <v-stepper-content v-for="n in row" :key="n" :step="n" class="pa-0" style="height: 250px">
           <v-container text-xs-center fill-height class="pa-0" style="height: 250px">
-            <v-layout wrap align-center align-content-center >
+            <v-layout wrap align-center align-content-center style="background-color : #EFF2FB;">
               <v-spacer></v-spacer>
               <v-btn :ripple="false" flat icon depressed @click="prevstep" ><v-icon>navigate_before</v-icon></v-btn>
               <v-spacer></v-spacer>
@@ -21,7 +21,7 @@
         </v-stepper-content>
       </v-stepper-items>
     </v-stepper>
-    <v-card v-else class="pa-0 elevation-0"  style="height: 250px">
+    <v-card v-else class="pa-0 elevation-0"  style="height: 250px; background-color : #EFF2FB;">
       <v-card-title class="display-3 pa-5">
         인물정보 준비중 입니다.
       </v-card-title>

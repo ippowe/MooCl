@@ -1,7 +1,7 @@
 <template lang="html">
       <!-- 영화 제목에 따른 알맞은 정보(포스터, 제목, 평점, 감독, 배우들, 워드 클라우드, 개봉일, 관객수, 좋아요 목록 추가 여부) 불러오기 -->
-      <div>
-        <v-layout class="white">
+      <div style="background-color : #EFF2FB;">
+        <v-layout>
           <v-flex  style ="float: right;" class="ma-3" xs2> <!-- 영화 정보 관련 flex-->
             <SmallMoviePoster :posterUrl="detailinfo.poster"></SmallMoviePoster>
             <v-card  color ="transparent" flat class="ml-1" align-content-center>
@@ -48,7 +48,7 @@
           </v-flex>
         </v-layout>
         <PeopleList class="ma-0" :infoswitch="openSwitch" :row="personRow" :slicedperson="slicedPersonList" :detailinfo="detailinfo"></PeopleList>
-        <v-layout justify-center class="white">
+        <v-layout justify-center>
           <ReviewList :detailinfo="detailinfo"></ReviewList>
         </v-layout>
       </div>

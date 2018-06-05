@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import TestArea from './MainPage.vue'
+import TestArea from './MyPage.vue'
 export default {
   name: 'TestPage',
   created () {

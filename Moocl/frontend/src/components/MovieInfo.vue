@@ -3,7 +3,7 @@
   <div>
     <v-dialog :max-width="width ? 1200 : 800" v-model="dialog">
       <NormalInfo v-if="!detail" :movietag="movietag" v-on:viewdetail="changeInfo"></NormalInfo>
-      <MovieDetailInfo class="pt-3 white" v-if="detail" :detailinfo="detailInfo"></MovieDetailInfo>
+      <MovieDetailInfo class="pt-3" v-if="detail" :detailinfo="detailInfo"></MovieDetailInfo>
     </v-dialog>
   </div>
 

@@ -2,11 +2,11 @@
   <v-dialog :max-width="800" v-model="RecommendView">
     <v-btn class="primary" slot="activator">openDialog</v-btn>
     <v-card class="elevation-0 ma-0">
-      <v-card-title class="headline pb-2 pl-5 ml-2">
+      <v-card-title class="headline pb-2 pl-5 ml-2" style="background-color : #EFF2FB;">
         추천 영화
       </v-card-title>
     </v-card>
-    <v-layout class="white">
+    <v-layout class= "white">
       <v-flex>
         <v-stepper v-model="goodNo" class="pb-3 elevation-0">
           <v-stepper-items >
@@ -28,13 +28,13 @@
         </v-stepper>
       </v-flex>
     </v-layout>
-    <v-card align-start class="elevation-0 ma-0">
+    <v-card align-start class="elevation-0 ma-0" style="background-color : #EFF2FB;">
       <v-card-title class="headline pb-2 pl-5 ml-2">
         비추천 영화
       </v-card-title>
     </v-card>
     <v-layout class="white">
-      <v-flex>
+      <v-flex style="background-color : #EFF2FB;">
         <v-stepper v-model="badNo" class="pb-3 elevation-0" >
           <v-stepper-items >
             <v-stepper-content v-for="n in length" :key="n" :step="n" class="pa-0">
