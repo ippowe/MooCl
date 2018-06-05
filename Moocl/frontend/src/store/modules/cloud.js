@@ -13,19 +13,23 @@ const getters = {
 
 const actions = {
     GETCLOUDDATA : function({commit}, movieId){
-      axios.get("/api/getWord", {
-        params : {
-          movieId : movieId
-        }
-      })
-      .then((result) => {
-        let wordInfo = {
-          words : result.data,
-          movie : movieId
-        }
-
-        commit('SETCLOUDDATA', wordInfo);
-      })
+      return new Promise(function(resolve, reject) {
+        axios.get("/api/getWord", {
+          params : {
+            movieId : movieId
+          }
+        })
+        .then((result) => {
+          let wordInfo = {
+            words : result.data,
+            movie : movieId
+          }
+          commit('SETCLOUDDATA', wordInfo);
+          resolve(wordInfo);
+        }, error => {
+          reject(error);
+        })
+      });
     }
 }
 

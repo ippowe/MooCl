@@ -10,10 +10,7 @@
             <v-spacer></v-spacer>
             <v-flex v-for="(movieinfo, index) in slicedMovieList[n-1]" :key ="index" color="white">
                 <XsMoviePoster :movieinfo="movieinfo"  @openNormal="openNormalInfo(n, index)"></XsMoviePoster>
-                <v-dialog :max-width="infoSwitch[n-1][index].width ? 1200 : 800" v-model="infoSwitch[n-1][index].dialog">
-                  <NormalInfo v-if="infoSwitch[n-1][index].normal" :movietag="movieTag(movieinfo)" v-if="infoSwitch[n-1][index].normal"></NormalInfo>
-                  <MovieDetailInfo class="pt-3 white" v-if="detail" :detailinfo="movieinfo"></MovieDetailInfo>
-                </v-dialog>
+                <MovieInfo v-if="infoSwitch[n-1][index]" areaname="relatedMovie" :movietag="movieinfo" :dialog="dialog"></MovieInfo>
             </v-flex>
             <v-btn :ripple="false" flat icon depressed @click="nextstep"> <v-icon>navigate_next</v-icon></v-btn>
             <v-spacer></v-spacer>
@@ -27,11 +24,13 @@
 
 <script>
 import XsMoviePoster from "./XsMoviePoster.vue"
+import MovieInfo from "./MovieInfo.vue"
 
 export default {
   name : "RelatedMovie",
   components: {
-    XsMoviePoster
+    XsMoviePoster,
+    MovieInfo
   },
   updated () {
     this.$emit('getAvgGrade');
@@ -40,6 +39,7 @@ export default {
   data : function() {
     return {
       stepNo : 1,   // Stepper를 위한 변수
+      dialog  : false
     }
   },
   computed : {
@@ -61,17 +61,11 @@ export default {
     infoSwitch () {
       let temp_switch = [];
       let temp_inner_switch = [];
-      let temp_object = {
-          normal : false,
-          detail : false,
-          width : false,
-          dialog: false,
-      };
 
       for(let i=1; i<this.length +1; i++){
         temp_inner_switch = [];
         for(let j=0; j<this.slicedMovieList[i-1].length; j++){
-          temp_inner_switch[j] = temp_object
+          temp_inner_switch[j] = false
         }
         temp_switch[i-1] = temp_inner_switch;
       }
@@ -94,8 +88,10 @@ export default {
       }
     },
     openNormalInfo : function(n, index) {
-      this.infoSwitch[n-1][index].normal = true;
-      this.infoSwitch[n-1][index].dialog = true;
+      console.log(this.infoSwitch);
+      this.infoSwitch[n-1][index] = true;
+      this.dialog = true;
+      console.log(this.infoSwitch);
     },
     movieTag : function() {
       let temp_tag = {

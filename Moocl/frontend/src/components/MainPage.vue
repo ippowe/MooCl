@@ -2,8 +2,11 @@
     <!-- 로그인후에 영화 차트순으로 정렬해서 포스터 보여주기 -->
     <v-container class="mb-5 ml-5 px-5 " color= "indigo lighten-5">
       <!-- <MovieChart style="position: absolute" class="ml-5" ></MovieChart> -->
-      <v-layout v-for="i in mainMovies.length" :key="i" justify-left class="mb-3 mx-5 pl-4" style="width: 1000px;">
-        <MovieInfo class="mb-5 mx-3 pt-4" v-for="k in mainMovies[i-1].length" :key="k" :movietag="mainMovies[i-1][k-1]"></MovieInfo>
+      <v-layout v-for="i in mainMovies.length" :key="i" justify-left class="mb-3 mx-5 pl-4">
+        <BigMoviePoster class="mb-5 mx-3 pt-4" :movietitle="trimTitle(i, l)" @openMovieInfo="getCloudData(i, l)":posterUrl="mainMovies[i-1][l-1].posterUrl"
+          v-for="l in mainMovies[i-1].length" :key="l" :movieid="mainMovies[i-1][l-1].movieId"></BigMoviePoster>
+        <MovieInfo v-if="openInfoSwitch[i-1][k-1]" :dialog="dialog" v-for="k in mainMovies[i-1].length" :key="k"
+                  :movietag="mainMovies[i-1][k-1]" @closeMovieInfo="closeInfo(i, k)"></MovieInfo>
       </v-layout>
     </v-container>
 
@@ -12,14 +15,14 @@
 <script>
 import MovieChart from "./MovieChart.vue"
 import MovieInfo from"./MovieInfo.vue"
-import MovieDetailInfo from "./MovieDetailInfo.vue"
+import BigMoviePoster from "./BigMoviePoster.vue"
 
 export default {
   name: "MainPage",
   components:{
     MovieChart,
     MovieInfo,
-    MovieDetailInfo
+    BigMoviePoster
   },
   created () {
     this.$store.state.movie.normalInfoList = [];
@@ -30,21 +33,28 @@ export default {
       this.$store.dispatch("GETFAVLIST", sessionStorage.userNo)
     }
   },
-  beforeUpdate() {
-    this.$store.state.cloud.wordCloudList = [];
-  },
   beforeMount () {
-    this.$eventBus.$on("SearchMovie", (keyword) => {
+      this.$eventBus.$on("SearchMovie", (keyword) => {
       this.modifiedKeyword = keyword;
       this.searching();
     })
+  },
+  watch : {
+    dialog : {
+      handler : function() {
+        this.setPageView(this.movieTagList);
+      },
+      deep : true
+    }
   },
   data : function() {
     return{
       movieTagList : [],
       mainRow: 0,
       mainMovies: [],
-      modifiedKeyword: ""
+      modifiedKeyword: "",
+      dialog:false,
+      openInfoSwitch: [[false, false, false, false, false], [false, false, false, false, false]]
     }
   },
   methods : {
@@ -87,8 +97,33 @@ export default {
       this.movieTagList = normalInfoList;
       this.row();
       this.slicedMovieList();
+    },
+    openInfo(i, l) {
+      this.dialog = true;
+      this.openInfoSwitch[i-1][l-1] = true;
+    },
+    trimTitle (i, l) {
+      if(this.mainMovies[i-1][l-1].movieTitle.length > 5){
+        let temp_title = this.mainMovies[i-1][l-1].movieTitle.slice(0,6) + "...";
+        return temp_title
+      } else {
+        return this.mainMovies[i-1][l-1].movieTitle
+      }
+    },
+    closeInfo(i, k){
+      this.dialog = false;
+      this.openInfoSwitch[i-1][k-1] = false;
+    },
+    getCloudData (i, k) {
+      let movieId = this.mainMovies[i-1][k-1].movieId;
+      this.$store.dispatch('GETCLOUDDATA', movieId)
+      .then((result) => {
+        this.openInfo(i, k);
+      })
+      .catch((error) => console.log(error));
     }
   },
+
 
 }
 </script>

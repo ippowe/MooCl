@@ -23,7 +23,7 @@ public class WordcloudRestController {
 		List<Document> result = (List<Document>) wordCloudService.getWordList(movieId);
 		return result;
 	}
-	
+
 	@RequestMapping("/getWordByPerson")
 	public List<Document> getWordByPerson(
 			@RequestParam("personId") String personId){

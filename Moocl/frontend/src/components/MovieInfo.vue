@@ -1,10 +1,9 @@
 <template lang="html">
   <!-- 영화 제목에 따른 알맞은 정보(포스터, 제목, 평점, 감독, 배우들, 워드 클라우드, 개봉일, 관객수, 좋아요 목록 추가 여부) 불러오기 -->
   <div>
-    <BigMoviePoster :movietitle="trimTitle" :movieid="movietag.movieId" @click.stop="dialog = true" :posterUrl="movietag.posterUrl"></BigMoviePoster>
     <v-dialog :max-width="width ? 1200 : 800" v-model="dialog">
-      <NormalInfo v-if="normal" :movietag="movietag" v-on:viewdetail="changeInfo"></NormalInfo>
-      <MovieDetailInfo class="pt-3 white" v-else-if="detail" :detailinfo="detailInfo"></MovieDetailInfo>
+      <NormalInfo v-if="!detail" :movietag="movietag" v-on:viewdetail="changeInfo"></NormalInfo>
+      <MovieDetailInfo class="pt-3 white" v-if="detail" :detailinfo="detailInfo"></MovieDetailInfo>
     </v-dialog>
   </div>
 
@@ -17,35 +16,25 @@ import MovieDetailInfo from "./MovieDetailInfo.vue"
 
 export default {
   name: "MovieInfo",
-  props: ['movietag'],
+  props: ['movietag', 'dialog'],
   components:{
     BigMoviePoster,
     NormalInfo,
     MovieDetailInfo
   },
-  mounted(){
-    this.getCloudData();
-  },
-  updated(){
-    this.getCloudData();
+  beforeMount() {
+    this.getDetailInfo();
+    this.getReviewCount();
   },
   watch : {
     dialog: function (val) {
-      if(this.dialog){
-        this.getDetailInfo();
-        this.viewNormal();
-        this.getReviewCount();
-      } else {
-        this.normal = false;
-        this.detail = false;
-        this.width = false;
-      }
+      this.$emit('closeMovieInfo')
+      this.detail = false;
+      this.width = false;
     },
   },
   data : function() {
     return {
-      dialog: false,
-      normal: false,
       detail: false,
       width: false,
       detailInfo: [],
@@ -55,10 +44,8 @@ export default {
     changeInfo () {
       this.detail = true;
       this.width = true;
-      this.normal = false;
     },
     viewNormal () {
-      this.normal = true;
       this.detail = false;
       this.width = false;
     },
@@ -76,22 +63,8 @@ export default {
       this.$store.dispatch('GETREVIEWCOUNT', movieId)
       .catch((error) => console.log(error));
     },
-    getCloudData () {
-      let movieId = this.movietag.movieId;
-
-      this.$store.dispatch('GETCLOUDDATA', movieId)
-      .catch((error) => console.log(error));
-    }
   },
   computed : {
-    trimTitle () {
-      if(this.movietag.movieTitle.length > 5){
-        let temp_title = this.movietag.movieTitle.slice(0,6) + "...";
-        return temp_title
-      } else {
-        return this.movietag.movieTitle
-      }
-    },
   }
 
 }
