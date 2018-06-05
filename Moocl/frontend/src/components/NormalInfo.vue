@@ -1,6 +1,6 @@
 <template lang="html">
-  <div>
-    <v-layout class="white">
+  <div style="background-color : #EFF2FB;">
+    <v-layout>
       <v-flex class="ma-2 pt-4" xs3>
         <SmallMoviePoster :posterUrl="movietag.posterUrl" :movieid="movietag.movieId"></SmallMoviePoster>
       </v-flex>
@@ -15,7 +15,7 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <v-layout class="white pl-3 pt-4">
+    <v-layout class="pl-3 pt-4">
       <v-spacer></v-spacer>
       <v-flex xs2 class="ml-4">
         <span><strong class="title black--text">{{sliceTitle == undefined ? "영화제목" : sliceTitle }}</strong></span><br>

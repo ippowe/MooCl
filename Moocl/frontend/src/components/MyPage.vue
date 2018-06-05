@@ -1,15 +1,15 @@
 <template lang="html">
   <v-container class="ml-5 py-0" justify-center>
     <v-toolbar tabs flat color="transparent">
-      <v-tabs centered hide-slider class="mt-4" color="transparent" >
-        <v-tab :ripple="false" style="border-right: 3px solid grey" @click="favoriteList" >
-          <v-icon color="red">favorite</v-icon>
+      <v-tabs centered hide-slider color="transparent" >
+        <v-tab :ripple="false" style="border-right: 7px dotted grey" @click="favoriteList" >
+          <strong style="font-size : 35px">Like it</strong><v-icon color="red" class="pr-3">favorite</v-icon>
         </v-tab>
         <v-tab :ripple="false" class="title"  @click="myReview">
-          <strong>내 리뷰</strong>
+          <strong style="font-size : 35px; padding-left : 15px" >MY Review</strong>
         </v-tab>
       </v-tabs>
-      <v-tabs slot="extension" centered v-if="page =='Favorite'" color="transparent" hide-slider>
+      <v-tabs slot="extension" v-if="page =='Favorite'" color="transparent" hide-slider centered style="padding-right:150px; padding-top : 12px">
         <v-tab :ripple="false" class="title" @click.native.stop="subpage = 'Movie'">
           <strong>영화</strong>
         </v-tab>

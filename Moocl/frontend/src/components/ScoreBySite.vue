@@ -2,10 +2,9 @@
   <v-flex>
     <!-- 영화 사이트에 따른 평점 불러오기 -->
     <v-list class="transparent">
-      <v-tooltip right color="light-green accent-4">
-        <v-list-tile avatar slot="activator">
+        <v-list-tile avatar>
           <v-list-tile-action>
-              <v-avatar class="pl-2 pt-4" size="40"><img src="../assets/naver_icon.png"></v-avatar>
+              <v-avatar :tile="true" class="pl-3 pt-4" size="48"><img src="../assets/naver_icon_2.png"></v-avatar>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-btn block disabled flat class="pt-3">
@@ -13,13 +12,11 @@
               </v-progress-linear>
             </v-btn>
           </v-list-tile-content>
+          <span class="light-green--text accent-4" style="font-weight: bold"><v-icon color= "red">star</v-icon> {{ naverScore }}</span>
         </v-list-tile>
-        <span class="black--text" style="font-weight: bold"><v-icon>star</v-icon> {{ naverScore }}</span>
-      </v-tooltip>
-      <v-tooltip right color="yellow accent-3">
-        <v-list-tile avatar slot="activator">
+        <v-list-tile avatar>
           <v-list-tile-action>
-            <v-avatar class="pt-4" size="50"><img src="../assets/daum_icon.png"></v-avatar>
+            <v-avatar :tile="true" class="pt-4 pl-3 daumlogo" size="42" width="20"><img src="../assets/daum_icon_2.png"></v-avatar>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-btn block flat disabled class="pt-3">
@@ -27,23 +24,20 @@
               </v-progress-linear>
             </v-btn>
           </v-list-tile-content>
+          <span class="yellow--text accent-3" style="font-weight: bold"><v-icon color= "red">star</v-icon> {{ daumScore }}</span>
         </v-list-tile>
-        <span class="black--text" style="font-weight: bold"><v-icon>star</v-icon> {{ daumScore }}</span>
-      </v-tooltip>
-      <v-tooltip  right color="deep-orange accent-4">
-        <v-list-tile avatar slot="activator">
+        <v-list-tile avatar>
           <v-list-tile-action>
-            <v-avatar class="pt-4" size="55"><img src="../assets/cgv_icon.png"></v-avatar>
+            <v-avatar :tile="true" class="pt-4" size="55"><img src="../assets/cgv_icon.png"></v-avatar>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-btn block disabled flat class="pt-3">
-              <v-progress-linear color="deep-orange accent-4" :value="cgvScore * 10" height="20" style="border-radius :15px;">
+              <v-progress-linear color="red darken-3" :value="cgvScore * 10" height="20" style="border-radius :15px;">
               </v-progress-linear>
             </v-btn>
           </v-list-tile-content>
+            <span class="red--text darken-3" style="font-weight: bold;"><v-icon>star</v-icon color= "red"> {{ cgvScore }}</span>
         </v-list-tile>
-        <span class="black--text" style="font-weight: bold"><v-icon>star</v-icon> {{ cgvScore }}</span>
-      </v-tooltip>
     </v-list>
   </v-flex>
 </template>
@@ -80,4 +74,5 @@ export default {
 </script>
 
 <style lang="css">
+.daumlogo{width : 100px; height: 3px;}
 </style>

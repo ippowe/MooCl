@@ -1,31 +1,29 @@
 <template lang="html">
 <v-layout>
-  <v-card height=200 flat class="transparent mt-4">
-    <v-tabs hide-slider :ripple="false" right style="padding-bottom : 10px;">
+  <v-card height=200 flat class="transparent mt-4" style="background-color : #EFF2FB;">
+    <v-tabs hide-slider :ripple="false" right style="padding-bottom : 10px; background-color : #EFF2FB;">
       <v-tab @click="naverData">
-        <v-avatar size="22" ><img src="../assets/naver_icon.png" alt=""></v-avatar>
+        <v-avatar size="22" ><img src="../assets/naver_icon_2.png" alt=""></v-avatar>
       </v-tab>
       <v-tab @click="cgvData">
         <v-avatar size="42"><img src="../assets/cgv_icon.png" alt=""></v-avatar>
       </v-tab>
     </v-tabs>
-    <v-tooltip v-for="data in genderscore" :key="data.gender" bottom :color="data.color" style="padding-left: 22px;">
-      <v-progress-circular slot="activator" :value="data.value" :color="data.color" size="128" :rotate="-90" :width="18" class="mx-2">
-      </v-progress-circular>
-      <span><v-icon>person</v-icon> {{data.value}}%</span>
-    </v-tooltip>
-    <v-card flat class="transparent py-0" height="200">
+      <div v-for="data in genderscore" :key="data.gender" bottom :color="data.color" style="float:left">
+        <v-progress-circular  :value="data.value" :color="data.color" size="128" :rotate="-90" :width="20" class="mx-4">
+          <span><v-icon>person</v-icon> {{data.value}}%</span>
+        </v-progress-circular>
+      </div>
+    <v-card flat class="transparent py-0" height="200" style="clear:both">
       <v-list class="transparent" v-for="inform in agescore" :key="inform.age * 10" style="height: 34px;">
-        <v-tooltip right :color="inform.color">
-        <v-list-tile slot="activator">
+        <v-list-tile>
           <v-list-tile-action>
             <v-avatar size="50"><p style="font-size: 14px; font-weight: bold; padding: 16px 0px 0px 16px;">{{inform.age}}대</p>
             </v-avatar>
           </v-list-tile-action>
             <v-progress-linear height="11" style="border-radius : 22px;" :value="inform.percent*1.5" :color="inform.color"></v-progress-linear>
+            <span style="width: 76px; font-size : 11px; font-weight: bold"><v-icon :color="inform.color">person</v-icon> {{inform.percent}}%</span>
         </v-list-tile>
-        <span><v-icon>person</v-icon> {{inform.percent}}%</span>
-      </v-tooltip>
       </v-list>
     </v-card>
   </v-card>

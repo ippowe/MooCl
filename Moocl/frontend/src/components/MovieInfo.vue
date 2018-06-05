@@ -3,7 +3,7 @@
   <v-dialog :max-width="width ? 1200 : 800" v-model="dialog">
     <BigMoviePoster :movietitle="trimTitle" :movieid="movietag.movieId" slot="activator" :posterUrl="movietag.posterUrl"></BigMoviePoster>
     <NormalInfo v-if="normal" :movietag="movietag" v-on:viewdetail="changeInfo"></NormalInfo>
-    <MovieDetailInfo class="pt-3 white" v-else-if="detail" :detailinfo="detailInfo" :relatedmovies="relatedMovie"></MovieDetailInfo>
+    <MovieDetailInfo class="pt-3" v-else-if="detail" :detailinfo="detailInfo" :relatedmovies="relatedMovie"></MovieDetailInfo>
   </v-dialog>
 </template>
 
