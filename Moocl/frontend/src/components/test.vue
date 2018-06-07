@@ -5,7 +5,9 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import TestArea from './MainCarousel.vue'
+
 export default {
   name: 'TestPage',
   created () {
