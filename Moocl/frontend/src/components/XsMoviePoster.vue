@@ -1,5 +1,5 @@
 <template lang="html">
- <v-container class="pa-0">
+ <v-container class="pa-0" style="background-color : #EFF2FB;">
    <div @click="openMovieInfo">
      <v-card class="ma-0"  @mouseenter="showButton" @mouseleave="hideButton" depressed width="126" height="180" :img ="checkedPosterUrl">
        <v-card-media>

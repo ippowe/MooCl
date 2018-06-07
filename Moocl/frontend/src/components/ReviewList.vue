@@ -18,8 +18,8 @@
   </v-layout>
   <v-layout justify-center>
       <v-card width="1000" flat>
-        <v-data-table light :headers="headers" :items="movieItems" :total-items="totalItems" hide-actions class="elevation-1 transparent" :pagination.sync="pagination">
-           <template slot="items" slot-scope="props">
+        <v-data-table light :headers="headers" :items="movieItems" :total-items="totalItems" hide-actions class="elevation-1" :pagination.sync="pagination" >
+           <template slot="items" slot-scope="props" color="pink">
              <td><strong>{{ props.item.name }}</strong></td>
              <td class="text-xs-left">
                {{ props.item.slicedReview ? props.item.slicedReview : props.item.review }}

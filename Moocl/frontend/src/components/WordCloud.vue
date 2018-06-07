@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <div style="background-color : #EFF2FB;">
     <v-card :id="moviename" class="transparent noselect cloudFont" flat>
     </v-card>
   </div>

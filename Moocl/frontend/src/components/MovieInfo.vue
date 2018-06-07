@@ -1,6 +1,6 @@
 <template lang="html">
   <!-- 영화 제목에 따른 알맞은 정보(포스터, 제목, 평점, 감독, 배우들, 워드 클라우드, 개봉일, 관객수, 좋아요 목록 추가 여부) 불러오기 -->
-  <div>
+  <div style="background-color : #EFF2FB;">
     <v-dialog :max-width="width ? 1200 : 800" v-model="dialog">
       <NormalInfo v-if="!detail" :movietag="movietag" v-on:viewdetail="changeInfo"></NormalInfo>
       <MovieDetailInfo class="pt-3" v-if="detail" :detailinfo="detailInfo"></MovieDetailInfo>

@@ -1,7 +1,7 @@
 <!-- 인물 정보 모달창에서 보여줄 영화 목록  -->
 <template lang="html">
-  <v-stepper v-model="stepNo" class="pb-3 elevation-0">
-    <v-stepper-items >
+  <v-stepper v-model="stepNo" class="pb-3 elevation-0" style="background-color : #EFF2FB;">
+    <v-stepper-items>
       <v-stepper-content v-for="n in slicedMovieList.length" :key="n" :step="n" class="pa-0">
         <v-container text-xs-center fill-height class="pa-0">
           <v-layout wrap align-center style="width: 800px">

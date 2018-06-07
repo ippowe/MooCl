@@ -1,6 +1,6 @@
 <template lang="html">
   <v-dialog max-width="800" v-model="dialog">
-    <v-layout class="white"> <!-- 인물 사진 및 기본 정보 -->
+    <v-layout style="background-color : #EFF2FB;"> <!-- 인물 사진 및 기본 정보 -->
       <v-flex class="ma-2 ml-3 text-xs-left" xs3>   <!-- 인물 사진 -->
         <v-card class="ma-0" depressed width="150" flat>
           <v-card-media height ="139"  :src="person.people_img"  @mouseenter="showButton" @mouseleave="hideButton">
@@ -15,7 +15,7 @@
 
           <v-card-title class="pa-0 ma-0 text-xs-left">
             <p class="ma-0 pa-0"><strong>{{ person.person_name }}</strong></p>
-          </v-card-title
+          </v-card-title>
           <v-card-title class="pa-0 ma-0 text-xs-left" v-if=" person.part != '' "  >
             <p class="ma-0 pa-0">{{ person.role }}</p>
           </v-card-title>
@@ -23,7 +23,7 @@
             <p class="ma-0 pa-0">{{ person.part }}</p>
           </v-card-title>
 
-          <v-tooltip top color="white">   <!-- 인물 평균 평점-->
+          <v-tooltip top>   <!-- 인물 평균 평점-->
               <span slot="activator"><v-progress-linear :value="avgScore * 10" height="10"></v-progress-linear></span>
               <span class= "text-xs-center">
                 <v-icon color="red">star</v-icon>
@@ -38,7 +38,7 @@
       </v-flex>
     </v-layout>
 
-    <v-layout> <!-- 영화 목록 부분-->
+    <v-layout style="background-color : #EFF2FB;"> <!-- 영화 목록 부분-->
       <RelatedMovie :movieinfo="relatedmovie" @getAvgGrade="getAvgGrade"></RelatedMovie>
     </v-layout>
   </v-dialog>

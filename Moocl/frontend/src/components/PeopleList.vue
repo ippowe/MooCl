@@ -2,9 +2,9 @@
   <div>
     <v-stepper v-model="stepNo" class="elevation-0" style="height: 250px" v-if="hasPersonList">
       <v-stepper-items style="height: 250px">
-        <v-stepper-content v-for="n in row" :key="n" :step="n" class="pa-0" style="height: 250px">
+        <v-stepper-content v-for="n in row" :key="n" :step="n" class="pa-0" style="height: 250px; background-color : #EFF2FB;">
           <v-container text-xs-center fill-height class="pa-0" style="height: 250px">
-            <v-layout wrap align-center align-content-center style="background-color : #EFF2FB;">
+            <v-layout wrap align-center align-content-center>
               <v-spacer></v-spacer>
               <v-btn :ripple="false" flat icon depressed @click="prevstep" ><v-icon>navigate_before</v-icon></v-btn>
               <v-spacer></v-spacer>
