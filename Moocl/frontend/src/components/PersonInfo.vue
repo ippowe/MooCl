@@ -45,14 +45,12 @@
 </template>
 
 <script>
-import PersonCard from "./PersonCard.vue"
 import WordCloud from "./WordCloud.vue"
 import RelatedMovie from "./RelatedMovie.vue"
 
 export default {
   name: "PersonInfo",
   components: {
-    PersonCard,
     WordCloud,
     RelatedMovie
   },

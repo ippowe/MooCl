@@ -6,6 +6,7 @@ import favlist from './modules/favlist'
 import reviewlist from './modules/reviewlist'
 import cloud from './modules/cloud'
 import movie from './modules/movie'
+import recommend from './modules/recommend'
 
 Vue.use(Vuex)
 
@@ -15,6 +16,7 @@ export default new Vuex.Store ({
     reviewlist,
     favlist,
     cloud,
-    movie
+    movie,
+    recommend
   }
 })
