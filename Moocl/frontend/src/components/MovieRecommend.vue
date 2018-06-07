@@ -1,5 +1,5 @@
 <template lang="html">
-  <v-dialog :max-width="800" v-model="RecommendView">
+  <div>
     <v-btn class="primary" slot="activator">openDialog</v-btn>
     <v-card class="elevation-0 ma-0">
       <v-card-title class="headline pb-2 pl-5 ml-2" style="background-color : #EFF2FB;">
@@ -55,7 +55,7 @@
         </v-stepper>
       </v-flex>
     </v-layout>
-  </v-dialog>
+  </div>
 
 
 </template>

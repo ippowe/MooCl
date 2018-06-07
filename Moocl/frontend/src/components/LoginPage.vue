@@ -2,7 +2,7 @@
     <v-container fill-height class="indigo lighten-5">
       <v-layout align-center justify-center>
         <v-flex xs4 class="pt-0 mt-0 mb-5 pb-5">
-          <router-link :to="{ name: 'MainPage' }"><v-avatar size="300"><img src="../assets/moocl_logo.jpg" style=""></v-avatar></router-link>
+          <router-link :to="{ name: 'MainPage' }"><v-avatar size="300"><img src="../assets/Gurumi_Text.png" style=""></v-avatar></router-link>
           <v-form v-model="valid" ref="form" lazy-validation>
             <v-text-field @keyup.enter="submit" label="E-mail" v-model="email" :rules="emailRules"  required></v-text-field>
             <v-text-field @keyup.enter="submit" label="Password" v-model="password" :rules="passwordRules" :append-icon="e1 ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (e1 = !e1)" :type="e1 ? 'password' : 'text'":counter="8" required></v-text-field>

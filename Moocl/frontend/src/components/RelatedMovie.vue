@@ -9,8 +9,7 @@
             <v-btn :ripple="false" flat icon depressed @click="prevstep" ><v-icon>navigate_before</v-icon></v-btn>
             <v-spacer></v-spacer>
             <v-flex v-for="(movieinfo, index) in slicedMovieList[n-1]" :key ="index" color="white">
-                <XsMoviePoster :movieinfo="movieinfo"  @openNormal="openNormalInfo(n, index)"></XsMoviePoster>
-                <MovieInfo v-if="infoSwitch[n-1][index]" areaname="relatedMovie" :movietag="movieinfo" :dialog="dialog"></MovieInfo>
+                <XsMoviePoster :movieinfo="movieinfo" @openNormal="openNormalInfo(n, index, movieinfo)"></XsMoviePoster>
             </v-flex>
             <v-btn :ripple="false" flat icon depressed @click="nextstep"> <v-icon>navigate_next</v-icon></v-btn>
             <v-spacer></v-spacer>
@@ -39,7 +38,8 @@ export default {
   data : function() {
     return {
       stepNo : 1,   // Stepper를 위한 변수
-      dialog  : false
+      movieDialog  : false,
+      normalTag : {}
     }
   },
   computed : {
@@ -87,22 +87,24 @@ export default {
         this.stepNo = this.length;
       }
     },
-    openNormalInfo : function(n, index) {
-      console.log(this.infoSwitch);
-      this.infoSwitch[n-1][index] = true;
-      this.dialog = true;
-      console.log(this.infoSwitch);
-    },
-    movieTag : function() {
+    movieTag : function(movieinfo) {
       let temp_tag = {
-        inteTitle : this.movieinfo.inte_title,
-        movieId : this.movieinfo.movie_id,
-        movieTitle : this.movieinfo.movie_title,
-        posterUrl : this.movieinfo.poster,
-        score : this.movieinfo.score,
-        watchingRate : this.movieinfo.watching_rate
+        inteTitle : movieinfo.inte_title,
+        movieId : movieinfo._id,
+        movieTitle : movieinfo.movie_title,
+        posterUrl : movieinfo.poster,
+        score : movieinfo.score,
+        watchingRate : movieinfo.watching_rate
       }
       return temp_tag;
+    },
+    openNormalInfo : function(n, index, movieinfo) {
+      let movieTag = this.movieTag(movieinfo);
+      let movieId = movieTag.movieId
+      this.$store.dispatch('GETCLOUDDATA',movieId)
+      .then((result) => {
+        this.$eventBus.$emit('reloadMovieInfo', movieTag);
+      })
     }
   }
 }

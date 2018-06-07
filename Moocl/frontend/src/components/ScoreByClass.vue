@@ -1,7 +1,7 @@
 <template lang="html">
 <v-layout>
-  <v-card height=200 flat class="transparent mt-4" style="background-color : #EFF2FB;">
-    <v-tabs hide-slider :ripple="false" right style="padding-bottom : 10px; background-color : #EFF2FB;">
+  <v-card height=200 flat class="mt-4" style="background-color : #EFF2FB;">
+    <v-tabs hide-slider :ripple="false" right color="transparent" style="padding-bottom : 10px;">
       <v-tab @click="naverData">
         <v-avatar size="22" ><img src="../assets/naver_icon_2.png" alt=""></v-avatar>
       </v-tab>

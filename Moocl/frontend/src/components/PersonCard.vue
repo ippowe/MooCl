@@ -1,23 +1,23 @@
 <template lang="html">
-      <v-card class="ma-0 text-xs-left" @mouseenter="showButton" @mouseleave="hideButton" depressed width="130" height="190" flat>
-        <v-card-media height ="139"  :src="resizeUrl" >
-          <v-flex @click="openPersonInfo" xs8></v-flex>   <!-- 하트를 오른쪽 보내기 위한 테그 -->
-          <v-flex @click="openPersonInfo" xs5  class="pa-0 ma-0">
-            <!--버튼 눌렀을때 favorite 목록에 추가되는 기능 필요  -->
-            <v-btn :ripple="false" v-show="showFB" flat icon small @click.stop="putPersonList" depressed>
-                <v-icon color="red accent-3">{{heart ? "favorite" : "favorite_border"}}</v-icon>
-            </v-btn>
-          </v-flex>
-        </v-card-media>
-        <v-card-title class="pa-0 ma-0 text-xs-left">
-          <strong>{{ person.person_name }}</strong>
-        </v-card-title>
-        <v-card-title class="pa-0 ma-0 text-xs-left" v-if=" person.part != '' "  >
-          {{ person.role }}
-        </v-card-title>
-        <v-card-title class="pa-0 ma-0 text-xs-left" v-if=" person.role != '' ">
-          {{ person.part }}
-        </v-card-title>
+      <v-card class="ma-0 text-xs-left" @mouseenter="showButton" @mouseleave="hideButton" depressed width="130" height="200" flat style="background-color : #EFF2FB;">
+          <v-card-media height ="139"  :src="resizeUrl" >
+            <v-flex @click="openPersonInfo" xs8></v-flex>   <!-- 하트를 오른쪽 보내기 위한 테그 -->
+            <v-flex @click="openPersonInfo" xs5  class="pa-0 ma-0">
+              <!--버튼 눌렀을때 favorite 목록에 추가되는 기능 필요  -->
+              <v-btn :ripple="false" v-show="showFB" flat icon small @click.stop="putPersonList" depressed>
+                  <v-icon color="red accent-3">{{heart ? "favorite" : "favorite_border"}}</v-icon>
+              </v-btn>
+            </v-flex>
+          </v-card-media>
+          <v-card-title class="pa-0 ma-0 text-xs-left"  style="background-color : #EFF2FB;">
+            <strong>{{ person.person_name }}</strong>
+          </v-card-title>
+          <v-card-title class="pa-0 ma-0 text-xs-left" v-if=" person.part != '' " style="background-color : #EFF2FB;" >
+            {{ person.role }}
+          </v-card-title>
+          <v-card-title class="pa-0 ma-0 text-xs-left" v-if=" person.role != '' "  style="background-color : #EFF2FB;">
+            {{ person.part }}
+          </v-card-title>
       </v-card>
 </template>
 

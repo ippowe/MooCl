@@ -44,6 +44,11 @@ export default {
     this.setSiteScore();
     this.checkFavList();
   },
+  watch : {
+    dialog : function() {
+      this.$emit('closeInfo');
+    }
+  },
   data : function() {
     return{
       showFB : false,
@@ -117,7 +122,6 @@ export default {
       }
     },
     openMovieInfo : function() {
-      console.log('openMovieInfo')
       this.$emit('openNormal')
     }
   },

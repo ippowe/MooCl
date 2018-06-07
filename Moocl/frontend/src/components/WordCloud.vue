@@ -1,13 +1,16 @@
 <template lang="html">
   <div>
-    <v-card :id="moviename" class="transparent noselect cloudFont" flat>
-    </v-card>
+    <v-card :id="moviename" class="transparent noselect cloudFont" flat></v-card>
+    <v-dialog  :max-width="800" v-model="recommendView">
+      <MovieRecommend v-if="recommendView"></MovieRecommend>
+    </v-dialog>
   </div>
 
 </template>
 
 <script>
 import MovieRecommend from "./MovieRecommend.vue"
+import HasNoRecommend from "./HasNoRecommend.vue"
 
 export default {
   name: "WordCloud",
@@ -17,7 +20,12 @@ export default {
   },
   data: function() {
     return {
-      RecommendView: false
+      recommendView: false,
+      blackList : ["영화", "관람객", "있음", "없음", "같음","다름", "것같음", "때", "다만", "그렇음", "이렇음", "많음", "적음","하", "아","넘","텐데","큼", "말","정도","급"
+                        ,"볼","감", "영화중", "어", "다", "편", "어떻음", "안", "진짜", "전", "글", "수없음", "애", "강", "열", "아", "\n", "설", "봉", "엔", "면", "예", "섯"
+                        , "볼때", "존", "표", "이영화", "옆", "게", "밑", "거같음", "덕", "후", "부", "오", "루", "태", "김태", "김", "날", "속", "레", "에", "인", "일", "녀"
+                        , "점대", "드", "크ㄹ도" ],
+
     }
   },
   methods : {
@@ -32,46 +40,51 @@ export default {
       let temp_cloud = {}
       for(var i=0; i<length; i++){
         if(this.movieid == wordSets[i].movieId){
+
           temp_cloud = wordSets[i].words;
         }
       }
-
       return temp_cloud;
     },
     cloudData: function() {
       let tempArray = this.wordList;
       let setType = typeof this.wordList[0];
+      let movieKey = this.movieid
       let returnArray = []
+
 
       if(setType == "string"){
         let length = tempArray.length
         for(let i=0; i<length; i++){
           let tempObject = JSON.parse(tempArray[i]);
+          if(this.blackList.indexOf(tempObject.term) == -1){
+            let cloudData = {
+              text : tempObject.term,
+              weight : tempObject.count,
+              handlers : {
+                mouseover : function(){
+                  //키워드 추가 제거
+                },
+                click : function () {
+                  //영화 추천 함수
+                  let keyValue = {
+                    movieId: movieKey,
+                    word : this.innerHTML
+                  }
+                  console.log("클릭 이벤트: ");
+                  console.log(keyValue  )
 
-          let cloudData = {
-            text : tempObject.term,
-            weight : tempObject.count,
-            handlers : {
-              mouseover : function(){
-                //키워드 추가 제거
-              },
-              click : function () {
-                //영화 추천 함수
-                console.log("클릭 이벤트: " + this.innerHTML);
+                }
               }
             }
+            returnArray.push(cloudData);
           }
-          returnArray.push(cloudData);
         }
       } else {
         let length = tempArray.length
-        let blackList = ["영화", "관람객", "있음", "없음", "같음","다름", "것같음", "때", "다만", "그렇음", "이렇음", "많음", "적음","하", "아","넘","텐데","큼"
-                          ,"말","정도","급","볼","감", "영화중", "어", "다", "편", "어떻음", "안", "진짜", "전", "글", "수없음", "애", "강", "열", "아", "\n", "설"
-                          , "봉", "엔", "면", "예", "섯", "볼때", "존", "표", "이영화", "옆", "게", "밑", "거같음", "덕", "후", "부", "오", "루", "태", "김태",
-                          , "김", "날", "속", "레", "에", "인", "일", "녀", "점대"]
         for(let i=0; i<length; i++){
           let value = Math.pow(tempArray[i].count, 2)
-          if(blackList.indexOf(tempArray[i].term) == -1){
+          if(this.blackList.indexOf(tempArray[i].term) == -1){
             let cloudData = {
               text : tempArray[i].term,
               weight : value,

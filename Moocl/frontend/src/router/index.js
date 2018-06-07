@@ -7,7 +7,6 @@ import TestPage from '@/components/test.vue' //마지막에 삭제해야 합니�
 import MyPage from '@/components/MyPage.vue'
 import ModifyInfo from '@/components/ModifyInfo.vue'
 
-
 Vue.use(Router)
 
 export default new Router({

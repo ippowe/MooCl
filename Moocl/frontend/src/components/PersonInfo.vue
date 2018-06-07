@@ -34,12 +34,12 @@
 
       </v-flex> <!-- 리뷰 클라우드 -->
       <v-flex class="mr-3 mb-3">
-        <WordCloud :moviename="person.person_id"></WordCloud>
+        <WordCloud :moviename="person.person_id" :movieid="person.person_id"></WordCloud>
       </v-flex>
     </v-layout>
 
     <v-layout> <!-- 영화 목록 부분-->
-      <RelatedMovie :movieinfo="relatedmovie" @getAvgGrade="getAvgGrade"></RelatedMovie>
+      <RelatedMovie :switchlist="openInfoSwitch" :movieinfo="relatedmovie" @getAvgGrade="getAvgGrade"></RelatedMovie>
     </v-layout>
   </v-dialog>
 </template>
@@ -76,6 +76,21 @@ export default {
       favorite: false,
       avgScore : 0,
       heart: false
+    }
+  },
+  computed : {
+    openInfoSwitch : function() {
+      let switchList = [];
+      let innerSwitch = [];
+      let tempLength = parseInt((this.relatedmovie.length - 1) / 5);
+      for(var i=0; i<tempLength+1; i++){
+        innerSwitch = [];
+        for(var j=0; j<5; j++){
+          innerSwitch.push(false);
+        }
+        switchList.push(innerSwitch);
+      }
+      return switchList;
     }
   },
   methods : {

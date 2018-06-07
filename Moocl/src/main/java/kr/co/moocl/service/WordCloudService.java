@@ -74,10 +74,10 @@ public class WordCloudService {
 	public boolean isLatestWordcolud(String movieId) {
 		boolean result = false;
 		InteMovieVo vo = movieDao.getMovieInfoById(movieId);
-//		String update = vo.getWordcloudDate();
+		String update = vo.getWordcloudDate();
 
 		//test 용 날짜 변환
-		String update = "2018.05.13";
+//		String update = "2018.05.13";
 		
 		if (update != null ) {
 			Date today = new Date();

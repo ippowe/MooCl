@@ -22,6 +22,14 @@ export default {
     NormalInfo,
     MovieDetailInfo
   },
+  updated () {
+    this.$eventBus.$on('reloadMovieInfo', (movieTag) => {
+      this.detail = false;
+      this.width = false;
+      this.movietag = movieTag;
+      this.getDetailInfo();
+    })
+  },
   beforeMount() {
     this.getDetailInfo();
     this.getReviewCount();

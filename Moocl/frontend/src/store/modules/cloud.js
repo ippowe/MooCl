@@ -30,15 +30,37 @@ const actions = {
           reject(error);
         })
       });
+    },
+    GETPERSONCLOUDDATA : function({commit}, personId){
+      return new Promise(function(resolve, reject) {
+        axios.get("/api/getWordByPerson", {
+          params : {
+            personId : personId
+          }
+        })
+        .then((result) => {
+          let wordInfo = {
+            words: result.data,
+            movie: personId
+          }
+          resolve("워드 셋 가져옴")
+          commit('SETCLOUDDATA', wordInfo);
+        }, error => {
+          reject(error);
+        })
+      });
     }
 }
 
 const mutations = {
   SETCLOUDDATA : function(state, wordInfo){
-
     let wordCloud = {
       movieId: wordInfo.movie,
       words : wordInfo.words
+    }
+    
+    if(state.wordCloudList.length > 10){
+      state.wordCloudList = [];
     }
 
     if(state.wordCloudList.length == 0){
