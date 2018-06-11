@@ -1,7 +1,7 @@
 <template lang="html">
  <v-container class="pa-0" style="background-color : #EFF2FB;">
    <div @click="openMovieInfo">
-     <v-card class="ma-0"  @mouseenter="showButton" @mouseleave="hideButton" depressed width="126" height="180" :img ="checkedPosterUrl" style="background-color : #EFF2FB;">
+     <v-card class="ma-0"  @mouseenter="showButton" @mouseleave="hideButton" depressed width="126" height="180" :img ="checkedPosterUrl">
        <v-card-media>
          <v-flex xs8></v-flex>   <!-- 하트를 오른쪽 보내기 위한 테그 -->
          <v-flex xs4>
@@ -14,11 +14,11 @@
      </v-card>
    </div>
    <v-card width="126" flat class="pt-1" style="background-color : #EFF2FB;">
-     <v-card-title class="pa-0 ma-0 text-xs-left" style="background-color : #EFF2FB;">
+     <v-card-title class="pa-0 ma-0 text-xs-left" >
        <strong>{{ trimTitle }}</strong>
      </v-card-title>
-     <div v-for="score in scores"  style="background-color : #EFF2FB;">
-       <v-tooltip bottom >
+     <div v-for="score in scores">
+       <v-tooltip bottom style="background-color : #EFF2FB;">
          <v-progress-linear slot="activator" :color="score.color" :value="score.score * 10"  style="background-color : #EFF2FB;"></v-progress-linear>
          <span>
            <v-icon color="red">star</v-icon>

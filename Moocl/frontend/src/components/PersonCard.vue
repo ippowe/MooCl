@@ -1,5 +1,5 @@
 <template lang="html">
-      <v-card class="ma-0 text-xs-left" @mouseenter="showButton" @mouseleave="hideButton" depressed width="130" height="200" flat style="background-color : #EFF2FB;">
+      <v-card class="ma-0 text-xs-left indigo lighten-5" @mouseenter="showButton" @mouseleave="hideButton" depressed width="130" height="200" flat>
           <v-card-media height ="139"  :src="resizeUrl" >
             <v-flex @click="openPersonInfo" xs8></v-flex>   <!-- 하트를 오른쪽 보내기 위한 테그 -->
             <v-flex @click="openPersonInfo" xs5  class="pa-0 ma-0">

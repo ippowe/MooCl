@@ -1,5 +1,5 @@
 <template lang="html">
-    <v-container class="mb-5 ml-4 px-5 mt-4" >
+    <v-container class="mb-5 ml-4 px-5 mt-4 indigo lighten-5">
       <v-layout v-for="i in slicedFavPersonList.length" :key="i"  class=" mb-2 mx-5 px-5">
         <v-flex v-for="(item, index) in slicedFavPersonList[i-1]" :key ="index">
           <PersonCard :person="item" @openPersonInfo="openPersonInfo(i, index, item)"></PersonCard>

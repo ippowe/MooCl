@@ -2,7 +2,7 @@
   <v-dialog max-width="800" v-model="dialog">
     <v-layout style="background-color : #EFF2FB;"> <!-- 인물 사진 및 기본 정보 -->
       <v-flex class="ma-2 ml-3 text-xs-left" xs3>   <!-- 인물 사진 -->
-        <v-card class="ma-0" depressed width="150" flat>
+        <v-card class="ma-0" width="150" flat style="background-color : #EFF2FB;">
           <v-card-media height ="139"  :src="person.people_img"  @mouseenter="showButton" @mouseleave="hideButton">
             <v-flex xs8></v-flex>   <!-- 하트를 오른쪽 보내기 위한 테그 -->
             <v-flex xs5  class="pa-0 ma-0">
@@ -13,17 +13,17 @@
             </v-flex>
           </v-card-media>
 
-          <v-card-title class="pa-0 ma-0 text-xs-left">
+          <v-card-title class="pa-0 ma-0 text-xs-left" style="background-color : #EFF2FB;">
             <p class="ma-0 pa-0"><strong>{{ person.person_name }}</strong></p>
           </v-card-title>
-          <v-card-title class="pa-0 ma-0 text-xs-left" v-if=" person.part != '' "  >
+          <v-card-title class="pa-0 ma-0 text-xs-left" v-if=" person.part != '' " style="background-color : #EFF2FB;">
             <p class="ma-0 pa-0">{{ person.role }}</p>
           </v-card-title>
-          <v-card-title class="pa-0 ma-0 text-xs-left" v-if=" person.role != '' ">
+          <v-card-title class="pa-0 ma-0 text-xs-left" v-if=" person.role != '' " style="background-color : #EFF2FB;">
             <p class="ma-0 pa-0">{{ person.part }}</p>
           </v-card-title>
 
-          <v-tooltip top>   <!-- 인물 평균 평점-->
+          <v-tooltip top style="background-color : #EFF2FB;">   <!-- 인물 평균 평점-->
               <span slot="activator"><v-progress-linear :value="avgScore * 10" height="10"></v-progress-linear></span>
               <span class= "text-xs-center">
                 <v-icon color="red">star</v-icon>
