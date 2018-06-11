@@ -154,6 +154,12 @@ public class MovieDao {
 
 	}
 
+	public List<Document> getMovieByPerson(String personId, String clickWord, String condition, int grade) {
+		ExecutableMongoScript wordcloudScript = scriptMaker("JavaScript/getMovieByPersonWord.js");
+		List<Document> movieList = (List<Document>) mongoOperation.scriptOps().execute(wordcloudScript, personId,clickWord,condition,grade);
+		return movieList;
+	}
+	
 	private ExecutableMongoScript scriptMaker (String path) {
 		String resourcePath = "classpath:";
 		resourcePath += path;
@@ -186,4 +192,5 @@ public class MovieDao {
 		ExecutableMongoScript script = new ExecutableMongoScript(text.toString());
 		return script;
 	}
+
 }
