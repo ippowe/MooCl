@@ -1,6 +1,6 @@
 <template lang="html">
-  <v-app class="white">
-      <TestArea :movietag="MovieTag" :classscore="scores"></TestArea>
+  <v-app>
+      <TestArea></TestArea>
   </v-app>
 </template>
 
