@@ -49,7 +49,20 @@ public class WordcloudRestController {
 		return resultMap;
 	}
 	
-	
+	@RequestMapping("/getRecommendByPerson")
+	public Map<String,List<Document>> getRecommendByPerson(
+			@RequestParam("personId") String personId,
+			@RequestParam("clickWord") String clickWord){
+		System.out.println(personId);
+		System.out.println(clickWord);
+		List<Document> goodMovieList = (List<Document>) wordCloudService.getGoodMovieByPerson(personId,clickWord);
+		List<Document> badMovieList = (List<Document>) wordCloudService.getBadMovieByPerson(personId,clickWord);
+		Map<String,List<Document>> resultMap = new HashMap<String,List<Document>>();
+		resultMap.put("good", goodMovieList);
+		resultMap.put("bad", badMovieList);
+		
+		return resultMap;
+	}	
 	
 	
 	

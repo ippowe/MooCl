@@ -66,7 +66,13 @@ public class WordCloudService {
 		return movieDao.getMovieByStd(movieId,clickWord,"lte",5);
 	}
 		
-	
+	public List<Document> getGoodMovieByPerson(String personId, String clickWord) {
+		return movieDao.getMovieByPerson(personId,clickWord,"gte",8);
+	}
+
+	public List<Document> getBadMovieByPerson(String personId, String clickWord) {
+		return movieDao.getMovieByPerson(personId,clickWord,"lte",5);
+	}	
 	
 	// 최신 클라우드인지 확인하는 메소드 (3일전까지는 최신으로 판단)
 	// false : wordcloudDate null || today - updateDate > 4
