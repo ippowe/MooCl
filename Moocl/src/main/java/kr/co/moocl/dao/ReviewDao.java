@@ -81,8 +81,8 @@ public class ReviewDao {
 		criteria.and("review_contents").ne("");
 		
 		Query query = new Query(criteria);
-		query.skip((pageNo-1) * 5);
-		query.limit(5);
+		query.skip((pageNo-1) * 10);
+		query.limit(10);
 		query.with(new Sort(Sort.Direction.DESC, "reg_date"));
 		query.fields().exclude("_id");
 		

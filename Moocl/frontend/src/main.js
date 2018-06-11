@@ -17,7 +17,8 @@ import store from './store/store'
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios;
 Vue.prototype.$eventBus = new Vue();
-Vue.use(Vuetify)
+Vue.use(Vuetify);
+
 
 /* eslint-disable no-new */
 new Vue({

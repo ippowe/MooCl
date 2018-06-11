@@ -17,7 +17,7 @@
             </strong>
             <v-spacer></v-spacer>
             <v-avatar class="mr-1">
-              <v-btn flat icon @click="putMovieList">
+              <v-btn flat icon @click.native="putMovieList">
                   <v-icon color="red accent-3">{{heart ? "favorite" : "favorite_border"}}</v-icon>
               </v-btn>
             </v-avatar>
@@ -72,7 +72,6 @@ export default {
             let userId = sessionStorage.userNo;
             this.$axios.post('/api/delfavmovie', {movieId, userId})
             .then(() => {
-              // this.$store.getters.getFavMovieList.splice(favMovieIndex, 1);
               this.$eventBus.$emit('delInPage', movieId, favMovieIndex);
               this.heart = false;
             })

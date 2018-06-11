@@ -43,8 +43,8 @@
             </div> -->
             <WordCloud :moviename="detailinfo.inte_title" :movieid="detailinfo._id"></WordCloud>
           </v-flex>
-          <v-flex> <!--나이/ 연령별 평점  -->
-            <ScoreByClass :classscore="classScore"></ScoreByClass>
+          <v-flex style="background-color : #EFF2FB;"> <!--나이/ 연령별 평점  -->
+            <ScoreByClass :classscore="classScore" style="background-color : #EFF2FB;"></ScoreByClass>
           </v-flex>
         </v-layout>
         <PeopleList class="ma-0" :infoswitch="openSwitch" :row="personRow" :slicedperson="slicedPersonList" :detailinfo="detailinfo"></PeopleList>

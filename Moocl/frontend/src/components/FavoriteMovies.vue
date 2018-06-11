@@ -1,18 +1,23 @@
 <template lang="html">
   <v-container class="mb-5 ml-4">
     <v-layout v-for="i in slicedfavMovieInfoList.length" :key="i" justify-start class="mb-5 ml-5">
-      <MovieInfo class="mx-3" v-for="k in slicedfavMovieInfoList[i-1].length" :key="k" :movietag="slicedfavMovieInfoList[i-1][k-1]" ></MovieInfo>
+      <BigMoviePoster class="mb-5 mx-3 pt-4" :movietitle="trimTitle(i, l)" @openMovieInfo="getCloudData(i, l)":posterUrl="slicedfavMovieInfoList[i-1][l-1].posterUrl"
+        v-for="l in slicedfavMovieInfoList[i-1].length" :key="l" :movieid="slicedfavMovieInfoList[i-1][l-1].movieId"></BigMoviePoster>
+      <MovieInfo v-if="openInfoSwitch[i-1][k-1]" :dialog="dialog" v-for="k in slicedfavMovieInfoList[i-1].length" :key="k"
+                :movietag="slicedfavMovieInfoList[i-1][k-1]" @closeMovieInfo="closeInfo(i, k)"></MovieInfo>
     </v-layout>
   </v-container>
 </template>
 
 <script>
 import MovieInfo from"./MovieInfo.vue"
+import BigMoviePoster from "./BigMoviePoster.vue"
 
 export default {
   name : "FavoriteMovies",
   components : {
-    MovieInfo
+    MovieInfo,
+    BigMoviePoster
   },
   created () {
     this.getFavData();
@@ -32,10 +37,12 @@ export default {
   },
   data () {
     return{
+      dialog: false,
       favRow: 0,
       favMovieInfoList: [],
       favMovieList: [],
       slicedfavMovieInfoList: [],
+      openInfoSwitch: [[false, false, false, false, false], [false, false, false, false, false]]
     }
   },
   methods : {
@@ -57,7 +64,7 @@ export default {
     getFavData() {
       this.$store.dispatch("GETFAVLIST", sessionStorage.userNo)
       .then((result) => {
-        this.favMovieList = this.FavMovieList;
+        this.FavMovieList = this.$store.getters.getFavMovieList;
       })
       this.$store.dispatch("MYPAGEDATA", sessionStorage.userNo)
       .then((result) => {
@@ -65,6 +72,30 @@ export default {
           this.row();
           this.slicedMovieList();
       }).catch((err) => console.log(err));
+    },
+    openInfo(i, l) {
+      this.dialog = true;
+      this.openInfoSwitch[i-1][l-1] = true;
+    },
+    trimTitle (i, l) {
+      if(this.slicedfavMovieInfoList[i-1][l-1].movieTitle.length > 5){
+        let temp_title = this.slicedfavMovieInfoList[i-1][l-1].movieTitle.slice(0,6) + "...";
+        return temp_title
+      } else {
+        return this.slicedfavMovieInfoList[i-1][l-1].movieTitle
+      }
+    },
+    closeInfo(i, k){
+      this.dialog = false;
+      this.openInfoSwitch[i-1][k-1] = false;
+    },
+    getCloudData (i, k) {
+      let movieId = this.slicedfavMovieInfoList[i-1][k-1].movieId;
+      this.$store.dispatch('GETCLOUDDATA', movieId)
+      .then((result) => {
+        this.openInfo(i, k);
+      })
+      .catch((error) => console.log(error));
     }
   }
 }

@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
@@ -131,11 +133,25 @@ public class MovieDao {
 	}
 
 
-	public List<Document> getMovieByStd(String movieId, String clickWord, String condition, int grade) {
+	public List<Map<String, Object>> getMovieByStd(String movieId, String clickWord, String condition, int grade) {
 		ExecutableMongoScript wordcloudScript = scriptMaker("JavaScript/getMovieByStd.js");
-		List<Document> movieList = 
-				(List<Document>) mongoOperation.scriptOps().execute(wordcloudScript, movieId,clickWord,condition,grade);
-		return movieList;
+		
+		List<Map<String, Object>> movieList = 
+				(List<Map<String, Object>>) mongoOperation.scriptOps().execute(wordcloudScript, movieId,clickWord,condition,grade);
+		
+		for(Map<String, Object> movies : movieList) {
+			String movie = (String) movies.get("movie");
+			InteMovieVo movieInfo = getMovieInfoById(movie);
+			movies.replace("movie", movieInfo);
+		}
+		if(movieList.size() != 0) {
+			movieList.remove(0);
+			return movieList;
+		} else {
+			return movieList;
+		}
+		
+
 	}
 
 	private ExecutableMongoScript scriptMaker (String path) {

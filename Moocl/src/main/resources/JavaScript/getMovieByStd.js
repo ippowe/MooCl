@@ -26,12 +26,11 @@ if(condition == "gte") {
 	
 	               count:{$sum :1 }}},
 	
-	    {$sort : {"count" : -1}},{$limit : 7}
-	
+	    {$sort : {"count" : -1}},{$limit : 11}
 	    
-	    ]).forEach(function(doc) {
-	            pushData = {"movie" : doc._id, "count" : doc.count};
-	            movie_list.push(pushData);
+	    ]).forEach(function(doc) {    		
+            pushData = {"movie" : doc._id.$id, "count" : doc.count};
+            movie_list.push(pushData);
 	});
 }else if(condition == "lte") {
 	db.test_review.aggregate([ {$project : {"user_grade" : 1}},
@@ -44,12 +43,12 @@ if(condition == "gte") {
 	
 	               count:{$sum :1 }}},
 	
-	    {$sort : {"count" : -1}},{$limit : 7}
+	    {$sort : {"count" : -1}},{$limit : 11}
 	
 	    
 	
 	    ]).forEach(function(doc) {
-	            pushData = {"movie" : doc._id, "count" : doc.count};
+	            pushData = {"movie" : doc._id.$id, "count" : doc.count};
 	            movie_list.push(pushData);
 	});	
 }

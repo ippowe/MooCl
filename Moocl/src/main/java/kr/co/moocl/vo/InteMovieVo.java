@@ -29,13 +29,14 @@ public class InteMovieVo {
 	private String watching_rate;
 	private String wordcloudDate;
 	private List<String> wordcloudList;
+	private int count; // 평가한 갯수 구할때 쓰는 Count
 	
 	
 	public InteMovieVo(String _id, List<Map<String, String>> movie_id, String inte_title, String movie_title,
 			String director, List<Map<String, Object>> review_cnt, List<Map<String, Object>> gender_ratio,
 			List<Map<String, Object>> age, List<Map<String, Object>> score, String nation, String open_date,
 			String genre, String inte_director, Object running_time, Object poster, List<PeopleVo> person,
-			String watching_rate) {
+			String watching_rate, String wordcloudDate, List<String> wordcloudList, int count) {
 		this._id = _id;
 		this.movie_id = movie_id;
 		this.inte_title = inte_title;
@@ -53,9 +54,14 @@ public class InteMovieVo {
 		this.poster = poster;
 		this.person = person;
 		this.watching_rate = watching_rate;
+		this.wordcloudDate = wordcloudDate;
+		this.wordcloudList = wordcloudList;
+		this.count = count;
 	}
+	
 	public InteMovieVo() {
 	}
+
 	public String get_id() {
 		return _id;
 	}
@@ -106,6 +112,15 @@ public class InteMovieVo {
 	}
 	public String getWatching_rate() {
 		return watching_rate;
+	}
+	public String getWordcloudDate() {
+		return wordcloudDate;
+	}
+	public List<String> getWordcloudList() {
+		return wordcloudList;
+	}
+	public int getCount() {
+		return count;
 	}
 	public void set_id(String _id) {
 		this._id = _id;
@@ -158,18 +173,16 @@ public class InteMovieVo {
 	public void setWatching_rate(String watching_rate) {
 		this.watching_rate = watching_rate;
 	}
-	public String getWordcloudDate() {
-		return wordcloudDate;
-	}
 	public void setWordcloudDate(String wordcloudDate) {
 		this.wordcloudDate = wordcloudDate;
-	}
-	public List<String> getWordcloudList() {
-		return wordcloudList;
 	}
 	public void setWordcloudList(List<String> wordcloudList) {
 		this.wordcloudList = wordcloudList;
 	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	
 	@Override
 	public String toString() {
 		return "InteMovieVo [_id=" + _id + ", movie_id=" + movie_id + ", inte_title=" + inte_title + ", movie_title="
@@ -177,9 +190,8 @@ public class InteMovieVo {
 				+ gender_ratio + ", age=" + age + ", score=" + score + ", nation=" + nation + ", open_date=" + open_date
 				+ ", genre=" + genre + ", inte_director=" + inte_director + ", running_time=" + running_time
 				+ ", poster=" + poster + ", person=" + person + ", watching_rate=" + watching_rate + ", wordcloudDate="
-				+ wordcloudDate + ", wordcloudList=" + wordcloudList + "]";
+				+ wordcloudDate + ", wordcloudList=" + wordcloudList + ", count=" + count + "]";
 	}
-	
 	
 }
 

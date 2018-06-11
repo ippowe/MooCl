@@ -1,12 +1,12 @@
 <template lang="html">
-<v-layout>
-  <v-card height=200 flat class="transparent mt-4" style="background-color : #EFF2FB;">
-    <v-tabs hide-slider :ripple="false" right style="padding-bottom : 10px; background-color : #EFF2FB;">
-      <v-tab @click="naverData">
-        <v-avatar size="22" ><img src="../assets/naver_icon_2.png" alt=""></v-avatar>
+<v-layout style="background-color : #EFF2FB;">
+  <v-card height=200 flat class="mt-4"  style="background-color : #EFF2FB;">
+    <v-tabs hide-slider :ripple="false" color="transparent" right style="padding-bottom : 10px;">
+      <v-tab @click="naverData" style="background-color : #EFF2FB;">
+        <img src="../assets/Naver_Logotype.png" style="width:60px; height: 30px; padding-top: 5px; margin-top: 4px;">
       </v-tab>
-      <v-tab @click="cgvData">
-        <v-avatar size="42"><img src="../assets/cgv_icon.png" alt=""></v-avatar>
+      <v-tab @click="cgvData" style="background-color : #EFF2FB;">
+        <img src="../assets/cgv_icon.png" style="width:60px; height: 30px;">
       </v-tab>
     </v-tabs>
       <div v-for="data in genderscore" :key="data.gender" bottom :color="data.color" style="float:left">
@@ -21,7 +21,7 @@
             <v-avatar size="50"><p style="font-size: 14px; font-weight: bold; padding: 16px 0px 0px 16px;">{{inform.age}}대</p>
             </v-avatar>
           </v-list-tile-action>
-            <v-progress-linear height="11" style="border-radius : 22px;" :value="inform.percent*1.5" :color="inform.color"></v-progress-linear>
+            <v-progress-linear height="11" style="border-radius : 22px;" :value="inform.percent" :color="inform.color"></v-progress-linear>
             <span style="width: 76px; font-size : 11px; font-weight: bold"><v-icon :color="inform.color">person</v-icon> {{inform.percent}}%</span>
         </v-list-tile>
       </v-list>
@@ -84,13 +84,13 @@ export default {
       for(let i = 0; i<this.classscore[0].length; i++){
         if(this.classscore[0][i].site == this.siteName){
           temp_male["gender"] = "male";
-          temp_male["value"] = this.classscore[0][i].male;
+          temp_male["value"] = parseInt(this.classscore[0][i].male);
           temp_male["color"] = "blue";
 
           temp_female["gender"] = "female";
           temp_female["color"] = "pink accent-2"
           if(temp_male["value"] != 0) {
-            temp_female["value"] = 100 - this.classscore[0][i].male;
+            temp_female["value"] = parseInt(100 - this.classscore[0][i].male);
           } else {
             temp_female["value"] = 0;
           }
@@ -111,19 +111,19 @@ export default {
       for(let i =0; i<this.classscore[1].length; i++){
         if(this.classscore[1][i].site == this.siteName){
           temp_teen["age"] = 10;
-          temp_teen["percent"] = this.classscore[1][i].teen;
+          temp_teen["percent"] = parseInt(this.classscore[1][i].teen);
           temp_teen["color"] = "deep-purple lighten-2 ";
 
           temp_twenty["age"] = 20;
-          temp_twenty["percent"] = this.classscore[1][i].twenty;
+          temp_twenty["percent"] = parseInt(this.classscore[1][i].twenty);
           temp_twenty["color"] = "pink lighten-4";
 
           temp_thirty["age"] = 30;
-          temp_thirty["percent"] = this.classscore[1][i].thirty;
+          temp_thirty["percent"] = parseInt(this.classscore[1][i].thirty);
           temp_thirty["color"] = "teal lighten-3";
 
           temp_forty["age"] = 40;
-          temp_forty["percent"] = this.classscore[1][i].forty;
+          temp_forty["percent"] = parseInt(this.classscore[1][i].forty);
           temp_forty["color"] = "amber lighten-1";
 
           this.agescore = [temp_teen, temp_twenty, temp_thirty, temp_forty];

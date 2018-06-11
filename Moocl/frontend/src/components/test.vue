@@ -5,7 +5,6 @@
 </template>
 
 <script>
-<<<<<<< HEAD
 import TestArea from './MainCarousel.vue'
 
 export default {
@@ -18,7 +17,8 @@ export default {
   },
   data : function() {
     return {
-      // dialog: true,
+
+      dialog: true,
       MovieTag : {
         movieTitle : "영화제목영화제목영화제목영화제목영화제목영화제목영화제목영화제목영화제목영화제목영화제목영화제목영화제목영화제목영화제목",
         movieId : 123456,

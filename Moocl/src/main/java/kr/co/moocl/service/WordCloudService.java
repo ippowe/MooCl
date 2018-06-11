@@ -2,9 +2,11 @@ package kr.co.moocl.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -58,11 +60,12 @@ public class WordCloudService {
 	}
 
 
-	public List<Document> getGoodMovie(String movieId, String clickWord) {
-		return movieDao.getMovieByStd(movieId,clickWord,"gte",8);
+	public List<Map<String, Object>> getGoodMovie(String movieId, String clickWord) {
+		 List<Map<String, Object>> goodMovies = movieDao.getMovieByStd(movieId,clickWord,"gte",8);
+		 return goodMovies;
 	}
 
-	public List<Document> getBadMovie(String movieId, String clickWord) {
+	public List<Map<String, Object>> getBadMovie(String movieId, String clickWord) {
 		return movieDao.getMovieByStd(movieId,clickWord,"lte",5);
 	}
 		

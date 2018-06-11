@@ -1,7 +1,7 @@
 <template lang="html">
   <v-container class="ml-5 py-0" justify-center>
-    <v-toolbar tabs flat color="transparent">
-      <v-tabs centered hide-slider color="transparent" class="pt-5">
+    <v-toolbar tabs flat color="transparent" class="mt-5">
+      <v-tabs centered hide-slider color="transparent" >
         <v-tab :ripple="false" style="border-right: 7px dotted grey" @click="favoriteList" >
           <strong style="font-size : 32px">Like it</strong><v-icon color="red" class="pr-3">favorite</v-icon>
         </v-tab>

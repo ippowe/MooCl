@@ -25,8 +25,9 @@ const actions = {
         }
       })
       .then((result) => {
+        state.goodMovieList = [];
+        state.badMovieList = [];
         let movies = result.data;
-        console.log(movies);
         resolve('영화 목록 받아옴');
         commit('SETRECOMMENDATION', movies);
       }, error => {
@@ -38,11 +39,8 @@ const actions = {
 
 const mutations = {
   SETRECOMMENDATION : function(state, movies){
-    console.log("mutation");
-    console.log(movies);
     let goodMovies = movies.good;
     let badMovies = movies.bad;
-
     state.goodMovieList = goodMovies;
     state.badMovieList = badMovies;
   }

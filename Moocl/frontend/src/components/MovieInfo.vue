@@ -23,16 +23,25 @@ export default {
     MovieDetailInfo
   },
   updated () {
+
+  },
+  beforeMount() {
+    this.getDetailInfo();
+    this.getReviewCount();
+  },
+  created () {
+    this.$eventBus.$on('reloadNormalInfo', (movieTag) => {
+      this.detail = false;
+      this.width = false;
+      this.movietag = movieTag;
+      this.getDetailInfo();
+    });
     this.$eventBus.$on('reloadMovieInfo', (movieTag) => {
       this.detail = false;
       this.width = false;
       this.movietag = movieTag;
       this.getDetailInfo();
-    })
-  },
-  beforeMount() {
-    this.getDetailInfo();
-    this.getReviewCount();
+    });
   },
   watch : {
     dialog: function (val) {

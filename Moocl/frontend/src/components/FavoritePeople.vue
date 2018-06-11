@@ -27,7 +27,6 @@ export default {
 
     this.$eventBus.$on('delInPage', (personId, favPersonIndex) => {
       let length = this.favPersonInfoList.length
-      console.log(this.favPersonInfoList);
       for(var i=0; i<length; i++){
         if(personId == this.favPersonInfoList[i].person_id){
           this.$store.getters.getFavPersonList.splice(favPersonIndex, 1);
