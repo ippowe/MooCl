@@ -13,12 +13,12 @@
        </v-card-media>
      </v-card>
    </div>
-   <v-card width="126" flat class="pt-1">
+   <v-card width="126" flat class="pt-1" style="background-color : #EFF2FB;">
      <v-card-title class="pa-0 ma-0 text-xs-left">
        <strong>{{ trimTitle }}</strong>
      </v-card-title>
      <div v-for="score in scores">
-       <v-tooltip bottom color="white">
+       <v-tooltip bottom style="background-color : #EFF2FB;">
          <v-progress-linear slot="activator" :color="score.color" :value="score.score * 10"></v-progress-linear>
          <span>
            <v-icon color="red">star</v-icon>
