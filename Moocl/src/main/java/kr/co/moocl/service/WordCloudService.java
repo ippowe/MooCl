@@ -69,11 +69,11 @@ public class WordCloudService {
 		return movieDao.getMovieByStd(movieId,clickWord,"lte",5);
 	}
 		
-	public List<Document> getGoodMovieByPerson(String personId, String clickWord) {
+	public List<Map<String, Object>> getGoodMovieByPerson(String personId, String clickWord) {
 		return movieDao.getMovieByPerson(personId,clickWord,"gte",8);
 	}
 
-	public List<Document> getBadMovieByPerson(String personId, String clickWord) {
+	public List<Map<String, Object>> getBadMovieByPerson(String personId, String clickWord) {
 		return movieDao.getMovieByPerson(personId,clickWord,"lte",5);
 	}	
 	

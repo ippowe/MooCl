@@ -34,6 +34,25 @@ const actions = {
         reject(error);
       })
     });
+  },
+  GETRECOMMENDATIONBYPERSON : function({commit}, keyValue) {
+    return new Promise(function(resolve, reject) {
+      axios.get("/api/getRecommendByPerson", {
+        params : {
+          personId : keyValue.personId,
+          clickWord : keyValue.word
+        }
+      })
+      .then((result) => {
+        state.goodMovieList = [];
+        state.badMovieLIst = [];
+        let movies = result.data;
+        resolve('영화목록 받아옴');
+        commit('SETRECOMMENDATION', movies);
+      }, error => {
+        reject(error);
+      })
+    });
   }
 }
 

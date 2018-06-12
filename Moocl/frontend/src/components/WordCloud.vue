@@ -64,7 +64,30 @@ export default {
       let store = this.$store;
       let data = this.$data;
       let returnArray = [];
-
+      let getRecommend = function(keyword) {
+          let idType = typeof movieKey
+          if( idType == "string"){
+            let keyValue = {
+              movieId: movieKey,
+              word : keyword
+            }
+            store.dispatch('GETRECOMMENDATION', keyValue)
+            .then((response) => {
+              data.recommendView = true;
+              data.recommendDialog = true;
+            })
+          } else {
+            let keyValue = {
+              personId: movieKey,
+              word : keyword
+            }
+            store.dispatch('GETRECOMMENDATIONBYPERSON', keyValue)
+            .then((response) => {
+              data.recommendView = true;
+              data.recommendDialog = true;
+            })
+          }
+        }
 
       if(setType == "string"){
         let length = tempArray.length
@@ -80,15 +103,8 @@ export default {
                 },
                 click : function () {
                   //영화 추천 함수
-                  let keyValue = {
-                    movieId: movieKey,
-                    word : this.innerHTML
-                  }
-                  store.dispatch('GETRECOMMENDATION', keyValue)
-                  .then((response) => {
-                    data.recommendView = true;
-                    data.recommendDialog = true;
-                  })
+                  let keyword = this.innerHTML
+                  getRecommend(keyword);
                 }
               }
             }
@@ -109,15 +125,8 @@ export default {
                 },
                 click : function () {
                   //영화 추천 함수
-                  let keyValue = {
-                    movieId: movieKey,
-                    word : this.innerHTML
-                  }
-                  store.dispatch('GETRECOMMENDATION', keyValue)
-                  .then((response) => {
-                    data.recommendView = true;
-                    data.recommendDialog = true;
-                  })
+                  let keyword = this.innerHTML
+                  getRecommend(keyword);
                 }
               }
             }

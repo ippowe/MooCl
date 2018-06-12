@@ -41,8 +41,8 @@ public class ReviewDao {
 				Criteria.where("_id.movie_ref.$id").is(movieId)
 		));
 		
-		query.skip((page-1) * 5);
-		query.limit(5);
+		query.skip((page-1) * 10);
+		query.limit(10);
 		query.with(new Sort(Sort.Direction.DESC, "reg_date"));
 		query.fields().exclude("_id");
 		
@@ -111,6 +111,18 @@ public class ReviewDao {
 		update.set("gurumi_word", gurumi_word);
 		
 		mongoTemplate.updateFirst(query, update,"test_review");
-		System.out.println(mongoTemplate.find(query, ReviewVo.class, "test_review"));
+
+	}
+
+	public ReviewVo findReviewByUserMovieId(String movieId, String userId) {
+		
+		Query query = new Query();
+		query.addCriteria( new Criteria().andOperator(
+				Criteria.where("_id.user_id").is(userId),
+				Criteria.where("_id.movie_ref.$id").is(movieId)	
+				));
+		
+		ReviewVo review = mongoTemplate.findOne(query, ReviewVo.class, "test_review");
+		return review;
 	}
 }

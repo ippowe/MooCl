@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.moocl.service.ReviewService;
@@ -67,4 +68,9 @@ public class ReviewRestController {
 		return "완료!";
 	}
 	
+	@RequestMapping(value= "/getOneReview", method = RequestMethod.GET)
+	public ReviewVo reviewAnalze(@RequestParam Map<String, Object> reviewId) {
+		ReviewVo review =reviewService.getReview(reviewId);
+		return review;
+	}
 }

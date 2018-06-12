@@ -1,7 +1,4 @@
 <template lang="html">
-  <div>
-    <v-btn class="primary" @click.native.stop="dialog = true">Open Dialog</v-btn>
-    <v-dialog v-model="dialog" max-width="800px">
       <v-card>
         <v-card-title style="left:50%; margin-left:250px;">
           <img src="../assets/박수.png">
@@ -16,9 +13,6 @@
           </p>
         </v-card-text>
       </v-card>
-    </v-dialog>
-  </div>
-
 </template>
 
 <script>
@@ -26,7 +20,6 @@ export default {
   name: "HasNoRecommend",
   data: function(){
     return{
-      dialog : false
     }
   }
 }

@@ -46,6 +46,13 @@ public class ReviewService {
 
 	}
 	
+	public ReviewVo getReview(Map<String, Object> reviewId) {
+		String movieId = (String) reviewId.get("movieId");
+		String userId = (String) reviewId.get("userId");
+
+		ReviewVo review = reviewDao.findReviewByUserMovieId(movieId, userId);
+		return review;
+	}
 	public Map<String, Integer> getReviewCount(String movieId) {
 		
 		Map<String, Integer> reviewCounts = new HashMap<>();

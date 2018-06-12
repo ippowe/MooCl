@@ -1,47 +1,44 @@
 <template lang="html">
-<v-container>
-  <v-layout justify-end class="mx-5">
-    <v-flex xs2>
-      <span v-for="i in 5" :key="i">
-        <v-icon  color="red" @click="fillstar(i)" class="noselect" >{{score > i-1  ? "star" : "star_border"}}</v-icon>
-      </span>
-      <span>
-        <v-icon color="brack" class="noselect" @click="refreshScore">refresh</v-icon>
-      </span>
-    </v-flex>
-    <v-spacer></v-spacer>
-    <v-dialog max-width="600px" v-model="writeDialog">
-      <v-avatar slot="activator" @click="checkLogin"  class="my-0 mr-4 noselect"><v-icon color="light-blue">create</v-icon></v-avatar>
-      <WritingReview v-show="validUser" :movietitle="detailinfo.movie_title" :movieid="detailinfo._id"  @finWriting="writeDialog = !writeDialog"></WritingReview>
-      <NeedLogin v-show="!validUser"></NeedLogin>
-    </v-dialog>
-  </v-layout>
-  <v-layout justify-center>
-      <v-card width="1000" flat>
-        <v-data-table light :headers="headers" :items="movieItems" :total-items="totalItems" hide-actions class="elevation-1" :pagination.sync="pagination" >
-           <template slot="items" slot-scope="props" color="pink">
-             <td><strong>{{ props.item.name }}</strong></td>
-             <td class="text-xs-left">
-               {{ props.item.slicedReview ? props.item.slicedReview : props.item.review }}
-                 <span @click="dialog = true" class="noselect" v-if="props.item.readMore">
-                   <strong>더보기</strong>
-                 </span>
-              <v-dialog :max-width="800" v-model='dialog' v-if="props.item.readMore">
-                 <ReviewDetail :movieinfo="detailinfo" :reviewcontent="props.item"></ReviewDetail>
-               </v-dialog>
-             </td>
-             <td class="text-xs-left">
-               <v-icon color="red" v-for="i in props.item.score" :key="i">star</v-icon>
-             </td>
-           </template>
-         </v-data-table>
-          <v-pagination v-model="pagination.page" :length="pages" :total-visible="10" @click="getPage"></v-pagination>
-      </v-card>
-  </v-layout>
-
-</v-container>
-
-
+  <v-container>
+    <v-layout justify-end class="mx-5">
+      <v-flex xs2>
+        <span v-for="i in 5" :key="i">
+          <v-icon  color="red" @click="fillstar(i)" class="noselect" >{{score > i-1  ? "star" : "star_border"}}</v-icon>
+        </span>
+        <span>
+          <v-icon color="brack" class="noselect" @click="refreshScore">refresh</v-icon>
+        </span>
+      </v-flex>
+      <v-spacer></v-spacer>
+      <v-dialog max-width="600px" v-model="writeDialog">
+        <v-avatar slot="activator" @click="checkLogin"  class="my-0 mr-4 noselect"><v-icon color="light-blue">create</v-icon></v-avatar>
+        <WritingReview v-show="validUser" :movietitle="detailinfo.movie_title" :movieid="detailinfo._id"  @finWriting="writeDialog = !writeDialog"></WritingReview>
+        <NeedLogin v-show="!validUser"></NeedLogin>
+      </v-dialog>
+    </v-layout>
+    <v-layout justify-center>
+        <v-card width="1000" flat>
+          <v-data-table light :headers="headers" :items="movieItems" :total-items="totalItems" hide-actions class="elevation-1" :pagination.sync="pagination" >
+             <template slot="items" slot-scope="props" color="pink">
+               <td><strong>{{ props.item.name }}</strong></td>
+               <td class="text-xs-left">
+                 {{ props.item.slicedReview ? props.item.slicedReview : props.item.review }}
+                   <span @click="showDetail(props.item, props.index)" class="noselect" v-if="props.item.readMore">
+                     <strong>더보기</strong>
+                   </span>
+                <v-dialog :max-width="800" v-model='dialog' v-if="detailReview[props.index]">
+                   <ReviewDetail :reviewcontent="detailReviewContent" :username="props.item.name"></ReviewDetail>
+                </v-dialog>
+               </td>
+               <td class="text-xs-left">
+                 <v-icon color="red" v-for="i in props.item.score" :key="i">star</v-icon>
+               </td>
+             </template>
+           </v-data-table>
+            <v-pagination v-model="pagination.page" :length="pages" :total-visible="10" @click="getPage"></v-pagination>
+        </v-card>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -80,6 +77,13 @@ export default {
         this.getReviewList();
       }
     },
+    dialog : {
+      handler () {
+        if(this.dialog == false){
+          this.detailReview = [false, false, false, false, false, false, false, false, false, false];
+        }
+      }
+    }
   },
   props :["detailinfo"],
   data () {
@@ -98,6 +102,9 @@ export default {
        pageNo: 0,
        dialog: false,
        writeDialog: false,
+       detailReview: [false, false, false, false, false, false, false, false, false, false],
+       detailReviewContent: "",
+       reviewWordCloud: [],
      }
    },
    methods :{
@@ -147,6 +154,24 @@ export default {
        this.score = -1;
        this.getReviewList();
      },
+     showDetail : function(review, index) {
+       let reviewId = {
+         movieId : this.detailinfo._id,
+         userId : review.userId
+       }
+       let no = index
+       this.$store.dispatch("GETONEREVIEW", reviewId)
+       .then((response) => {
+         this.detailReviewContent = response;
+         this.detailReview[no] = true;
+         this.dialog = true;
+         this.reloadPage();
+       })
+     },
+     reloadPage : function() {
+       this.pagination.page = this.pagination.page - 1;
+       this.pagination.page = this.pagination.page + 1;
+     }
    },
    computed : {
      pages : function (){
@@ -154,7 +179,7 @@ export default {
          this.pagination.totalItems == null
        ) return 0
 
-         return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
+         return Math.ceil(this.pagination.totalItems / 10)
      },
      validUser : function() {
        if(sessionStorage.token == "true") {
@@ -168,5 +193,5 @@ export default {
 </script>
 
 <style lang="css">
-.noselect { -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; cursor: pointer}
+  .noselect { -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; cursor: pointer}
 </style>

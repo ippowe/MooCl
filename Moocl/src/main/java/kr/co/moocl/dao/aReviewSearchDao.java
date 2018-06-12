@@ -20,21 +20,7 @@ public class aReviewSearchDao {
 	MongoTemplate mongoTemplate;
 
 	public List<ReviewVo> findReviewListByReviewerId(String userid) {
-	
-//		Query query = new Query();
-//		query.addCriteria( new Criteria().andOperator(
-//			Criteria.where("_id.user_id").is(reviewerId),
-//			Criteria.where("site").is("gurumi")
-//		));
-		
-//		Query query = new Query();
-//		query.addCriteria( 
-//				Criteria.where("id.user_id").exists(true)
-//				.andOperator(
-//						Criteria.where("_id.user_id").is(reviewerId),
-//						Criteria.where("site").is("gurumi")
-//		));
-		
+
 		Query query = new Query();
 		query.addCriteria( new Criteria().andOperator(
 			Criteria.where("_id.user_id").is(userid),	

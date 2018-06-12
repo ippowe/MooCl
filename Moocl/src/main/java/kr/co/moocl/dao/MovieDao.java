@@ -70,40 +70,6 @@ public class MovieDao {
 		List<InteMovieVo> relatedMovieList = mongoTemplate.find(query, InteMovieVo.class, "movie_info");
 		return relatedMovieList;
 	}
-// 사용하지 않음
-//	public List<Document> getRelatedMoviesByMovieId(String stringMovieId) {
-//		StringBuilder text = new StringBuilder();
-//		BufferedReader br = null;
-//		try {
-//			br = new BufferedReader(new FileReader(new File(
-//					resourceLoader.getResource("classpath:JavaScript/filmo_script.js").getURI().getPath())));
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		try {
-//			while (true) {
-//				String line = "";
-//				try {
-//					line = br.readLine();
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//				if (line == null)
-//					break;
-//				text.append(line).append("\n");
-//			}
-//		} finally {
-//			try {
-//				br.close();
-//			} catch (Exception ignore) {
-//			}
-//		}
-//		ExecutableMongoScript filmoScript = new ExecutableMongoScript(text.toString());
-//		List<Document> movieList = (List<Document>) mongoOperation.scriptOps().execute(filmoScript, stringMovieId);
-//		return movieList;
-//	}
 
 	public List<InteMovieVo> getMovieInfoList(List<String> movieIds) {
 		Criteria criteria = new Criteria("_id");
@@ -129,7 +95,6 @@ public class MovieDao {
 		update.set("wordcloudDate", date);
 
 		mongoTemplate.updateFirst(query, update, "movie_info");
-		System.out.println(mongoTemplate.find(query, InteMovieVo.class, "movie_info"));
 	}
 
 
@@ -154,10 +119,24 @@ public class MovieDao {
 
 	}
 
-	public List<Document> getMovieByPerson(String personId, String clickWord, String condition, int grade) {
+	public List<Map<String, Object>> getMovieByPerson(String personId, String clickWord, String condition, int grade) {
 		ExecutableMongoScript wordcloudScript = scriptMaker("JavaScript/getMovieByPersonWord.js");
-		List<Document> movieList = (List<Document>) mongoOperation.scriptOps().execute(wordcloudScript, personId,clickWord,condition,grade);
-		return movieList;
+		
+		List<Map<String, Object>> movieList = 
+				(List<Map<String, Object>>) mongoOperation.scriptOps().execute(wordcloudScript, personId,clickWord,condition,grade);
+				
+		for(Map<String, Object> movies : movieList) {
+			String movie = (String) movies.get("movie");
+			InteMovieVo movieInfo = getMovieInfoById(movie);
+			movies.replace("movie", movieInfo);
+		}
+		if(movieList.size() != 0) {
+			movieList.remove(0);
+			return movieList;
+		} else {
+			return movieList;
+		}
+		
 	}
 	
 	private ExecutableMongoScript scriptMaker (String path) {

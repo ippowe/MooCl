@@ -13,8 +13,8 @@ db.test_review.aggregate([	{$match : {'_id.movie_ref.$id' : {$in : actorMovie}}
 	    {$group : {_id :"$_id.movie_ref", 	
 	               count:{$sum :1 }}},	
 	    {$sort : {"count" : -1}},	
-	    {$limit : 7}	
-	    ]).forEach(function(doc) {	    	pushData = {"movie" : doc._id, "count" : doc.count};	        movie_list.push(pushData);		});	} else if(condition == "lte"){	db.test_review.aggregate([ {$project : {"user_grade" : 1}},			    {$match : {"_id.user_id" : {$in :reviewer_list}}}, 		    {$match : {"user_grade" : {$lte : grade}}}, 		    {$group : {_id :"$_id.movie_ref", 		               count:{$sum :1 }}},		    {$sort : {"count" : -1}},		    {$limit : 7}		    ]).forEach(function(doc) {	    	pushData = {"movie" : doc._id, "count" : doc.count};	        movie_list.push(pushData);		});		}
+	    {$limit : 11}	
+	    ]).forEach(function(doc) {	    	pushData = {"movie" : doc._id.$id, "count" : doc.count};	        movie_list.push(pushData);		});	} else if(condition == "lte"){	db.test_review.aggregate([ {$project : {"user_grade" : 1}},			    {$match : {"_id.user_id" : {$in :reviewer_list}}}, 		    {$match : {"user_grade" : {$lte : grade}}}, 		    {$group : {_id :"$_id.movie_ref", 		               count:{$sum :1 }}},		    {$sort : {"count" : -1}},		    {$limit : 11}		    ]).forEach(function(doc) {	    	pushData = {"movie" : doc._id.$id, "count" : doc.count};	        movie_list.push(pushData);		});		}
 
 return movie_list
 }

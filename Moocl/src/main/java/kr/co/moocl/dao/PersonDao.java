@@ -62,7 +62,7 @@ public class PersonDao {
 	public PeopleVo getPersonById(int personId) {
 		Query query = new Query(Criteria.where("_id").is(personId));
 		PeopleVo result = mongoTemplate.findOne(query, PeopleVo.class, "people");
-		System.out.println(result);
+
 		return result;
 	}
 
@@ -113,8 +113,7 @@ public class PersonDao {
 		update.set("wordcloudList", result);
 		update.set("wordcloudDate", date);
 
-		mongoTemplate.updateFirst(query, update, "people");
-		System.out.println(mongoTemplate.find(query, PeopleVo.class, "people"));
+		mongoTemplate.updateFirst(query, update, "people");	
 	}
 
 }

@@ -42,6 +42,21 @@ const actions = {
       commit('SETREVIEWCOUNT', temp_count);
       return temp_count;
     })
+  },
+  GETONEREVIEW ({commit}, reviewId){
+    return new Promise(function(resolve, reject) {
+      axios.get("/api/getOneReview", {
+        params : {
+          movieId : reviewId.movieId,
+          userId : reviewId.userId
+        }
+      })
+        .then((response) => {
+          resolve(response.data);
+        }, error => {
+          reject(error);
+        })
+    });
   }
 }
 
@@ -62,11 +77,20 @@ const mutations = {
         temp_name = temp_list[i].user_id.slice(0,3);
         temp_name = temp_name + "***";
       } else {
-        temp_name = temp_list[i].user_id;
+        let start_index = temp_list[i].user_id.indexOf('(');
+        let end_index = temp_list[i].user_id.indexOf(')');
+
+        if(start_index != -1 ){
+          temp_name = temp_list[i].user_id.slice(start_index+1, end_index);
+        } else {
+          temp_name = temp_list[i].user_id;
+        }
+
       }
 
       temp_review_object = {
           name: temp_name,
+          userId : temp_list[i].user_id,
           review: temp_list[i].review_contents,
           score: Math.ceil(temp_list[i].user_grade / 2)
       }
