@@ -17,15 +17,15 @@ import kr.co.moocl.vo.InteMovieVo;
 @RestController
 @RequestMapping("/api")
 public class MainRestController {
-
-	@Autowired
+	
+		@Autowired
 	MainService mainService;
 	
 	@RequestMapping(value="/detailinfo", method=RequestMethod.GET)
 	public InteMovieVo detailInfo(@RequestParam String movieId){
 		
 		InteMovieVo movieData = mainService.modifyForDetail(movieId);
-		
+
 		return movieData;
 	}
 

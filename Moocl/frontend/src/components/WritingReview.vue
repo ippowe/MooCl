@@ -1,5 +1,5 @@
 <template lang="html">
-  <v-card flat>
+  <v-card flat style="background-color : #EFF2FB;">
      <v-card-text>
        <v-subheader class="title black--text">{{movietitle}} 리뷰
          <v-spacer></v-spacer>

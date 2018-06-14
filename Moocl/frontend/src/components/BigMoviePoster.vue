@@ -9,7 +9,7 @@
         <v-flex class="pa-0" row>
           <v-toolbar color="black" class="elevation-3">
             <v-avatar size="35" class="mx-3">
-              <img src="../assets/전체관람가.png">
+              <img :src="setWatchRate()">
             </v-avatar>
             <v-spacer></v-spacer>
             <strong style="font-size: 20px; font-weight: bold; color: white; cursor: default">
@@ -44,6 +44,18 @@ export default {
     }
   },
   methods : {
+    setWatchRate :function() {
+      switch (3) {
+        case 1 : return "http://www.bflix.co.kr/images/movie_play_level_all.png"
+          break;
+        case 2 : return "https://upload.wikimedia.org/wikipedia/commons/b/bf/KMRB_D.png"
+          break;
+        case 3 : return "https://upload.wikimedia.org/wikipedia/commons/0/04/KMRB_B.png"
+          break;
+        case 4 : return "https://upload.wikimedia.org/wikipedia/commons/5/52/KMRB_C.png"
+          break;
+      }
+    },
     openMovieInfo : function() {
       this.$emit('openMovieInfo');
     },

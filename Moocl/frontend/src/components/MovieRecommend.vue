@@ -76,9 +76,11 @@ export default {
       }
     },
   beforeMount () {
-    let goodMoives = this.goodMovieList();
-    let badMovies = this.badMovieList();
-    this.goodSlicedMovies = this.slicedMovieList(goodMoives);
+    let goodMovies = [];
+    goodMovies = this.goodMovieList();
+    let badMovies = [];
+    badMovies = this.badMovieList();
+    this.goodSlicedMovies = this.slicedMovieList(goodMovies );
     this.badSlicedMovies = this.slicedMovieList(badMovies);
   },
   methods : {
@@ -136,7 +138,7 @@ export default {
         movieTitle : movieinfo.movie_title,
         posterUrl : movieinfo.poster,
         score : movieinfo.score,
-        watchingRate : movieinfo.watching_rate
+        openDate : movieinfo.open_date
       }
       return temp_tag;
     },

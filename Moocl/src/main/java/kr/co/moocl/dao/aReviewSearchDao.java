@@ -29,7 +29,7 @@ public class aReviewSearchDao {
 		
 		query.with(new Sort(Sort.Direction.DESC, "reg_date"));
 		
-		List<ReviewVo> reviewSearchList = mongoTemplate.find(query, ReviewVo.class, "review");
+		List<ReviewVo> reviewSearchList = mongoTemplate.find(query, ReviewVo.class, "test_review");
 		
 		return reviewSearchList;
 	}
@@ -45,7 +45,7 @@ public class aReviewSearchDao {
 		Criteria cricon = new Criteria().andOperator(criuser, crimovie);
 		Query q = new Query(cricon);
 		
-		int count = (int) mongoTemplate.remove(q, ReviewVo.class, "review").getDeletedCount();
+		int count = (int) mongoTemplate.remove(q, ReviewVo.class, "test_review").getDeletedCount();
 
 		return count;
 	}

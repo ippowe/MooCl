@@ -34,7 +34,7 @@
 
       </v-flex> <!-- 리뷰 클라우드 -->
       <v-flex class="mr-3 mb-3">
-        <WordCloud :moviename="person.person_id" :movieid="person.person_id"></WordCloud>
+        <WordCloud :moviename="person.person_id" :movieid="person.person_id" :propwordlist="person.wordcloudList"></WordCloud>
       </v-flex>
     </v-layout>
 
@@ -55,8 +55,9 @@ export default {
     RelatedMovie
   },
   created () {
+    console.log(this.person);
     this.checkFavList();
-
+    this.getAvgGrade();
   },
   watch : {
     dialog : function() {

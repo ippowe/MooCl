@@ -29,6 +29,7 @@ public class SearchService {
 			String movieTitle = daoResult.get(i).getMovie_title();
 			Object posterUrl = daoResult.get(i).getPoster();
 //			String movieRate = daoResult.get(i).getMovie_rate(); 영화 등급 가져오기
+			String openDate = daoResult.get(i).getOpen_date();
 			String movieId = daoResult.get(i).get_id();
 			String inteTitle = daoResult.get(i).getInte_title(); // 사이트별 통합을 위해서 띄어쓰기, 특수문자 지운 영화제목
 			List<Map<String, Object>> score = daoResult.get(i).getScore();
@@ -38,6 +39,7 @@ public class SearchService {
 			simpleMovieInfo.put("posterUrl", posterUrl);
 //			simpleMovieInfo.put("movieRate", movieRate);
 			simpleMovieInfo.put("movieId", movieId);
+			simpleMovieInfo.put("openDate", openDate);
 			simpleMovieInfo.put("inteTitle", inteTitle);
 			simpleMovieInfo.put("score", score);
 			

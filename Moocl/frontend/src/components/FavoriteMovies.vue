@@ -76,6 +76,8 @@ export default {
     openInfo(i, l) {
       this.dialog = true;
       this.openInfoSwitch[i-1][l-1] = true;
+      this.row();
+      this.slicedMovieList();
     },
     trimTitle (i, l) {
       if(this.slicedfavMovieInfoList[i-1][l-1].movieTitle.length > 5){

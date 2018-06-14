@@ -7,7 +7,7 @@
       <tr>
         <td :id="reviewcontent.movie_id" class="noselect cloudFont"></td>
         <v-dialog  :max-width="800" v-model="recommendDialog">
-          <MovieRecommend v-if="recommendMovieLength>0"></MovieRecommend>
+          <MovieRecommend v-if="hasRecommend()"></MovieRecommend>
           <HasNoRecommend v-else></HasNoRecommend>
         </v-dialog>
       </tr>
@@ -72,9 +72,10 @@ export default {
     setCloudData: function() {
       let tempArray = this.reviewcontent.gurumi_word;
       let data = this.$data;
-      let movieKey = this.reviewcontent.movie_id;
+      let movieKey = this.reviewcontent._id.movie_ref._id;
       let store = this.$store;
       let returnArray = [];
+      this.recommendMovieLength = 0;
 
       let getRecommend = function(keyword) {
         let keyValue = {
@@ -113,6 +114,14 @@ export default {
         }
       }
       this.cloudData = returnArray;
+    },
+    hasRecommend() {
+      let length = this.recommendMovieLength
+      if(length > 0){
+        return true
+      } else {
+        return false;
+      }
     }
   }
 }

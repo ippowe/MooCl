@@ -14,7 +14,7 @@ import HasNoRecommend from "./HasNoRecommend.vue"
 
 export default {
   name: "WordCloud",
-  props: ['moviename', 'movieid'],
+  props: ['moviename', 'movieid', 'propwordlist'],
   components : {
     MovieRecommend
   },
@@ -48,14 +48,24 @@ export default {
     },
     setWordList : function(movieId) {
       let wordSets = this.$store.getters.getWordCloudList;
-      let length = wordSets.length
-      let temp_cloud = {}
-      for(var i=0; i<length; i++){
-        if(movieId == wordSets[i].movieId){
-          temp_cloud = wordSets[i].words;
+      if( wordSets.length == 0 ) {
+        wordSets = this.propwordlist;
+        for(var i=0; i<wordSets.length; i++){
+          let temp_object = JSON.parse(wordSets[i]);
+          wordSets[i] = temp_object;
         }
+      this.wordList= wordSets;
+      } else {
+        let length = wordSets.length
+        let temp_cloud = {}
+        for(var i=0; i<length; i++){
+          if(movieId == wordSets[i].movieId){
+            temp_cloud = wordSets[i].words;
+          }
+        }
+        this.wordList= temp_cloud;
       }
-      this.wordList= temp_cloud;
+
     },
     setCloudData: function() {
       let tempArray = this.wordList;

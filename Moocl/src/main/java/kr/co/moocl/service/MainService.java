@@ -64,11 +64,11 @@ public class MainService {
 		List<Map<String, Object>> searchResult = new ArrayList<>();
 		
 		movieList = movieDao.getMovieInfoList(movieIds);
-		
 		for(int i=0; i<movieList.size(); i++) {
 			String movieTitle = movieList.get(i).getMovie_title();
 			Object posterUrl = movieList.get(i).getPoster();
 //			String movieRate = movieList.get(i).getMovie_rate(); 영화 등급 가져오기
+			String openDate = movieList.get(i).getOpen_date();
 			String movieId = movieList.get(i).get_id();
 			String inteTitle = movieList.get(i).getInte_title(); // 사이트별 통합을 위해서 띄어쓰기, 특수문자 지운 영화제목
 			List<Map<String, Object>> score = movieList.get(i).getScore();
@@ -78,13 +78,13 @@ public class MainService {
 			simpleMovieInfo.put("posterUrl", posterUrl);
 //			simpleMovieInfo.put("movieRate", movieRate);
 			simpleMovieInfo.put("movieId", movieId);
+			simpleMovieInfo.put("openDate", openDate);
 			simpleMovieInfo.put("inteTitle", inteTitle);
 			simpleMovieInfo.put("score", score);
 			
 			searchResult.add(simpleMovieInfo);
 			
 		}
-				
 		return searchResult;
 	}
 	

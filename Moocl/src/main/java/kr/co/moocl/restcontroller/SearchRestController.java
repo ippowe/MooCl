@@ -26,8 +26,11 @@ public class SearchRestController {
 	@RequestMapping(value="/search", method=RequestMethod.GET)
 	public List<Map<String, Object>> searchInteData(@RequestParam String keyword){
 		
+		System.out.println("search");
+		
 		List<Map<String, Object>> searchResultList = searchService.inteSearchResult(keyword);
-				
+		
+		System.out.println(searchResultList);
 		logger.info("searching result : " + searchResultList);
 		return searchResultList;
 	}

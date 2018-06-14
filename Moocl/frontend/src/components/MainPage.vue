@@ -103,8 +103,8 @@ export default {
       this.openInfoSwitch[i-1][l-1] = true;
     },
     trimTitle (i, l) {
-      if(this.mainMovies[i-1][l-1].movieTitle.length > 5){
-        let temp_title = this.mainMovies[i-1][l-1].movieTitle.slice(0,6) + "...";
+      if(this.mainMovies[i-1][l-1].movieTitle.length > 10){
+        let temp_title = this.mainMovies[i-1][l-1].movieTitle.slice(0,11) + "...";
         return temp_title
       } else {
         return this.mainMovies[i-1][l-1].movieTitle

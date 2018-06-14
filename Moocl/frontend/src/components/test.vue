@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import TestArea from './MainCarousel.vue'
+import TestArea from './WritingReview.vue'
 
 export default {
   name: 'TestPage',

@@ -23,13 +23,14 @@ const actions = {
       if(temp_word == undefined){
         temp_word = ""
       }
-      
+
       axios.get('/api/search', {
         params : {
           keyword : temp_word
         }})
       .then((response) => {
         let normalInfoList = response.data
+        console.log(normalInfoList);
         commit('SETMOVIEINFO', normalInfoList)
         resolve(normalInfoList);
       }, error =>{

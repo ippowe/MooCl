@@ -94,7 +94,7 @@ export default {
         movieTitle : movieinfo.movie_title,
         posterUrl : movieinfo.poster,
         score : movieinfo.score,
-        watchingRate : movieinfo.watching_rate
+        openDate : movieinfo.open_date
       }
       return temp_tag;
     },

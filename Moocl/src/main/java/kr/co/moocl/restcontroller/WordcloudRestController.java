@@ -36,12 +36,14 @@ public class WordcloudRestController {
 	public Map<String,List<Map<String, Object>>> getRecommendMovie(
 			@RequestParam("movieId") String movieId,
 			@RequestParam("clickWord") String clickWord){
+		System.out.println(movieId);
+		System.out.println(clickWord);
 		List<Map<String, Object>> goodMovieList = (List<Map<String, Object>>) wordCloudService.getGoodMovie(movieId,clickWord);
 		List<Map<String, Object>> badMovieList = (List<Map<String, Object>>) wordCloudService.getBadMovie(movieId,clickWord);
 		Map<String,List<Map<String, Object>>> resultMap = new HashMap<String,List<Map<String, Object>>>();
 		resultMap.put("good", goodMovieList);
 		resultMap.put("bad", badMovieList);
-		
+		System.out.println(resultMap);
 		return resultMap;
 	}
 	

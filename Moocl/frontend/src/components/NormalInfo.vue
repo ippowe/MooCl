@@ -5,20 +5,14 @@
         <SmallMoviePoster :posterUrl="movietag.posterUrl" :movieid="movietag.movieId"></SmallMoviePoster>
       </v-flex>
       <v-flex xs8>
-        <ScoreBySite :sitescore="movietag.score"></ScoreBySite>
-        <v-card color ="transparent" flat>
-          <v-card-title class="headline black--text pt-5">
-            개봉일  2018.04.20
-            <v-spacer></v-spacer>
-            관객수 100,000,000명
-          </v-card-title>
-        </v-card>
+        <ScoreBySite :sitescore="movietag.score" class="pt-5"></ScoreBySite>
       </v-flex>
     </v-layout>
     <v-layout class="pl-3 pt-4">
       <v-spacer></v-spacer>
       <v-flex xs2 class="ml-4">
         <span><strong class="title black--text">{{sliceTitle == undefined ? "영화제목" : sliceTitle }}</strong></span><br>
+        <span><strong class="black--text">{{movietag.openDate == undefined ? "2000.01.01": openDate}}</strong></span><br>
         <v-dialog max-width="600px" v-model="dialog">
           <v-btn slot="activator" class="black--text" flat :ripple="false" block  @click="checkLogin"> 리뷰 쓰기 </v-btn>
           <WritingReview v-show="validUser" :movietitle="movietag.movieTitle" :movieid="movietag.movieId" @finWriting="dialog = !dialog" ></WritingReview>
@@ -52,8 +46,8 @@ export default {
     WritingReview,
     NeedLogin
   },
-  create () {
-    this.movietag.score = [];
+  updated() {
+      console.log(this.movietag);
   },
   data : function() {
     return {
@@ -81,6 +75,22 @@ export default {
       } else {
         return this.movietag.movieTitle
       }
+    },
+    openDate () {
+      if(this.movietag.openDate != undefined){
+        let year = this.movietag.openDate.slice(0,4);
+        let month = this.movietag.openDate.slice(4,6);
+        let day = this.movietag.openDate.slice(6, 9);
+        let temp_date = year + "." + month + "." + day;
+        return temp_date
+      } else {
+        let year = this.movietag.open_date.slice(0,4);
+        let month = this.movietag.open_date.slice(4,6);
+        let day = this.movietag.open_date.slice(6, 9);
+        let temp_date = year + "." + month + "." + day;
+        return temp_date
+      }
+
     },
     heart : function () {
       let movieChecker = this.$state.favMovieList.indexOf(this.movieid);
